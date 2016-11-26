@@ -1,4 +1,4 @@
-# ocho de marzo 2016 @eldiarioes
+# Aunque tu no lo sepas @ruizfrontend
 
 
 ## Requisitos, dependencias y otros aquí
