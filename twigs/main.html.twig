@@ -1,0 +1,27 @@
+{% extends twigFolder ~ '/index.html.twig' %}
+
+
+
+{% block seoHead %}
+
+  {% include twigFolder ~ '/seo.html.twig' %}
+
+{% endblock %}
+
+
+{% block seo %}
+
+  {% include twigFolder ~ '/head.html.twig' with {'seo': true} %}
+
+{% endblock %}
+
+
+{% block content %}
+
+  {% include twigFolder ~ '/head.html.twig'%}
+
+  {% include twigFolder ~ '/pages/' ~ seoData['name'] ~ '.html.twig'%}
+
+  {% include twigFolder ~ '/footer.html.twig'%}
+
+{% endblock %}

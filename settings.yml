@@ -1,0 +1,43 @@
+# general configuration
+debug: true
+version: 0.1
+
+project: ocho de marzo
+
+base_url: /
+ajaxPath: /q                    # path added to the url to get ajax templates
+
+# folders
+twigs: /twigs                   # main twigs folder
+log: /log.log                   # use 'false' to disable logger
+
+# REQUIRED # import as it generates the routing system and the seo contents
+    # the data uses this structure: https://docs.google.com/spreadsheet/ccc?key=0AtJGbTMFIBvQdDJKMzhmMHVZNGRhYmNSc2FyYWZTTlE&usp=sharing
+routing:
+  url: ./dataOK/routing.csv
+#  url: https://docs.google.com/spreadsheets/d/12r_i6nuQSNvSP43UX0mpUuAYdZTYfuNznC10W8y5B-Y/export?gid=0&format=csv
+  format: csv
+  indexColumn: name
+  exposeJS: false
+  exposeTWIG: true
+  initialRoute: home
+
+# template autoloader
+autoloader:
+  autoload: /twigs/autoload
+
+dataImports:
+  # calculadora:
+  #   url: ./dataOK/calculadora.json
+  #   format: json
+  #   exposeTWIG: true
+  #   preprocess: calculadoraProcess
+  # leyes:
+  #   url: ./dataOK/leyes.json
+  #   format: json
+  #   exposeTWIG: true
+  # diccionario:
+  #   url: ./dataOK/diccionario.csv
+  #   format: csv
+  #   exposeTWIG: true
+  #   exposeTWIG: true

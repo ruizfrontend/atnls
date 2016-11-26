@@ -1,0 +1,63 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="es-es"> <![endif]-->
+<!--[if IE 7]> <html class="no-js ie7 oldie" lang="es-es"> <![endif]-->
+<!--[if IE 8]> <html class="no-js ie8 oldie" lang="es-es"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="es-es"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="Content-Language" content="es-es">
+
+  <meta name="distribution" content="global" />
+  <meta name="robots" content="all" />
+  <meta name="author" content="davidruizlopez.es" />
+  <meta name="organization" content="davidruizlopez.es" />
+  <meta name="locality" content="Madrid, España" />
+  <meta name="lang" content="es" />
+
+  {# viewport info #}
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  {# <meta property="fb:app_id" content='417471918268686'> #}
+
+  {% block seoHead %}{% endblock %}
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    {# Grunt compile files #}
+  <!-- build:css bin/styles.min.css -->
+    <link rel="stylesheet" href="css/styles.css">
+  <!-- endbuild -->
+
+  <link rel="stylesheet" href="http://estaticos.lab.eldiario.es/libs/selectize.js-master/dist/css/selectize.css">
+
+  <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/modernizr-v2.7.1.js"></script>
+
+  {% include twigFolder ~ '/analytics.html.twig' %}
+
+</head>
+
+<body class="page-{{ seoData['name'] }}">
+
+{% block content %}{% endblock %}
+
+
+  <script src="http://estaticos.lab.eldiario.es/libs/jquery-1.10.2.min.js"></script>
+
+  <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/selectize.js-master/dist/js/standalone/selectize.min.js"></script>
+
+  <!--script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/imakewebthings-waypoints-13ae054/lib/jquery.waypoints.min.js"></script>
+  <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/imakewebthings-waypoints-13ae054/lib/shortcuts/sticky.min.js"></script>
+  <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/imakewebthings-waypoints-13ae054/lib/shortcuts/inview.min.js"></script>
+
+  <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/selection-sharer.js"></script-->
+
+  <!-- build:js bin/app.js -->
+  <script type="text/javascript" src="js/base.js"></script>
+  <!-- endbuild -->
+
+  <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+
+</body>
+</html>

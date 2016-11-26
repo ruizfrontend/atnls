@@ -1,0 +1,16 @@
+/cache
+/img
+/deploy
+/vendor
+composer.lock
+composer.phar
+compify.phar
+node_modules
+**.DS_Store
+dist
+*.log
+.tmp
+.sass-cache
+bower_components
+css
+._*
