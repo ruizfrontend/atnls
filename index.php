@@ -15,7 +15,6 @@ use Monolog\Logger;
 use Services\dataLoader;
 use Services\fixUrlText;
 
-
 $sspa = new Silex\Application();
 
 $sspa->register(new DerAlex\Silex\YamlConfigServiceProvider(__DIR__ . '/settings.yml'));
@@ -131,13 +130,16 @@ array_push($imports, array(
 
       // load other data import
 if(isset($sspa['config']['dataImports'])) {
-
   foreach ($sspa['config']['dataImports'] as $title => $import) {
 
+      // columna para indexar los datos
     $column = isset($import['indexColumn']) ? $import['indexColumn'] : null;
 
+      // obtiene los datos
     $sspa['dataLoader']->getData($import['url'], $title, $sspa, $import['format'], $column); // -> nos genera $sspa['dataLoader.seo']
 
+
+      // admite funciones para preprocesar los datos (ojo que esto se hace cada vez que se bootstrapea la app y puede ralentizar la carga)
     if(isset($import['preprocess']) && function_exists($import['preprocess'])) {
       $sspa['dataLoader.'.$title] = $import['preprocess']($sspa['dataLoader.'.$title]);
     }
@@ -209,10 +211,19 @@ if(isset($sspa['config']['dataImports'])) {
 }
 
 
+  // Import 'rawData' from settings.yml
+if(isset($sspa['config']['rawData'])) $dataTwig['rawData'] = $sspa['config']['rawData'];
+
+
+   // what we have so far
+// print_R($routes);
+// print_R($dataTwig);
+// die();
+
+
   /* -- Final DATA ----------------------------_- */
-// $sspa['routing'] = $routes;
 $dataTwig['project'] = $sspa['config']['project'];
-$dataTwig['path'] = $_SERVER["SERVER_NAME"].$_SERVER['REQUEST_URI'];
+
 
 $sspa['routing'] = $routes;
 $sspa['twigData'] = $dataTwig;
@@ -220,6 +231,74 @@ $sspa['twigData'] = $dataTwig;
 
   // PROCESS REQUEST AND GENERATE OUTPUT
 $sspa->register(new Silex\Provider\UrlGeneratorServiceProvider());
+
+
+/* - ATNLS código exclusivo - */
+  
+  $sspa->get($dataTwig['rawData']['poetasUrl'] . '{poeta}',
+
+    function(Request $request, Application $sspa, $poeta) {
+
+      if(!isset($sspa['twigData']['rawData']['poetas'][$poeta])) $sspa->abort(404, "No routing file found. Aborting");
+
+      $twigData = $sspa['twigData'];
+      $url = $request->getBasePath() . $request->getPathInfo();
+      $twigData['url'] = $url;
+      
+      $twigData['poeta'] = $sspa['twigData']['rawData']['poetas'][$poeta];
+      $twigData['poetaId'] = $poeta;
+
+      $twigData['seoData'] = array(
+        'name' => 'poeta',
+        'url' => '',
+        'title' => 'title',
+        'description' => '',
+        'keywords' => '',
+        'seoImg'=> '',
+        'ShareText'=> '',
+        'shortTitle'=> '',
+      );
+
+      $tpl = $sspa['config']['twigs'] . '/main.html.twig';
+
+      return new Response($sspa['twig']->render($tpl, $twigData), 200, array('Cache-Control' => 's-maxage=3600, public'));
+    }
+  )->bind('poeta');
+  
+ 
+  $sspa->get($dataTwig['rawData']['poemasUrl'] . '{poema}',
+
+    function(Request $request, Application $sspa, $poema) {
+
+      if(!isset($sspa['twigData']['rawData']['poemas'][$poema])) $sspa->abort(404, "No routing file found. Aborting");
+      
+      $twigData = $sspa['twigData'];
+      $url = $request->getBasePath() . $request->getPathInfo();
+      $twigData['url'] = $url;
+      
+      $twigData['poema'] = $sspa['twigData']['rawData']['poemas'][$poema];
+      $twigData['poemaId'] = $poema;
+      
+      $twigData['seoData'] = array(
+        'name' => 'poema',
+        'url' => '',
+        'title' => 'title',
+        'description' => '',
+        'keywords' => '',
+        'seoImg'=> '',
+        'ShareText'=> '',
+        'shortTitle'=> '',
+      );
+      
+      $tpl = $sspa['config']['twigs'] . '/main.html.twig';
+
+      return new Response($sspa['twig']->render($tpl, $twigData), 200, array('Cache-Control' => 's-maxage=3600, public'));
+    }
+  )->bind('poema');
+
+
+/* - ATNLS código exclusivo - END - */
+
 
 foreach ($sspa['routing'] as $title => $url) {
     // the routeing here!
@@ -229,7 +308,7 @@ foreach ($sspa['routing'] as $title => $url) {
 
         // pass the data from the request to de twig data
       $twigData = $sspa['twigData'];
-      $url = $request->getPathInfo();
+      $url = $request->getBasePath() . $request->getPathInfo();
       $twigData['url'] = $url;
       $twigData['seoData'] = $sspa['routing'][$url];
 

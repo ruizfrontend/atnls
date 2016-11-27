@@ -4,24 +4,33 @@
 
 {% block seoHead %}
 
-  {% include twigFolder ~ '/seo.html.twig' %}
+  {% include twigFolder ~ '/blocks/seo.html.twig' %}
+
+{% endblock %}
+
+
+{% block analytics %}
+
+	{% include twigFolder ~ '/blocks/analytics.html.twig' %}
 
 {% endblock %}
 
 
 {% block seo %}
 
-  {% include twigFolder ~ '/head.html.twig' with {'seo': true} %}
+  {% include twigFolder ~ '/blocks/head.html.twig' with {'seo': true} %}
 
 {% endblock %}
 
 
 {% block content %}
 
-  {% include twigFolder ~ '/head.html.twig'%}
+  {% include twigFolder ~ '/blocks/head.html.twig'%}
 
   {% include twigFolder ~ '/pages/' ~ seoData['name'] ~ '.html.twig'%}
 
-  {% include twigFolder ~ '/footer.html.twig'%}
+  {% include twigFolder ~ '/blocks/footer.html.twig'%}
+
+  {% include twigFolder ~ '/pages/creditos.html.twig'%}
 
 {% endblock %}

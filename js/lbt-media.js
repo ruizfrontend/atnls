@@ -1,5 +1,5 @@
-/*  @eldiarioes
-Desarrollo: David Ruiz @2015__________________________ */
+/*  @ruifrontend
+Desarrollo: David Ruiz @2016 __________________________ */
 
 /**
 *

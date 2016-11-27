@@ -14,30 +14,45 @@ log: /log.log                   # use 'false' to disable logger
 # REQUIRED # import as it generates the routing system and the seo contents
     # the data uses this structure: https://docs.google.com/spreadsheet/ccc?key=0AtJGbTMFIBvQdDJKMzhmMHVZNGRhYmNSc2FyYWZTTlE&usp=sharing
 routing:
-  url: ./dataOK/routing.csv
-#  url: https://docs.google.com/spreadsheets/d/12r_i6nuQSNvSP43UX0mpUuAYdZTYfuNznC10W8y5B-Y/export?gid=0&format=csv
-  format: csv
-  indexColumn: name
+#  url: ./dataOK/routing.csv     # url local o remota (mejor no)
+  url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRiB6d8luekEBXk3nYSsCaDMUxmx4Xio5dP2Qu_K3JAlCI_-Gb_UWGXII2DFp9OG6kMh7w3cB_7Vfol/pub?gid=0&single=true&output=csv
+  format: csv                   # csv o json
+  initialRoute: home            # nombre de ruta de la home
+  indexColumn: name             # genera el indice a partir de esta columna
+  exposeTWIG: true              # pasa estos datos al js y a las plantillas
   exposeJS: false
-  exposeTWIG: true
-  initialRoute: home
 
-# template autoloader
+  # autload de plantillass
 autoloader:
   autoload: /twigs/autoload
 
 dataImports:
-  # calculadora:
-  #   url: ./dataOK/calculadora.json
-  #   format: json
-  #   exposeTWIG: true
-  #   preprocess: calculadoraProcess
-  # leyes:
-  #   url: ./dataOK/leyes.json
-  #   format: json
-  #   exposeTWIG: true
   # diccionario:
   #   url: ./dataOK/diccionario.csv
   #   format: csv
   #   exposeTWIG: true
   #   exposeTWIG: true
+
+rawData: # plain data imported in the templates
+  audioPath: '/atnls/audios/'
+  poemasUrl: '/poemas/'
+  poetasUrl: '/poetas/'
+  poemas:
+    bajo-una-lluvia-fria-de-poligono: 'Bajo Una Lluvia Fria De Poligono'
+    cabo-sounion: 'Cabo Sounion'
+    canciones-asesinato: 'Canciones Asesinato'
+    completamente-viernes: 'Completamente Viernes'
+    cuarentena: 'Cuarentena'
+    el-amor: 'El Amor'
+    el-insomnio-de-jovellanos: 'El Insomnio De Jovellanos'
+    fotografias-veladas-de-la-lluvia: 'Fotografias Veladas De La Lluvia'
+    la-inmortalidad: 'La Inmortalidad'
+    life-vest-under-your-seat: 'Life Vest Under Your Seat'
+    recuerda-que-tu-existes: 'Recuerda Que Tu Existes'
+  poetas:
+    luis-garcia-montero: 'Luis García Montero'
+    carlos-prado: 'Carlos Prado'
+    elvira-sanchez: 'Elvira Sanchez'
+    marwan: 'Marwan'
+    guille-galvan: 'Guille Galván'
+    escandar-algeet: 'Escandar Algeet'

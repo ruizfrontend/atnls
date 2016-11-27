@@ -112,6 +112,10 @@ var atnls = {
   // },
   initUI: function() {
 
+    $('toggleCredits').click(function(){
+      
+    });
+
       // imagenes responsibe
     // if(!atnls.cache.mini) {
     //   $('.wrap-graph img').each(function(){

@@ -1,0 +1,14 @@
+<h2>Listado de poetas</h2>
+<ul>{{ url }}
+	{% for poeta, name in rawData['poetas'] %}
+
+		{% set target = path('poeta', {'poeta': poeta}) %}
+
+		{% if target == url %}
+			<li><span>{{ name }}</span></li>
+		{% else %}
+			<li><a href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
+		{% endif %}
+
+	{% endfor %}
+</ul>

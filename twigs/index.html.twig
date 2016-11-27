@@ -34,7 +34,7 @@
 
   <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/modernizr-v2.7.1.js"></script>
 
-  {% include twigFolder ~ '/analytics.html.twig' %}
+  {% block analytics %}{% endblock %}
 
 </head>
 
@@ -46,6 +46,8 @@
   <script src="http://estaticos.lab.eldiario.es/libs/jquery-1.10.2.min.js"></script>
 
   <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/selectize.js-master/dist/js/standalone/selectize.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/video.js/5.13.2/video.js"></script>
+  <script type="text/javascript" src="./"></script>
 
   <!--script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/imakewebthings-waypoints-13ae054/lib/jquery.waypoints.min.js"></script>
   <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/imakewebthings-waypoints-13ae054/lib/shortcuts/sticky.min.js"></script>
