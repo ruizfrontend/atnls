@@ -1,6 +1,6 @@
 <h2>Listado de poemas</h2>
 <ul>
 	{% for poema, name in rawData['poemas'] %}
-		<li><a href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
+		<li><a class="url-lib" href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
 	{% endfor %}
 </ul>

@@ -16,11 +16,22 @@
 
 var atnls = {
   init: function() {
+    
+      // check required libraries
+    if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; }
+
     $(window).scrollTop(0);
       // redimensionados____________________________________________________________
     $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200));
 
+    atnls.preload(atnls.ready);
+
+  },
+  ready: function() {
+
     atnls.initUI();
+
+    atnls.initUrls();
 
   },
           // función control de redimensionados______________________________________________________
@@ -32,89 +43,106 @@ var atnls = {
     atnls.cache.responsive = atnls.cache.winWidth < 800 ? true : false;
     atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
 
-    // atnls.drawSlides();
 
-    // if((atnls.cache.winHeigth - 60) / atnls.cache.winWidth < 0.5625) { // muy horizontal
-    //   $('#headVideo .video-container').css('padding-bottom', (100 *  (atnls.cache.winHeigth-60) / atnls.cache.winWidth) + '%');
-    //   $('#headVideo').css({
-    //       'height': (atnls.cache.winHeigth-60),
-    //       'padding-bottom': 0
-    //   });
-    //   $('#headFoto')
-    //     .css('height', ((atnls.cache.winHeigth - 60) * 0.8) )
-    //     .find('img')
-    //       .css({'left': 0, 'width': atnls.cache.winWidth});
-    //   if(!atnls.cache.responsive) {
-    //     $('#dictio .slide-container')
-    //       .css('padding-bottom', (100 *  (atnls.cache.winHeigth-60) / atnls.cache.winWidth) + '%')
-    //       .css('height', ((atnls.cache.winHeigth - 60) * 0.8) )
-    //       .find('img')
-    //         .css({'left': 0, 'width': atnls.cache.winWidth});
-    //   }
-    // } else {
-    //   $('#headVideo .video-container').css('padding-bottom', '56.25%');
-    //   $('#headVideo').css({
-    //       'height': 'auto',
-    //       'padding-bottom': '56.25%'
-    //     });
+    var padd = 10;
+    var maxWidth = 1500;
+    var breakpoint = 960;
+    var proportion = 0.67; //9 / 16; // 3 / 4; 
+    var w, h, top;
 
-    //   var h = (atnls.cache.winHeigth - 60) * 0.5625;
-    //   h = (h < (atnls.cache.winHeigth - 60) * 0.6) ? ((atnls.cache.winHeigth - 60) * 0.6) : h;
-    //   var w = h / 0.5625;
-    //   w = w < atnls.cache.winWidth ? atnls.cache.winWidth : w ;
+    if(atnls.cache.winWidth > maxWidth) {
+      
+      w = maxWidth;
+      h = maxWidth * proportion;
+      top = (atnls.cache.winHeigth - h) / 2;
 
-    //   $('#headFoto')
-    //     .css('height', h)
-    //     .find('img')
-    //       .css({left: ((atnls.cache.winWidth - w) / 2), width: w});
+      atnls.cache.$canvas.css({
+        'left': (atnls.cache.winWidth - w) / 2,
+        'top': top > 0 ? top : 0,
+        'width': w,
+        'height': h
+      });
 
-    //   if(!atnls.cache.responsive) {
-    //     $('#dictio .slide-container')
-    //       .css('height', h)
-    //       .find('img')
-    //         .css({left: ((atnls.cache.winWidth - w) / 2), width: w});
-    //   }
-    // }
+    } else if(atnls.cache.winWidth > breakpoint){
+      
+      w = atnls.cache.winWidth - (2 * padd);
+      h = (w * proportion);
+      top = (atnls.cache.winHeigth - h) / 2;
 
-    // Waypoint.refreshAll();
+      atnls.cache.$canvas.css({
+        'left': padd,
+        'top': top > 0 ? top : 0,
+        'width': w,
+        'height': h
+      });
+    } else {
+
+      atnls.cache.$canvas.css({
+        'left': 0,
+        'top': 0,
+        'width': atnls.cache.winWidth,
+        'height': atnls.cache.winHeigth
+      });
+
+    }
+  },
+
+  preload: function(ready) {
+    $.get(atnls.cache.baseUrl + atnls.cache.ajaxUrl, function(e){
+      $('#content').html(e);
+      console.log('loaded');
+      ready();
+    }, 'html');
+  },
+  initUrls: function() {
+
+    labTools.url.data.baseUrl = '';
+
+    labTools.url.initiate(false,
+      function(target){
+        console.log('nueva url: ', target);
+
+          // manage active elements classes
+        $('.url-current').removeClass('url-current');
+        $('[href="' + target + '"]').addClass('url-current');
+        $('.url-poly').each(function(){ var $this = $(this); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
+
+      },
+      function(){ console.log('url changed!!'); }
+    );
+
+      // url management
+    $('.url-lib').click(function(){
+        // ignore if link is active
+      if($(this).hasClass('url-current')) return;
+
+      var target = $(this).attr('href');
+      
+      labTools.url.setUrl(target);
+      
+      return false;
+    });
 
   },
 
-  // drawSlides: function() {
-  //   var $slides = $('.slide, .slide-section-out.act');
-  //
-  //   $slides.each(function(){
-  //
-  //     var $this = $(this);
-  //     var elmWidth = $this.data('slidewidth');
-  //     var slideWidth = $(window).width() < 1600 ? $(window).width() : 1600;
-  //     var elms = $this.find('.slide-elm').length;
-  //
-  //     if(elms * elmWidth > slideWidth) {
-  //
-  //       var elmsPage = Math.floor(slideWidth / elmWidth);
-  //
-  //       $this.css('width', elmsPage * elmWidth).find('.slide-inn').bxSlider({
-  //         'pager': false,
-  //         'slideWidth': elmsPage * elmWidth,
-  //         'minSlides': elmsPage,
-  //         'maxSlides': elmsPage,
-  //         'infiniteLoop': false,
-  //         'displaySlideQty': elmsPage,
-  //         'moveSlideQty': elmsPage,
-  //         'hideControlOnEnd': true,
-  //         'nextText': '<i class="fa fa-angle-right"></i>',
-  //         'prevText': '<i class="fa fa-angle-left"></i>'
-  //       });
-  //     }
-  //
-  //   });
-  // },
   initUI: function() {
 
+      // toggle credits page
     $('toggleCredits').click(function(){
       
+      $('#credits').fadeIn(400);
+      
+      return false;
+
     });
+    $('hideCredits').click(function(){
+      
+      $('#credits').fadeOut(400);
+
+      return false;
+    });
+
+
 
       // imagenes responsibe
     // if(!atnls.cache.mini) {
@@ -138,14 +166,14 @@ var atnls = {
     // if(!atnls.cache.responsive) atnls.gl.init();
 
       // esperamos hasta que la página está cargada al 100% para inicializar todo el tema waypoints
-    $(window).load(function(){
+    // $(window).load(function(){
 
 
-      $(window).trigger('resize');
+    //   $(window).trigger('resize');
 
-      // new Waypoint.Sticky({ element: $('#headFix')[0] });
+    //   // new Waypoint.Sticky({ element: $('#headFix')[0] });
 
-    });
+    // });
   },
 
   videoCache: {},
@@ -156,12 +184,17 @@ var atnls = {
 // -----------------------------------------------------------------------------------
 atnls.cache = {
   $window: $(window),
+  $canvas: $('#webdoc'),
 
   winWidth: 0,                            // tamaños de cosas
   winHeigth: 0,
 
   responsive: true,
-  mini: true
+  mini: true,
+
+  baseUrl: '/atnls',
+
+  ajaxUrl: '/ajax/'
 };
 
 

@@ -9,6 +9,7 @@
   RewriteRule ^.*data/(.*) data/$1 [L]
   RewriteRule ^.*font/(.*) font/$1 [L]
   RewriteRule ^.*libs/(.*) libs/$1 [L]
+  RewriteRule ^.*audios/(.*) audios/$1 [L]
   RewriteRule ^.*css/(.*) css/$1 [L]
   RewriteRule ^.*fonts/(.*) fonts/$1 [L]
   RewriteRule ^(.*).php $1.php [QSA,L]

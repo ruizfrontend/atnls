@@ -1,0 +1,15 @@
+<div id="ajax">
+	<div id="poemas">
+		{% for poema, name in rawData['poemas'] %}
+			<div class="page-poema">{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema, 'list': (loop.index == 1 ? true : false) } %}</div>
+		{% endfor %}
+	</div>
+	<div id="poetas">
+		{% for poeta, name in rawData['poetas'] %}
+			<div class="page-poeta">{% include twigFolder ~ '/pages/poeta.html.twig' with {'poetaId': poeta, 'list': false} %}</div>
+		{% endfor %}
+	</div>
+	<div class="page-redes">
+		{% include twigFolder ~ '/pages/redes.html.twig' %}
+	</div>
+</div>

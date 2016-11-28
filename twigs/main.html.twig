@@ -27,7 +27,9 @@
 
   {% include twigFolder ~ '/blocks/head.html.twig'%}
 
-  {% include twigFolder ~ '/pages/' ~ seoData['name'] ~ '.html.twig'%}
+  <div id="content">
+    {% include twigFolder ~ '/pages/' ~ seoData['name'] ~ '.html.twig'%}
+  </div>
 
   {% include twigFolder ~ '/blocks/footer.html.twig'%}
 

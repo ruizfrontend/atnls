@@ -2,7 +2,7 @@
 debug: true
 version: 0.1
 
-project: ocho de marzo
+project: atnls
 
 base_url: /
 ajaxPath: /q                    # path added to the url to get ajax templates
@@ -34,9 +34,10 @@ dataImports:
   #   exposeTWIG: true
 
 rawData: # plain data imported in the templates
-  audioPath: '/atnls/audios/'
+  audioPath: '/audios/'
   poemasUrl: '/poemas/'
   poetasUrl: '/poetas/'
+  ajaxUrl: '/ajax/'
   poemas:
     bajo-una-lluvia-fria-de-poligono: 'Bajo Una Lluvia Fria De Poligono'
     cabo-sounion: 'Cabo Sounion'

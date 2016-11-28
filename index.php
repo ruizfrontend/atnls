@@ -297,6 +297,28 @@ $sspa->register(new Silex\Provider\UrlGeneratorServiceProvider());
   )->bind('poema');
 
 
+  $sspa->get($dataTwig['rawData']['audioPath'] . '{poema}.mp3',
+    function(Request $request, Application $sspa, $poema) {
+      $sspa->abort(404, "Resource not found");
+    }
+  )->bind('poemaAudio');
+  
+ 
+  $sspa->get($dataTwig['rawData']['ajaxUrl'],
+
+    function(Request $request, Application $sspa) {
+
+      $twigData = $sspa['twigData'];
+      $url = $request->getBasePath() . $request->getPathInfo();
+      $twigData['url'] = $url;
+
+      $tpl = $sspa['config']['twigs'] . '/ajax.html.twig';
+
+      return new Response($sspa['twig']->render($tpl, $twigData), 200, array('Cache-Control' => 's-maxage=3600, public'));
+    }
+  )->bind('ajax');
+  
+
 /* - ATNLS código exclusivo - END - */
 
 
@@ -308,8 +330,7 @@ foreach ($sspa['routing'] as $title => $url) {
 
         // pass the data from the request to de twig data
       $twigData = $sspa['twigData'];
-      $url = $request->getBasePath() . $request->getPathInfo();
-      $twigData['url'] = $url;
+      $url = $request->getPathInfo();
       $twigData['seoData'] = $sspa['routing'][$url];
 
       $tpl = $sspa['config']['twigs'] . '/main.html.twig';
@@ -323,6 +344,8 @@ foreach ($sspa['routing'] as $title => $url) {
         $twigData['routeData'] = null;
 
       }
+
+      $twigData['url'] = $request->getBasePath() . $url;
 
       if($sspa['debug'] && $request->query->has('dR')) { print_r($sspa['routing']); die(); } // dump the routes
       if($sspa['debug'] && $request->query->has('dD')) { print_r($twigData); die(); } // dump the twig data

@@ -34,7 +34,7 @@ labTools.url = {
 */
   data: {
       // url base del proyecto !!!CAMBIAR EN EL PROYECTO -> data.baseUrl = 'miurl'
-    baseUrl: '/aniversario-asesinato-kennedy',
+    baseUrl: '/',
       // está activado analitics o no
     ga: false,
         // ----- no tocar ------------------------------------------------------------------------------------------------

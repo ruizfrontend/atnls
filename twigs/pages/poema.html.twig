@@ -1,8 +1,7 @@
-<h2>Listado de poemas</h2>
-<ul>
-	{% for poema, name in rawData['poemas'] %}
-		<li><a href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
-	{% endfor %}
-</ul>
+{% if list is defined and list != false %}
+	{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+{% endif %}
+
+<audio controls src="{{ path('poemaAudio', {'poema': poemaId}) }}"></audio>
 
 {% include twigFolder ~ '/poemas/' ~ poemaId ~ '.html.twig'%}
