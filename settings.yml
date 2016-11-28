@@ -34,10 +34,10 @@ dataImports:
   #   exposeTWIG: true
 
 rawData: # plain data imported in the templates
-  audioPath: '/audios/'
-  poemasUrl: '/poemas/'
-  poetasUrl: '/poetas/'
-  ajaxUrl: '/ajax/'
+  audioPath: 'audios/'
+  poemasUrl: 'poemas/'
+  poetasUrl: 'poetas/'
+  ajaxUrl: 'ajax/'
   poemas:
     bajo-una-lluvia-fria-de-poligono: 'Bajo Una Lluvia Fria De Poligono'
     cabo-sounion: 'Cabo Sounion'

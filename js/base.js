@@ -21,14 +21,15 @@ var atnls = {
     if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; }
 
     $(window).scrollTop(0);
-      // redimensionados____________________________________________________________
-    $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200));
 
     atnls.preload(atnls.ready);
 
   },
   ready: function() {
 
+      // redimensionados____________________________________________________________
+    $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
+  
     atnls.initUI();
 
     atnls.initUrls();
@@ -88,9 +89,8 @@ var atnls = {
   },
 
   preload: function(ready) {
-    $.get(atnls.cache.baseUrl + atnls.cache.ajaxUrl, function(e){
+    $.get(projRoot + rawData.ajaxUrl, function(e){
       $('#content').html(e);
-      console.log('loaded');
       ready();
     }, 'html');
   },
@@ -98,23 +98,12 @@ var atnls = {
 
     labTools.url.data.baseUrl = '';
 
-    labTools.url.initiate(false,
-      function(target){
-        console.log('nueva url: ', target);
-
-          // manage active elements classes
-        $('.url-current').removeClass('url-current');
-        $('[href="' + target + '"]').addClass('url-current');
-        $('.url-poly').each(function(){ var $this = $(this); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
-
-      },
-      function(){ console.log('url changed!!'); }
-    );
+    labTools.url.initiate(false, atnls.updatePage, function(){ console.log('url changed!!'); });
 
       // url management
     $('.url-lib').click(function(){
         // ignore if link is active
-      if($(this).hasClass('url-current')) return;
+      if($(this).hasClass('url-current')) return false;
 
       var target = $(this).attr('href');
       
@@ -123,6 +112,47 @@ var atnls = {
       return false;
     });
 
+  },
+
+  updatePage: function(target) {
+      
+      console.log('nueva url: ', target);
+
+        // manage active elements classes
+      $('.url-current').removeClass('url-current');
+      $('[href="' + target + '"]').addClass('url-current');
+      $('.url-poly').each(function(){ var $this = $(this); console.log(target, $this.attr('href')); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
+
+      atnls.player.stopAll();
+
+        // pinta la página correspondiente
+      if(target.indexOf('/poemas') != -1) {
+
+        $('#poemas').show();
+        $('#poemas .page-poema').each(function(){
+          if(target.indexOf($(this).data('poema')) != -1) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+
+      } else {
+        $('#poemas').hide();
+      }
+
+      if (target.indexOf('/poetas')) {
+        $('#poetas').show();
+      } else {
+        $('#poetas').hide();
+      }
+
+      if (target.indexOf('/redes/')) {
+        $('#redes').show();
+      } else {
+        $('#redes').hide();
+        // asumimos home
+      };
   },
 
   initUI: function() {
@@ -141,6 +171,13 @@ var atnls = {
 
       return false;
     });
+  },
+
+  player: {
+    stopAll: function() {
+
+    }
+  },
 
 
 
@@ -174,7 +211,6 @@ var atnls = {
     //   // new Waypoint.Sticky({ element: $('#headFix')[0] });
 
     // });
-  },
 
   videoCache: {},
 

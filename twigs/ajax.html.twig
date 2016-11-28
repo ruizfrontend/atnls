@@ -1,14 +1,34 @@
 <div id="ajax">
-	<div id="poemas">
-		{% for poema, name in rawData['poemas'] %}
-			<div class="page-poema">{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema, 'list': (loop.index == 1 ? true : false) } %}</div>
-		{% endfor %}
+	<div id="poemas" style="display: none;" >
+
+		{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+			
+		<div class="bl-player">
+			<a href="#" id="plyr-prev" title="poema anterior"></a>
+			<a href="#" id="plyr-play" title="inicia la reproducción"></a>
+			<a href="#" id="plyr-next" title="Siguiente poema"></a>
+			<a href="#" id="plyr-mute" title="Silencia la reproducción"></a>
+			<a href="#" id="plyr-list" title="Selecciona poema"></a>
+		</div>
+
+		<div class="bl-poemas">
+			{% for poema, name in rawData['poemas'] %}
+				<div class="page-poema" style="display: none;" data-poema="{{ poema }}">{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}</div>
+			{% endfor %}
+		</div>
+
+		<div class="bl-help">
+			
+		</div>
+
 	</div>
+
 	<div id="poetas">
 		{% for poeta, name in rawData['poetas'] %}
 			<div class="page-poeta">{% include twigFolder ~ '/pages/poeta.html.twig' with {'poetaId': poeta, 'list': false} %}</div>
 		{% endfor %}
 	</div>
+	
 	<div class="page-redes">
 		{% include twigFolder ~ '/pages/redes.html.twig' %}
 	</div>

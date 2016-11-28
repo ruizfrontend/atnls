@@ -22,11 +22,12 @@
 .ft-cutie { @include cutie; }
 
 $yellow: #a876af;
-$green: #1c262c;
+// $green: #1c262c;
+$green: #35bebd;
 
   /* ELEMENTOS GENERALES */
 body { background: white; padding: 0; @include oxy; font-size: 14px; line-height: 1.2em; font-weight: 300; }
-a, a:hover { cursor: pointer!important; color: $yellow; font-weight: 900; }
+a { cursor: pointer!important; color: $yellow; font-weight: 900; }
 a.btn { text-decoration: none; }
 
 p { font-size: 1.2em; line-height: 1.4em; margin-bottom: 1.4em; }
@@ -34,7 +35,7 @@ p { font-size: 1.2em; line-height: 1.4em; margin-bottom: 1.4em; }
   p em { font-style: italic; }
 
 h1 { @include cutie; font-size: 10em; line-height: 1em; }
-h2 { margin-bottom: 1.2em; font-weight: 900; line-height: 1em; margin-top: 1em; font-size: 1.4em; }
+h2 { @include cutie; line-height: 1em; font-size: 6em; }
 h3 { display: block; text-transform: uppercase; font-weight: 900; font-size: 1.4em; padding-bottom: 3em; line-height: 1.2em; text-decoration: none;
   a { text-decoration: none; color: $yellow; }
   i.fa { color: #333; font-size: 2em; padding-left: 0.5em; }
@@ -43,7 +44,7 @@ h4 { padding-bottom: 10px; font-size: 1.25em; line-height: 1.2em; }
 h5 { padding-bottom: 10px; font-size: 1.5em; line-height: 1.1em; }
 h6 { padding-bottom:  8px; font-size: 1.1em; line-height: 1.1em; }
 
-strong { font-weight: 600; }
+strong { font-weight: 900; }
 
 /* Class for hidding elements if JavaScript is enabled */
 html.js body .hidden { display:none; }
@@ -81,7 +82,7 @@ iframe { border: none; }
 
 
 
-#webdoc { position: absolute; overflow: hidden; background: url('./img/fondo-low-low.jpg'); box-shadow: 0 10px 10px #ccc; }
+#webdoc { position: absolute; overflow: auto; background: url('./img/fondo-low-low.jpg'); box-shadow: 0 10px 10px #ccc; }
 #webdoc:before { content: ''; display: block; position: absolute; z-index: 0; pointer-events: none; width: 100%; height: 100%;
   background: -moz-linear-gradient(left, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 89%, rgba(0,0,0,0.18) 99%, rgba(0,0,0,0.05) 100%);
   background: -webkit-linear-gradient(left, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 89%,rgba(0,0,0,0.18) 99%,rgba(0,0,0,0.05) 100%);
@@ -94,6 +95,13 @@ iframe { border: none; }
   #rtve, #lab { display: block; height: 50px; width: 112px; position: absolute; top: 20px; left: 10px; background: url('./img/logo-rtve.png') no-repeat; cursor: pointer; }
   #lab { width: 50px; left: initial; right: 10px; background: url('./img/logo-lab.png') no-repeat; }
   #headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
+
+#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #333; color: white; overflow: auto; }
+  .player { float: left; height: 100%; width: 300px; }
+
+.verso { display: block; }
+.verso.act, .verso:hover { font-weight: 900; background: $green; }
+
 
 
 //   /* apaños */

@@ -22,7 +22,7 @@
 
   {% block seoHead %}{% endblock %}
 
-  <link href="https://fonts.googleapis.com/css?family=Oxygen:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Oxygen:300,700" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     {# Grunt compile files #}
@@ -53,6 +53,11 @@
   <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/imakewebthings-waypoints-13ae054/lib/shortcuts/inview.min.js"></script>
 
   <script type="text/javascript" src="http://estaticos.lab.eldiario.es/libs/selection-sharer.js"></script-->
+
+  <script>
+var rawData = {{ rawData | json_encode() | raw }};
+var projRoot = {{ path('home') | json_encode() | raw  }};
+  </script>
 
   <!-- build:js bin/app.js -->
     <script type="text/javascript" src="js/lbt-url.js"></script>

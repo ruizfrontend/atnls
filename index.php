@@ -302,7 +302,7 @@ $sspa->register(new Silex\Provider\UrlGeneratorServiceProvider());
       $sspa->abort(404, "Resource not found");
     }
   )->bind('poemaAudio');
-  
+
  
   $sspa->get($dataTwig['rawData']['ajaxUrl'],
 
