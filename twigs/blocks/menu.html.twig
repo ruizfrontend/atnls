@@ -1,4 +1,7 @@
-<nav id="footer"><ul>
+<nav id="menu"><ul>
+	
+  <a href="#" class="hideMenu">X</a>
+  
   <li><a class="url-lib {% if path('home') == url %}url-current{% endif %}" href="{{ path('home') }}">Inicio</a></li>
   <li><a class="url-lib url-poly {% if path('poetas') == url %}url-current{% endif %} {% if path('poetas') == url or path('poetas') in url %}url-active{% endif %}" href="{{ path('poetas') }}">Nuevos poetas</a></li>
   <li><a class="url-lib url-poly {% if path('poemas') == url %}url-current{% endif %} {% if path('poemas') == url or path('poemas') in url %}url-active{% endif %}" href="{{ path('poemas') }}">Reproductor de poemas</a></li>

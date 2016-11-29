@@ -90,11 +90,17 @@ iframe { border: none; }
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#33000000',GradientType=1 );
 }
 
-#head { position: relative; top: 0; width: 100%; }
-  #logo { display: block; margin: 0 auto; width: 40%; }
-  #rtve, #lab { display: block; height: 50px; width: 112px; position: absolute; top: 20px; left: 10px; background: url('./img/logo-rtve.png') no-repeat; cursor: pointer; }
-  #lab { width: 50px; left: initial; right: 10px; background: url('./img/logo-lab.png') no-repeat; }
-  #headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
+.head { position: relative; top: 0; width: 100%; }
+  .logo { display: block; margin: 0 auto; width: 40%; }
+  .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 10px; margin-top: 20px;
+      background: url(./img/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
+  .lab { width: 94px; float: right; background-position: -308px -72px; height: 85px; margin-right: 10px; }
+  .hamb { width: 55px; background-position: -291px -247px; height: 55px; margin-left: 11px; clear: left; margin-top: 10px; }
+
+  #poemas .rtve { background-position: -20px -19px; }
+  #poemas .lab { background-position: -308px -155px; }
+  #poemas .hamb { background-position: -291px -247px; }
+  .headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
 
 #poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #333; color: white; overflow: auto; 
   .wrap { margin: 0 auto; max-width: 1200px; height: 100%; }
@@ -118,6 +124,10 @@ iframe { border: none; }
 
 
 #credits { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
+
+#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
+
+#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
 
 //   /* apaños */
 // .wrap2 { width: 100%; max-width: 790px; margin: 0 auto 2em auto; position: relative; }

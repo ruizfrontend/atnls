@@ -116,59 +116,60 @@ var atnls = {
   },
 
   updatePage: function(target) {
-      
-      console.log('nueva url: ', target);
+    
+    console.log('nueva url: ', target);
 
-        // manage active elements classes
-      $('.url-current').removeClass('url-current');
-      $('[href="' + target + '"]').addClass('url-current');
-      $('.url-poly').each(function(){ var $this = $(this); console.log(target, $this.attr('href')); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
+      // manage active elements classes
+    $('.url-current').removeClass('url-current');
+    $('[href="' + target + '"]').addClass('url-current');
+    $('.url-poly').each(function(){ var $this = $(this); console.log(target, $this.attr('href')); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
 
-      atnls.player.stopAll();
+    atnls.player.stopAll();
+    $('#credits, #menu').fadeOut(400);
 
-        // pinta la página correspondiente
-      if(target.indexOf('/poemas') != -1) {
+      // pinta la página correspondiente
+    if(target.indexOf('/poemas') != -1) {
 
-        $('#poemas').show();
+      $('#poemas').show();
 
-        var found = false;
-        $('#poemas .page-poema').each(function(){
-          
-          var $this = $(this);
+      var found = false;
+      $('#poemas .page-poema').each(function(){
+        
+        var $this = $(this);
 
-          if(target.indexOf($this.data('poema')) != -1) {
-            $this.fadeIn(400);
-            atnls.player.playPage($this);
-            found = true;
+        if(target.indexOf($this.data('poema')) != -1) {
+          $this.fadeIn(400);
+          atnls.player.playPage($this);
+          found = true;
 
-          } else {
-            $this.fadeOut(400);
-
-          }
-        });
-
-        if(!found) {
-          $('.bl-playlist').show();
         } else {
-          $('.bl-playlist').hide();
+          $this.fadeOut(400);
+
         }
+      });
 
+      if(!found) {
+        $('.bl-playlist').show();
       } else {
-        $('#poemas').hide();
+        $('.bl-playlist').hide();
       }
 
-      if (target.indexOf('/poetas')) {
-        $('#poetas').show();
-      } else {
-        $('#poetas').hide();
-      }
+    } else {
+      $('#poemas').hide();
+    }
 
-      if (target.indexOf('/redes/')) {
-        $('#redes').show();
-      } else {
-        $('#redes').hide();
-        // asumimos home
-      }
+    if (target.indexOf('/poetas') != -1) {
+      $('#poetas').show();
+    } else {
+      $('#poetas').hide();
+    }
+
+    if (target.indexOf('/redes') != -1) {
+      $('#redes').show();
+    } else {
+      $('#redes').hide();
+      // asumimos home
+    }
 
   },
 
@@ -177,9 +178,11 @@ var atnls = {
     $('body')
       .delegate('.verso', 'click', atnls.tweetVerso);
 
+
       // toggle credits page
     $('.toggleCredits').click(function(){
       
+      $('#menu').hide(400);
       $('#credits').fadeToggle(400);
     
       return false;
@@ -191,10 +194,28 @@ var atnls = {
 
       return false;
     });
+
+
+      // toggle menu
+    $('.showMenu').click(function(){
+      
+      $('#credits').hide(400);
+      $('#menu').fadeToggle(400);
+    
+      return false;
+    });
+
+    $('.hideMenu').click(function(){
+      
+      $('#menu').fadeOut(400);
+
+      return false;
+    });
+    
+
   },
 
   tweetVerso: function(e) {
-    console.log(e, this)
     var $verso = $(this);
     if(!$verso || !$verso.text()) return;
 
