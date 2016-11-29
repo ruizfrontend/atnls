@@ -130,15 +130,28 @@ var atnls = {
       if(target.indexOf('/poemas') != -1) {
 
         $('#poemas').show();
+
+        var found = false;
         $('#poemas .page-poema').each(function(){
+          
           var $this = $(this);
+
           if(target.indexOf($this.data('poema')) != -1) {
             $this.fadeIn(400);
             atnls.player.playPage($this);
+            found = true;
+
           } else {
             $this.fadeOut(400);
+
           }
         });
+
+        if(!found) {
+          $('.bl-playlist').show();
+        } else {
+          $('.bl-playlist').hide();
+        }
 
       } else {
         $('#poemas').hide();
@@ -165,14 +178,14 @@ var atnls = {
       .delegate('.verso', 'click', atnls.tweetVerso);
 
       // toggle credits page
-    $('toggleCredits').click(function(){
+    $('.toggleCredits').click(function(){
       
-      $('#credits').fadeIn(400);
-      
+      $('#credits').fadeToggle(400);
+    
       return false;
-
     });
-    $('hideCredits').click(function(){
+
+    $('.hideCredits').click(function(){
       
       $('#credits').fadeOut(400);
 

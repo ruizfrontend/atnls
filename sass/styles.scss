@@ -101,9 +101,11 @@ iframe { border: none; }
     .player { float: left; height: 100%; width: 300px; }
 
   .poemas-head {  }
-  .col-player { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em; }
-  .col-poemas { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em }
-  .col-help { float: left; width: 20%; text-align: right; @include box-sizing(border-box); padding-right: 2em; }
+  @media (min-width: 800px) {
+    .col-player { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em; }
+    .col-poemas { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em }
+    .col-help { float: left; width: 20%; text-align: right; @include box-sizing(border-box); padding-right: 2em; }
+  }
 }  
   .bl-player a { display: inline-block; width: 50px; height: 50px; margin-right: 20px; background: #ccc; }
 
@@ -114,6 +116,8 @@ iframe { border: none; }
 .verso.act { font-weight: 900; }
 .verso:hover { background: $green; }
 
+
+#credits { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
 
 //   /* apaños */
 // .wrap2 { width: 100%; max-width: 790px; margin: 0 auto 2em auto; position: relative; }
