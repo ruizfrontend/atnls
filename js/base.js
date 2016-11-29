@@ -7,6 +7,7 @@
 /*global $ */
 /*global EDI */
 /*global YT */
+/*global Popcorn */
 
 
 /*global dataCalc */
@@ -130,10 +131,12 @@ var atnls = {
 
         $('#poemas').show();
         $('#poemas .page-poema').each(function(){
-          if(target.indexOf($(this).data('poema')) != -1) {
-            $(this).show();
+          var $this = $(this);
+          if(target.indexOf($this.data('poema')) != -1) {
+            $this.fadeIn(400);
+            atnls.player.playPage($this);
           } else {
-            $(this).hide();
+            $this.fadeOut(400);
           }
         });
 
@@ -152,10 +155,14 @@ var atnls = {
       } else {
         $('#redes').hide();
         // asumimos home
-      };
+      }
+
   },
 
   initUI: function() {
+
+    $('body')
+      .delegate('.verso', 'click', atnls.tweetVerso);
 
       // toggle credits page
     $('toggleCredits').click(function(){
@@ -173,9 +180,83 @@ var atnls = {
     });
   },
 
-  player: {
-    stopAll: function() {
+  tweetVerso: function(e) {
+    console.log(e, this)
+    var $verso = $(this);
+    if(!$verso || !$verso.text()) return;
 
+    atnls.openTweet($verso.text());
+  },
+
+  openTweet: function(texto) {
+    if(!texto) return;
+
+    var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
+        width = 550,
+        height = 420,
+        winHeight = screen.height,
+        winWidth = screen.width;
+
+    var left = Math.round((winWidth / 2) - (width / 2));
+    var top = 0;
+
+    if (winHeight > height) {
+      top = Math.round((winHeight / 2) - (height / 2));
+    }
+
+    var target = 'https://twitter.com/intent/tweet?text=' + texto + '&url=' + encodeURIComponent(window.location.href);
+    if(atnls.cache.hash) target += '&hashtags=' + atnls.cache.hash;
+    if(atnls.cache.via) target += '&via=' + atnls.cache.via;
+
+    window.open(target, 'intent', windowOptions + ',width=' + width +
+                                       ',height=' + height + ',left=' + left + ',top=' + top);
+  },
+
+  player: {
+    active: null,
+    mute: true,
+
+    initAudio: function() {
+
+    },
+    stopAll: function() {
+      $('audio, video').each(function(){ this.pause(); });
+      atnls.player.active = null;
+    },
+    playPage: function($page) {
+      var $body = $page.find('.poema-body');
+      var times = $body.data('times');
+      if(!times) return;
+
+      var id = 'd' + Date.now();
+      var $audio = $page.find('audio').attr('id', id);
+
+      atnls.player.active = Popcorn('#' + id);
+
+      for (var i = 0; i < times.length; i++) {
+        if(i === 0) continue;
+
+        (function(){
+          
+          var pos = i - 1;
+
+          atnls.player.active.code({
+            start: times[i-1]/1000,
+            end: times[i]/1000,
+            onStart: function(options) {
+              $body
+                .find('.act').removeClass('act').end()
+                .find('.verso:eq(' + pos + ')').addClass('act');
+            },
+            // onEnd: function( options ) {
+            //  console.log(pos + ' end');
+            // }
+          });
+
+        })();
+
+      };
+      $audio[0].play();
     }
   },
 
@@ -230,7 +311,10 @@ atnls.cache = {
 
   baseUrl: '/atnls',
 
-  ajaxUrl: '/ajax/'
+  ajaxUrl: '/ajax/',
+
+  hash: 'atnls',
+  via: 'ruizfrontend',
 };
 
 

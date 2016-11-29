@@ -35,7 +35,7 @@ p { font-size: 1.2em; line-height: 1.4em; margin-bottom: 1.4em; }
   p em { font-style: italic; }
 
 h1 { @include cutie; font-size: 10em; line-height: 1em; }
-h2 { @include cutie; line-height: 1em; font-size: 6em; }
+h2 { @include cutie; line-height: 0.8em; font-size: 6em; margin-bottom: 0.4em; }
 h3 { display: block; text-transform: uppercase; font-weight: 900; font-size: 1.4em; padding-bottom: 3em; line-height: 1.2em; text-decoration: none;
   a { text-decoration: none; color: $yellow; }
   i.fa { color: #333; font-size: 2em; padding-left: 0.5em; }
@@ -48,7 +48,7 @@ strong { font-weight: 900; }
 
 /* Class for hidding elements if JavaScript is enabled */
 html.js body .hidden { display:none; }
-.clearfix{*zoom:1}.clearfix:before,.clearfix:after{display:table;line-height:0;content:""}.clearfix:after{clear:both}
+.clearfix, .poema-body p {*zoom:1} .clearfix:before, .clearfix:after, .poema-body p:before, .poema-body p:after {display:table;line-height:0;content:""} .clearfix:after, .poema-body p:after {clear:both}
 
 iframe { border: none; }
 
@@ -59,7 +59,7 @@ iframe { border: none; }
 .wk-media-l { float:left; }
   .wk-media-l img,
   .wk-media-r img { display:block; }
-.wk-media-r { display:table-cell; zoom:1; }
+.wk-media-r { display: table-cell; zoom:1; }
 
 /* Columns */
 .wk-col-l { display:inline; float:left; }
@@ -96,12 +96,23 @@ iframe { border: none; }
   #lab { width: 50px; left: initial; right: 10px; background: url('./img/logo-lab.png') no-repeat; }
   #headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
 
-#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #333; color: white; overflow: auto; }
-  .player { float: left; height: 100%; width: 300px; }
+#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #333; color: white; overflow: auto; 
+  .wrap { margin: 0 auto; max-width: 1200px; height: 100%; }
+    .player { float: left; height: 100%; width: 300px; }
 
-.verso { display: block; }
-.verso.act, .verso:hover { font-weight: 900; background: $green; }
+  .poemas-head {  }
+  .col-player { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em; }
+  .col-poemas { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em }
+  .col-help { float: left; width: 20%; text-align: right; @include box-sizing(border-box); padding-right: 2em; }
+}  
+  .bl-player a { display: inline-block; width: 50px; height: 50px; margin-right: 20px; background: #ccc; }
 
+.verso { display: block; float: left; clear: left; padding: 0 0.4em; position: relative; cursor: pointer; }
+  .verso:before { content: ''; position: absolute; left: 102%; width: 0; height: 40px;
+      background: #35bebd; bottom: -0.5em; @include transition(all 0.6s ease-in-out); }
+    .verso:hover:before { width: 40px; }
+.verso.act { font-weight: 900; }
+.verso:hover { background: $green; }
 
 
 //   /* apaños */

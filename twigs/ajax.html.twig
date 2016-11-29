@@ -1,24 +1,36 @@
 <div id="ajax">
 	<div id="poemas" style="display: none;" >
-
-		{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+		<div class="wrap">
 			
-		<div class="bl-player">
-			<a href="#" id="plyr-prev" title="poema anterior"></a>
-			<a href="#" id="plyr-play" title="inicia la reproducción"></a>
-			<a href="#" id="plyr-next" title="Siguiente poema"></a>
-			<a href="#" id="plyr-mute" title="Silencia la reproducción"></a>
-			<a href="#" id="plyr-list" title="Selecciona poema"></a>
-		</div>
+			<div class="col-player">
+				
+				<div class="bl-playlist" style="display: none;">
+					{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+				</div>
 
-		<div class="bl-poemas">
-			{% for poema, name in rawData['poemas'] %}
-				<div class="page-poema" style="display: none;" data-poema="{{ poema }}">{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}</div>
-			{% endfor %}
-		</div>
+				<div class="bl-player">
+					<a href="#" id="plyr-prev" title="poema anterior"></a>
+					<a href="#" id="plyr-play" title="inicia la reproducción"></a>
+					<a href="#" id="plyr-next" title="Siguiente poema"></a>
+					<a href="#" id="plyr-mute" title="Silencia la reproducción"></a>
+					<a href="#" id="plyr-list" title="Selecciona poema"></a>
+				</div>
 
-		<div class="bl-help">
-			
+			</div>
+
+			<div class="col-poemas">
+				{% for poema, name in rawData['poemas'] %}
+					<div class="page-poema" style="display: none;" data-poema="{{ poema }}">{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}</div>
+				{% endfor %}
+			</div>
+
+			<div class="col-help"><div class="wk-valign"><div class="wk-valign-cont">
+				<p>Comparte el poema completo<br>con tus amigos<br>
+					<a href="#" class="share-twitter" title="compartir en twitter"></a>
+					<a href="#" class="share-facebook" title="compartir en Facebook"></a>
+				</p>
+				<p>O <span>selecciona un verso</span><br>y compártelo</p>
+			</div></div></div>
 		</div>
 
 	</div>
