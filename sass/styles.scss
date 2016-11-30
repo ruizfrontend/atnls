@@ -82,10 +82,8 @@ iframe { border: none; }
   .wk-valign-cont { display: table-cell; vertical-align: middle; text-align: center; }
     // .wk-valign>.wk-valign-cont
 
-.url-current { color: red; }
-.url-active { background: #ccc; }
-
-
+// .url-current { color: red; }
+// .url-active { background: #ccc; }
 
 #webdoc { position: absolute; overflow: auto; background: url('./img/fondo-low-low.jpg'); box-shadow: 0 10px 10px #ccc; }
 #webdoc:before { content: ''; display: block; position: absolute; z-index: 0; pointer-events: none; width: 100%; height: 100%;
@@ -154,8 +152,10 @@ iframe { border: none; }
 .share-poema-twitter, .share-poema-facebook { display: inline-block; width: 60px; height: 60px; background: url(./img/atnls-sprite.png) -232px -123px no-repeat; }
 .share-poema-twitter { background-position: -166px -123px; }
 
-#credits { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; font-size: 2em; line-height: 1.2em;
+#credits { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; color: white; font-size: 1.6em; line-height: 1.2em; z-index: 10;
+    background: rgba(0,0,0,0.8) url(./img/bg-luis.png) center center; background-size: cover; 
   a { text-decoration: none; color: white; &:hover { color: $green; }}
+  .hideCredits { @include closeWhite; }
 }
 
 #redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white;
@@ -167,6 +167,8 @@ iframe { border: none; }
   .url-current { border: 2.1px solid white; padding: 0.2em 0.6em;  &:hover { color: white; }}
   .hideMenu { @include closeWhite; }
 }
+
+#loader { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white url(./img/loading2.gif) center center no-repeat; z-index: 999; }
 
 //   /* apaños */
 // .wrap2 { width: 100%; max-width: 790px; margin: 0 auto 2em auto; position: relative; }

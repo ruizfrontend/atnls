@@ -40,6 +40,10 @@
 
 <body class="page-{{ seoData['name'] }}">
 
+  <script>
+document.write('<div id="loader"></div>');
+  </script>
+
   <div id="webdoc">{% block content %}{% endblock %}</div>
 
 

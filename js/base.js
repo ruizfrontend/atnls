@@ -121,9 +121,15 @@ var atnls = {
 
       // manage active elements classes
     $('.url-current').removeClass('url-current');
-    $('[href^="' + target + '"]').addClass('url-current');
+    $('[href="' + target + '"]').addClass('url-current');
     $('.url-poly').each(function(){
-      var $this = $(this); console.log(target, $this.attr('href')); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
+      var $this = $(this);
+      if(target.indexOf($this.attr('href')) != -1 ) {
+        $this.addClass('url-active');
+      } else {
+        $this.removeClass('url-active');
+      }
+    });
 
     atnls.player.stopAll();
     $('#credits, #menu').fadeOut(400);
@@ -181,6 +187,8 @@ var atnls = {
       // asumimos home
     }
 
+    $('#loader').fadeOut(400);
+
   },
 
   initUI: function() {
@@ -192,7 +200,7 @@ var atnls = {
       // toggle credits page
     $('.toggleCredits').click(function(){
       
-      $('#menu').hide(400);
+      $('#menu').hide();
       $('#credits').fadeToggle(400);
     
       return false;
@@ -209,7 +217,7 @@ var atnls = {
       // toggle menu
     $('.showMenu').click(function(){
       
-      $('#credits').hide(400);
+      $('#credits').hide();
       $('#menu').fadeToggle(400);
     
       return false;
@@ -313,6 +321,12 @@ var atnls = {
 
       };
       $audio[0].play();
+    },
+    toggleMute: function() {
+      atnls.player.active.muted = !atnls.player.active.muted;
+      atnls.player.mute = atnls.player.active.muted;
+
+      return false;
     }
   },
 
