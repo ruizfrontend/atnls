@@ -46,9 +46,9 @@ var atnls = {
     atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
 
 
+
     var padd = 10;
     var maxWidth = 1500;
-    var breakpoint = 960;
     var proportion = 0.67; //9 / 16; // 3 / 4; 
     var w, h, top;
 
@@ -65,7 +65,7 @@ var atnls = {
         'height': h
       });
 
-    } else if(atnls.cache.winWidth > breakpoint){
+    } else if(atnls.cache.winWidth > atnls.cache.breakpoint){
       
       w = atnls.cache.winWidth - (2 * padd);
       h = (w * proportion);
@@ -121,8 +121,9 @@ var atnls = {
 
       // manage active elements classes
     $('.url-current').removeClass('url-current');
-    $('[href="' + target + '"]').addClass('url-current');
-    $('.url-poly').each(function(){ var $this = $(this); console.log(target, $this.attr('href')); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
+    $('[href^="' + target + '"]').addClass('url-current');
+    $('.url-poly').each(function(){
+      var $this = $(this); console.log(target, $this.attr('href')); if(target.indexOf($this.attr('href')) != -1 ) $this.addClass('url-active'); else $this.removeClass('url-active'); });
 
     atnls.player.stopAll();
     $('#credits, #menu').fadeOut(400);
@@ -130,7 +131,7 @@ var atnls = {
       // pinta la página correspondiente
     if(target.indexOf('/poemas') != -1) {
 
-      $('#poemas').show();
+      $('#poemas').fadeIn(400);
 
       var found = false;
       $('#poemas .page-poema').each(function(){
@@ -138,18 +139,27 @@ var atnls = {
         var $this = $(this);
 
         if(target.indexOf($this.data('poema')) != -1) {
-          $this.fadeIn(400);
+          $this.fadeIn(400).addClass('act');
           atnls.player.playPage($this);
           found = true;
 
+          var $elm = $this;
+          setTimeout(function(){
+            var height = $elm.height();
+            var pHeight = $('.col-poemas').height();
+            if(height > pHeight) {
+              $elm.find('.scrool-wrap').slimScroll({ height: pHeight });
+            }
+          }, 100);
+
         } else {
-          $this.fadeOut(400);
+          $this.removeClass('act').hide();
 
         }
       });
 
       if(!found) {
-        $('.bl-playlist').show();
+        $('.bl-playlist').fadeIn(400);
       } else {
         $('.bl-playlist').hide();
       }
@@ -159,13 +169,13 @@ var atnls = {
     }
 
     if (target.indexOf('/poetas') != -1) {
-      $('#poetas').show();
+      $('#poetas').fadeIn(400);
     } else {
       $('#poetas').hide();
     }
 
     if (target.indexOf('/redes') != -1) {
-      $('#redes').show();
+      $('#redes').fadeIn(400);
     } else {
       $('#redes').hide();
       // asumimos home
@@ -213,6 +223,18 @@ var atnls = {
     });
     
 
+    $('.plyr-list').click(function(){
+        $('.bl-playlist').slideToggle();
+        return false;
+    });
+
+    $('.share-poema-twitter').click(function(){
+
+    });
+
+    $('.share-poema-facebook').click(function(){
+
+    });
   },
 
   tweetVerso: function(e) {
@@ -346,6 +368,8 @@ atnls.cache = {
   baseUrl: '/atnls',
 
   ajaxUrl: '/ajax/',
+
+  breakpoint: 980, // swithchs from canvas layout to full
 
   hash: 'atnls',
   via: 'ruizfrontend',

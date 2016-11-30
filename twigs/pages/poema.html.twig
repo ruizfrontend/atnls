@@ -2,6 +2,14 @@
 	{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
 {% endif %}
 
-<audio controls src="{{ path('poemaAudio', {'poema': poemaId}) }}"></audio>
+<div itemscope itemtype="http://schema.org/CreativeWork">
 
-{% include twigFolder ~ '/poemas/' ~ poemaId ~ '.html.twig'%}
+	<div itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
+		<audio src="{{ path('poemaAudio', {'poema': poemaId}) }}"></audio>
+	</div>
+	
+	<meta itemprop="author" content="Luis García Montero">
+	<meta itemprop="genre" content="poem">
+
+	{% include twigFolder ~ '/poemas/' ~ poemaId ~ '.html.twig'%}
+</div>

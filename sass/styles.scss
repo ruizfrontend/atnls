@@ -18,24 +18,29 @@
 
 @mixin oxy { font-family: 'Oxygen', sans-serif; }
 @mixin cutie { font-family: 'cutie_starscript', serif; }
+
+@mixin closeWhite { position: absolute; z-index: 1; right: 1em; top: 1em; width: 44px; height: 44px; background: url(./img/atnls-sprite.png) -249px -82px no-repeat; }
+
 // .ft-awesome { @include cutie }
 .ft-cutie { @include cutie; }
 
 $yellow: #a876af;
 // $green: #1c262c;
 $green: #35bebd;
+$breakpoint: 980;
 
   /* ELEMENTOS GENERALES */
 body { background: white; padding: 0; @include oxy; font-size: 14px; line-height: 1.2em; font-weight: 300; }
-a { cursor: pointer!important; color: $yellow; font-weight: 900; }
+a { cursor: pointer!important; color: $yellow; font-weight: 900; @include transition(all 0.4s ease-in-out); }
 a.btn { text-decoration: none; }
+a:hover { color: $green; }
 
 p { font-size: 1.2em; line-height: 1.4em; margin-bottom: 1.4em; }
   p.nota { font-size: 0.9em; text-align: right; padding-left: 40%; }
   p em { font-style: italic; }
 
 h1 { @include cutie; font-size: 10em; line-height: 1em; }
-h2 { @include cutie; line-height: 0.8em; font-size: 6em; margin-bottom: 0.4em; }
+h2 { @include cutie; line-height: 0.8em; font-size: 6em; margin-bottom: 0.2em; }
 h3 { display: block; text-transform: uppercase; font-weight: 900; font-size: 1.4em; padding-bottom: 3em; line-height: 1.2em; text-decoration: none;
   a { text-decoration: none; color: $yellow; }
   i.fa { color: #333; font-size: 2em; padding-left: 0.5em; }
@@ -75,7 +80,7 @@ iframe { border: none; }
 
 .wk-valign { display: table; vertical-align: middle; height: 100%; width: 100%; }
   .wk-valign-cont { display: table-cell; vertical-align: middle; text-align: center; }
-
+    // .wk-valign>.wk-valign-cont
 
 .url-current { color: red; }
 .url-active { background: #ccc; }
@@ -99,35 +104,69 @@ iframe { border: none; }
 
   #poemas .rtve { background-position: -20px -19px; }
   #poemas .lab { background-position: -308px -155px; }
-  #poemas .hamb { background-position: -291px -247px; }
+  #poemas .hamb { background-position: -232px -247px; }
   .headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
 
+
+  // pagina de poemas
 #poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #333; color: white; overflow: auto; 
-  .wrap { margin: 0 auto; max-width: 1200px; height: 100%; }
+  .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden;
+      top: 0; width: 100%; margin: 0 auto; box-sizing: border-box; display: block; left: 0; right: 0; }
+    
     .player { float: left; height: 100%; width: 300px; }
 
-  .poemas-head {  }
+  .head { z-index: 1; }
+  .poemasHome { color: white; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
+      font-weight: 100; margin-left: 0.4em; }
+
+  .col-player, .col-poemas, .col-help { float: left; width: 40%; height: 100%; @include box-sizing(border-box); }
+
+  // .col-poemas { overflow: auto; }
   @media (min-width: 800px) {
-    .col-player { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em; }
-    .col-poemas { float: left; width: 40%; @include box-sizing(border-box); padding-left: 2em }
-    .col-help { float: left; width: 20%; text-align: right; @include box-sizing(border-box); padding-right: 2em; }
+    .col-player { padding-left: 2em; }
+    .col-poemas { padding-left: 2em }
+    .col-help { width: 20%; text-align: right;
+      p { text-align: right; }
+    }
   }
-}  
-  .bl-player a { display: inline-block; width: 50px; height: 50px; margin-right: 20px; background: #ccc; }
+
+  .bl-playlist a { text-decoration: none; color: white; @include cutie; font-size: 2.7em; line-height: 1.2em; }
+}
+
+.bl-player {
+  a { display: inline-block; width: 44px; height: 44px; margin-right: 10px; background: #ccc;
+      background: url(./img/atnls-sprite.png) -19px -186px no-repeat; }
+  // .plyr-prev { }
+  .plyr-next { background-position: -120px -186px; }
+  .plyr-play { background-position: -66px -186px; }
+  .plyr-pause { background-position: -66px -186px; }
+  .plyr-mute { background-position: -177px -186px; }
+}
 
 .verso { display: block; float: left; clear: left; padding: 0 0.4em; position: relative; cursor: pointer; }
   .verso:before { content: ''; position: absolute; left: 102%; width: 0; height: 40px;
-      background: #35bebd; bottom: -0.5em; @include transition(all 0.6s ease-in-out); }
-    .verso:hover:before { width: 40px; }
+      background: url(./img/atnls-sprite.png) -238px -190px no-repeat;
+      bottom: -0.5em; @include transition(all 0.6s ease-in-out); }
+    .verso:hover:before { width: 50px; }
 .verso.act { font-weight: 900; }
 .verso:hover { background: $green; }
 
+.share-poema-twitter, .share-poema-facebook { display: inline-block; width: 60px; height: 60px; background: url(./img/atnls-sprite.png) -232px -123px no-repeat; }
+.share-poema-twitter { background-position: -166px -123px; }
 
-#credits { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
+#credits { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; font-size: 2em; line-height: 1.2em;
+  a { text-decoration: none; color: white; &:hover { color: $green; }}
+}
 
-#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
+#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white;
+  a { text-decoration: none; color: white; &:hover { color: $green; }}
+}
 
-#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: black; color: white; }
+#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; z-index: 10; font-size: 1.6em; line-height: 2.4em;
+  a { text-decoration: none; color: white; font-weight: 100; text-transform: uppercase; &:hover { color: $green; }}
+  .url-current { border: 2.1px solid white; padding: 0.2em 0.6em;  &:hover { color: white; }}
+  .hideMenu { @include closeWhite; }
+}
 
 //   /* apaños */
 // .wrap2 { width: 100%; max-width: 790px; margin: 0 auto 2em auto; position: relative; }
