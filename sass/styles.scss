@@ -100,9 +100,15 @@ iframe { border: none; }
   .lab { width: 94px; float: right; background-position: -308px -72px; height: 85px; margin-right: 10px; }
   .hamb { width: 55px; background-position: -291px -247px; height: 55px; margin-left: 11px; clear: left; margin-top: 10px; }
 
-  #poemas .rtve { background-position: -20px -19px; }
-  #poemas .lab { background-position: -308px -155px; }
-  #poemas .hamb { background-position: -232px -247px; }
+    // cabecera interna
+  #poemas, #redes {
+    .rtve { background-position: -20px -19px; }
+    .lab { background-position: -308px -155px; }
+    .hamb { background-position: -232px -247px; }
+    .head { z-index: 1; }
+    .titleHome { color: white; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
+        font-weight: 100; margin-left: 0.4em; }
+  }
   .headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
 
 
@@ -110,12 +116,8 @@ iframe { border: none; }
 #poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #333; color: white; overflow: auto; 
   .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden;
       top: 0; width: 100%; margin: 0 auto; box-sizing: border-box; display: block; left: 0; right: 0; }
-    
-    .player { float: left; height: 100%; width: 300px; }
 
-  .head { z-index: 1; }
-  .poemasHome { color: white; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
-      font-weight: 100; margin-left: 0.4em; }
+  .player { float: left; height: 100%; width: 300px; }
 
   .col-player, .col-poemas, .col-help { float: left; width: 40%; height: 100%; @include box-sizing(border-box); }
 
@@ -158,8 +160,9 @@ iframe { border: none; }
   .hideCredits { @include closeWhite; }
 }
 
-#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white;
+#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: #222222; color: white;
   a { text-decoration: none; color: white; &:hover { color: $green; }}
+  .closeRedes { @include closeWhite; }
 }
 
 #menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; z-index: 10; font-size: 1.6em; line-height: 2.4em;

@@ -30,11 +30,10 @@ var atnls = {
 
       // redimensionados____________________________________________________________
     $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
-  
-    atnls.initUI();
 
     atnls.initUrls();
 
+    atnls.initUI();
   },
           // función control de redimensionados______________________________________________________
   handleResize: function() {
@@ -193,9 +192,23 @@ var atnls = {
 
   initUI: function() {
 
-    $('body')
-      .delegate('.verso', 'click', atnls.tweetVerso);
+    atnls.initPlayer();
+    atnls.initNav();
 
+    $('body')
+      .delegate('.twIntent, .verso', 'click', atnls.tweetText);
+    
+
+    $('.share-poema-twitter').click(function(){
+
+    });
+
+    $('.share-poema-facebook').click(function(){
+
+    });
+  },
+
+  initNav: function() {
 
       // toggle credits page
     $('.toggleCredits').click(function(){
@@ -229,30 +242,17 @@ var atnls = {
 
       return false;
     });
-    
-
-    $('.plyr-list').click(function(){
-        $('.bl-playlist').slideToggle();
-        return false;
-    });
-
-    $('.share-poema-twitter').click(function(){
-
-    });
-
-    $('.share-poema-facebook').click(function(){
-
-    });
   },
 
-  tweetVerso: function(e) {
-    var $verso = $(this);
-    if(!$verso || !$verso.text()) return;
+  tweetText: function(e) {
+    var $text = $(this);
+    var text = $text.data('text') ? $text.data('text') : $text.text() ? $text.text() : null;
+    if(!text) return;
 
-    atnls.openTweet($verso.text());
+    atnls.openTweet(text);
   },
 
-  openTweet: function(texto) {
+  openTweet: function(texto, url) {
     if(!texto) return;
 
     var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
@@ -268,12 +268,28 @@ var atnls = {
       top = Math.round((winHeight / 2) - (height / 2));
     }
 
-    var target = 'https://twitter.com/intent/tweet?text=' + texto + '&url=' + encodeURIComponent(window.location.href);
-    if(atnls.cache.hash) target += '&hashtags=' + atnls.cache.hash;
+    var target = 'https://twitter.com/intent/tweet?text=' + texto + '&url=' + (url ? url : encodeURIComponent(window.location.href));
+    if(rawData.hash) {
+      target += '&hashtags=' + rawData.hash;
+    } else if (atnls.cache.hash) {
+      target += '&hashtags=' + atnls.cache.hash;
+    }
     if(atnls.cache.via) target += '&via=' + atnls.cache.via;
 
     window.open(target, 'intent', windowOptions + ',width=' + width +
                                        ',height=' + height + ',left=' + left + ',top=' + top);
+  },
+
+  initPlayer: function() {
+    $('.plyr-prev').click(atnls.player.prev);
+    $('.plyr-play').click(atnls.player.togglePlay);
+    $('.plyr-next').click(atnls.player.next);
+    $('.plyr-mute').click(atnls.player.toggleMute);
+    $('.plyr-list').click(function(){
+      $('.bl-playlist').slideToggle();
+
+      return false;
+    });
   },
 
   player: {
@@ -323,6 +339,7 @@ var atnls = {
       $audio[0].play();
     },
     toggleMute: function() {
+      console.log(atnls.player.active)
       atnls.player.active.muted = !atnls.player.active.muted;
       atnls.player.mute = atnls.player.active.muted;
 

@@ -38,6 +38,7 @@ rawData: # plain data imported in the templates
   poemasUrl: 'poemas/'
   poetasUrl: 'poetas/'
   ajaxUrl: 'ajax/'
+  hash: 'MemoriaDeFuturo'
   poemas:
     bajo-una-lluvia-fria-de-poligono: 'Bajo Una Lluvia Fria De Poligono'
     cabo-sounion: 'Cabo Sounion'

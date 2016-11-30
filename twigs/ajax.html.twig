@@ -5,7 +5,7 @@
 			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
 			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
 			<a class="hamb showMenu" href="#menu"></a>
-			<a href="{{ path('poetas') }}" class="url-lib poemasHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+			<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
 		</div>
 
 		<div class="wrap">
@@ -55,7 +55,15 @@
 		{% endfor %}
 	</div>
 	
-	<div class="page-redes">
+	<div id="redes">
+
+		<div class="head clearfix">
+			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
+			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
+			<a class="hamb showMenu" href="#menu"></a>
+			<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+		</div>
+
 		{% include twigFolder ~ '/pages/redes.html.twig' %}
 	</div>
 </div>
