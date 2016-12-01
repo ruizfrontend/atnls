@@ -8,6 +8,7 @@
 /*global EDI */
 /*global YT */
 /*global Popcorn */
+/*global Cookies */
 
 
 /*global dataCalc */
@@ -36,57 +37,6 @@ var atnls = {
     atnls.initUI();
   },
           // función control de redimensionados______________________________________________________
-  handleResize: function() {
-
-    atnls.cache.winWidth = atnls.cache.$window.width();
-    atnls.cache.winHeigth = atnls.cache.$window.height();
-
-    atnls.cache.responsive = atnls.cache.winWidth < 800 ? true : false;
-    atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
-
-
-
-    var padd = 10;
-    var maxWidth = 1500;
-    var proportion = 0.67; //9 / 16; // 3 / 4; 
-    var w, h, top;
-
-    if(atnls.cache.winWidth > maxWidth) {
-      
-      w = maxWidth;
-      h = maxWidth * proportion;
-      top = (atnls.cache.winHeigth - h) / 2;
-
-      atnls.cache.$canvas.css({
-        'left': (atnls.cache.winWidth - w) / 2,
-        'top': top > 0 ? top : 0,
-        'width': w,
-        'height': h
-      });
-
-    } else if(atnls.cache.winWidth > atnls.cache.breakpoint){
-      
-      w = atnls.cache.winWidth - (2 * padd);
-      h = (w * proportion);
-      top = (atnls.cache.winHeigth - h) / 2;
-
-      atnls.cache.$canvas.css({
-        'left': padd,
-        'top': top > 0 ? top : 0,
-        'width': w,
-        'height': h
-      });
-    } else {
-
-      atnls.cache.$canvas.css({
-        'left': 0,
-        'top': 0,
-        'width': atnls.cache.winWidth,
-        'height': atnls.cache.winHeigth
-      });
-
-    }
-  },
 
   preload: function(ready) {
     $.get(projRoot + rawData.ajaxUrl, function(e){
@@ -94,13 +44,14 @@ var atnls = {
       ready();
     }, 'html');
   },
+
   initUrls: function() {
 
     labTools.url.data.baseUrl = '';
 
     labTools.url.initiate(false, atnls.updatePage, function(){ console.log('url changed!!'); });
 
-      // url management
+      // internal links
     $('.url-lib').click(function(){
         // ignore if link is active
       if($(this).hasClass('url-current')) return false;
@@ -113,6 +64,50 @@ var atnls = {
     });
 
   },
+  initUI: function() {
+
+    atnls.initPlayer();
+    atnls.initNav();
+    atnls.initVid();
+
+  },
+
+  initNav: function() {
+
+      // toggle credits page
+    $('.toggleCredits').click(function(){
+      
+      $('#menu').hide();
+      $('#credits').fadeToggle(400);
+    
+      return false;
+    });
+
+    $('.hideCredits').click(function(){
+      
+      $('#credits').fadeOut(400);
+
+      return false;
+    });
+
+
+      // toggle menu
+    $('.showMenu').click(function(){
+      
+      $('#credits').hide();
+      $('#menu').fadeToggle(400);
+    
+      return false;
+    });
+
+    $('.hideMenu').click(function(){
+      
+      $('#menu').fadeOut(400);
+
+      return false;
+    });
+  },
+
 
   updatePage: function(target) {
     
@@ -189,60 +184,6 @@ var atnls = {
 
   },
 
-  initUI: function() {
-
-    atnls.initPlayer();
-    atnls.initNav();
-
-    $('body')
-      .delegate('.twIntent, .verso', 'click', atnls.tweetText);
-    
-
-    $('.share-poema-twitter').click(function(){
-
-    });
-
-    $('.share-poema-facebook').click(function(){
-
-    });
-  },
-
-  initNav: function() {
-
-      // toggle credits page
-    $('.toggleCredits').click(function(){
-      
-      $('#menu').hide();
-      $('#credits').fadeToggle(400);
-    
-      return false;
-    });
-
-    $('.hideCredits').click(function(){
-      
-      $('#credits').fadeOut(400);
-
-      return false;
-    });
-
-
-      // toggle menu
-    $('.showMenu').click(function(){
-      
-      $('#credits').hide();
-      $('#menu').fadeToggle(400);
-    
-      return false;
-    });
-
-    $('.hideMenu').click(function(){
-      
-      $('#menu').fadeOut(400);
-
-      return false;
-    });
-  },
-
   tweetText: function(e) {
     var $text = $(this);
     var text = $text.data('text') ? $text.data('text') : $text.text() ? $text.text() : null;
@@ -288,6 +229,23 @@ var atnls = {
       $('.bl-playlist').slideToggle();
 
       return false;
+    });
+
+    atnls.initShares();
+  },
+
+  initShares: function() {
+
+    $('body')
+      .delegate('.twIntent, .verso', 'click', atnls.tweetText);
+    
+
+    $('.share-poema-twitter').click(function(){
+
+    });
+
+    $('.share-poema-facebook').click(function(){
+
     });
   },
 
@@ -384,10 +342,64 @@ var atnls = {
 
       if(atnls.player.active.muted()) {
         atnls.player.active.unmute();
+        Cookies.set('muted', 0);
       } else {
         atnls.player.active.mute();
+        Cookies.set('muted', 1);
       }
       return false;
+    }
+  },
+  
+  handleResize: function() {
+
+    atnls.cache.winWidth = atnls.cache.$window.width();
+    atnls.cache.winHeigth = atnls.cache.$window.height();
+
+    atnls.cache.responsive = atnls.cache.winWidth < 800 ? true : false;
+    atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
+
+
+
+    var padd = 10;
+    var maxWidth = 1500;
+    var proportion = 0.67; //9 / 16; // 3 / 4; 
+    var w, h, top;
+
+    if(atnls.cache.winWidth > maxWidth) {
+      
+      w = maxWidth;
+      h = maxWidth * proportion;
+      top = (atnls.cache.winHeigth - h) / 2;
+
+      atnls.cache.$canvas.css({
+        'left': (atnls.cache.winWidth - w) / 2,
+        'top': top > 0 ? top : 0,
+        'width': w,
+        'height': h
+      });
+
+    } else if(atnls.cache.winWidth > atnls.cache.breakpoint){
+      
+      w = atnls.cache.winWidth - (2 * padd);
+      h = (w * proportion);
+      top = (atnls.cache.winHeigth - h) / 2;
+
+      atnls.cache.$canvas.css({
+        'left': padd,
+        'top': top > 0 ? top : 0,
+        'width': w,
+        'height': h
+      });
+    } else {
+
+      atnls.cache.$canvas.css({
+        'left': 0,
+        'top': 0,
+        'width': atnls.cache.winWidth,
+        'height': atnls.cache.winHeigth
+      });
+
     }
   },
 
