@@ -246,6 +246,8 @@ var atnls = {
     $('.plyr-play').click(atnls.player.togglePlay);
     $('.plyr-next').click(atnls.player.next);
     $('.plyr-mute').click(atnls.player.toggleMute);
+    $('#openPoemas').click(atnls.player.back2Poems);
+    $('#closePoemas').click(atnls.player.keepBrowsing);
     $('.plyr-list').click(function(){
       $('.bl-playlist').slideToggle();
 
@@ -276,6 +278,13 @@ var atnls = {
     mute: true,
     miniDisplay: false,
     isVideoPlaying: false,
+
+    keepBrowsing: function() {
+      atnls.player.miniDisplay = true;
+    },
+    back2Poems: function() {
+      
+    },
 
     prev: function() {
 
@@ -346,9 +355,11 @@ var atnls = {
             start: times[i-1]/1000,
             end: times[i]/1000,
             onStart: function(options) {
-              $body
+              var verso = $body
                 .find('.act').removeClass('act').end()
                 .find('.verso:eq(' + pos + ')').addClass('act');
+
+              $('#miniplayer .bl-player-current-inn').text(verso.text());
             },
             // onEnd: function( options ) {
             //  console.log(pos + ' end');
