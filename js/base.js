@@ -115,7 +115,7 @@ var atnls = {
 
       // toggle menu
     $('.showMenu').click(function(){
-      
+      console.log('da')
       $('#credits').hide();
       $('#menu').fadeToggle(400);
     
@@ -194,6 +194,16 @@ var atnls = {
       $('#poetas').fadeIn(400);
     } else {
       $('#poetas').hide();
+    }
+
+    if (target.indexOf('/presentacion') != -1) {
+      $('#presentacion').fadeIn(400);
+
+      $('#presentacion').show().click(function(){ atnls.video.playVideo($(this)); });
+      atnls.video.launchYoutube(1, $('#presentacion .vid')[0]);
+
+    } else {
+      $('#presentacion').hide();
     }
 
     if (target.indexOf('/redes') != -1) {
