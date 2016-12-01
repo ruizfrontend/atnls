@@ -36,8 +36,6 @@ var atnls = {
 
     atnls.initUI();
   },
-          // función control de redimensionados______________________________________________________
-
   preload: function(ready) {
     $.get(projRoot + rawData.ajaxUrl, function(e){
       $('#content').html(e);
@@ -52,7 +50,7 @@ var atnls = {
     labTools.url.initiate(false, atnls.updatePage, function(){ console.log('url changed!!'); });
 
       // internal links
-    $('.url-lib').click(function(){
+    $('body').delegate('.url-lib', 'click', function(){
         // ignore if link is active
       if($(this).hasClass('url-current')) return false;
 
@@ -69,6 +67,29 @@ var atnls = {
     atnls.initPlayer();
     atnls.initNav();
     atnls.initVid();
+
+  },
+
+    // video inicial de lgm
+  initVid: function() {
+    var player = parseInt(Cookies.get('initVid'));
+
+    $('#jumpInitVid').click(function(){ $('#initVid').fadeOut(400); });
+
+    if(!player) {
+
+      Cookies.set('initVid', 1);
+
+      $('#initVid').show().click(function(){ atnls.video.playVideo($(this)); });
+      atnls.video.launchYoutube(1, $('#initVid .vid')[0], { end: function(){ $('#initVid').fadeOut(400); }});
+
+      setTimeout(function(){ $('#jumpInitVid').fadeIn('1000'); }, 4000);
+    } else {
+
+    }
+  },
+
+  postInitVid: function() {
 
   },
 
@@ -127,7 +148,7 @@ var atnls = {
 
     $('#credits, #menu').fadeOut(400);
 
-      // pinta la página correspondiente
+      // pinta la página correspondiente (controlador lol)
     if(target.indexOf('/poemas') != -1) {
 
       $('#poemas').fadeIn(400);
@@ -254,6 +275,7 @@ var atnls = {
     activePage: null,
     mute: true,
     miniDisplay: false,
+    isVideoPlaying: false,
 
     prev: function() {
 
@@ -308,7 +330,8 @@ var atnls = {
 
       if(prevAudio && prevAudio.muted()) atnls.player.active.mute();
 
-      $audio[0].play();
+        // autoplay
+      if(!atnls.player.isVideoPlaying) $audio[0].play();
 
       if(!times) return;
 
@@ -350,7 +373,8 @@ var atnls = {
       return false;
     }
   },
-  
+
+          // función control de redimensionados______________________________________________________
   handleResize: function() {
 
     atnls.cache.winWidth = atnls.cache.$window.width();
@@ -437,6 +461,107 @@ var atnls = {
     // });
 
   videoCache: {},
+  video: {
+    launchYoutube: function(i, elm, opts) {
+      var $wrap = $(elm);
+
+      var videoData = $wrap.data();
+      var videoID = videoData.video;
+      var videoLoop = videoData.loop;
+      var videoAutoplay = videoData.autoplay;
+      var videoBackground = videoData.playbackground;
+      var videomuted = videoData.muted;
+      var controls = videoData.controls;
+
+      var id = 'player-' + parseInt(1000 * Math.random()).toString();
+
+      if(Modernizr.touch) {
+        $wrap.html('')
+          .unbind('click')
+          .prepend('<iframe id="'+id+'" width="560" height="315" src="https://www.youtube.com/embed/'+videoID+'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>');
+        return;
+      }
+
+      if(!$wrap.find('iframe').length) {
+
+        $wrap.prepend('<div id="'+id+'"></div>');
+
+        var settings = {
+          autoplay: videoAutoplay,
+          controls: controls ? controls : 0,
+          loop: videoLoop,
+
+          showinfo: 0,
+          modestbranding: 0,
+          playsinline: 1,
+          rel: 0,
+        };
+
+        if(videoBackground) $wrap.addClass('background');
+
+        atnls.videoCache[id] = new YT.Player(id, {
+          videoId: videoID,
+          playerVars: settings,
+          events: {
+            onReady: function(event){
+            },
+            onStateChange: function(event){
+              switch(event.data){
+                case 0: // fin
+                  if(opts && opts.end) opts.end();
+                case 2: // pause
+                  $wrap.removeClass('playing');
+                  $wrap.find('.poster').fadeIn(200);
+                  atnls.player.isVideoPlaying = false;
+                break;
+                case 1: // play
+                  atnls.video.stopAll(id);
+                  $wrap.addClass('playing');
+                  $wrap.find('.poster').fadeOut(600);
+                  atnls.player.isVideoPlaying = true;
+                break;
+              }
+            },
+            onError: function(){
+              $wrap.removeClass('playing');
+              $wrap.find('.poster').show();
+            },
+            onApiChange: function(){
+              $wrap.removeClass('playing');
+              $wrap.find('.poster').show();
+            }
+          }
+        });
+
+      } else {
+        if($wrap.hasClass('playing')) return;
+        atnls.videoCache[$wrap.find('iframe').attr('id')].playVideo();
+      }
+
+    },
+    playVideo: function($iframe) {
+      var id = $iframe.attr('id');
+      if(!id) return;
+      if(!atnls.videoCache[id] || !atnls.videoCache[id].playVideo) return;
+      atnls.videoCache[id].playVideo();
+    },
+    stopAll: function(except) {
+      for (var key in atnls.videoCache) {
+        if(except && key == except) return;
+        if (atnls.videoCache.hasOwnProperty(key)) {
+          if(atnls.videoCache[key].stopVideo) atnls.videoCache[key].stopVideo();
+        }
+      }
+    },
+    stopVideo: function($iframe) {
+      var id = $iframe.attr('id');
+      if(!id || !atnls.videoCache[id]) { console.log('video no encontrado'); return; }
+      atnls.videoCache[id].stopVideo();
+    },
+    pauseSection: function(wrap) {
+      $(wrap).find('.playing iframe').each(function(){ atnls.video.stopVideo($(this)); });
+    }
+  },
 
 };
 
