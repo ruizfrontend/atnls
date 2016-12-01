@@ -130,7 +130,6 @@ var atnls = {
       }
     });
 
-    atnls.player.stopAll();
     $('#credits, #menu').fadeOut(400);
 
       // pinta la página correspondiente
@@ -294,7 +293,28 @@ var atnls = {
 
   player: {
     active: null,
+    activePage: null,
     mute: true,
+    miniDisplay: false,
+
+    prev: function() {
+
+    },
+    next: function() {
+      if(!atnls.player.active) return;
+
+    },
+    togglePlay: function() {
+      if(!atnls.player.active) return false;
+
+      if(atnls.player.active.paused()) {
+        atnls.player.active.play();
+      } else {
+        atnls.player.active.pause();
+      }
+      
+      return false;
+    },
 
     initAudio: function() {
 
@@ -302,16 +322,37 @@ var atnls = {
     stopAll: function() {
       $('audio, video').each(function(){ this.pause(); });
       atnls.player.active = null;
+
+      return false;
     },
     playPage: function($page) {
+
+        // si el widget está activado, el comportamiento cambia
+      if(atnls.player.miniDisplay) {
+
+        atnls.player.miniDisplay = false;
+        return;
+      }
+
+        // 
+      atnls.player.stopAll();
+
       var $body = $page.find('.poema-body');
       var times = $body.data('times');
-      if(!times) return;
 
       var id = 'd' + Date.now();
       var $audio = $page.find('audio').attr('id', id);
 
+      var prevAudio = atnls.player.active;
+
       atnls.player.active = Popcorn('#' + id);
+      atnls.player.activePage = $page;
+
+      if(prevAudio && prevAudio.muted()) atnls.player.active.mute();
+
+      $audio[0].play();
+
+      if(!times) return;
 
       for (var i = 0; i < times.length; i++) {
         if(i === 0) continue;
@@ -335,14 +376,17 @@ var atnls = {
 
         })();
 
-      };
-      $audio[0].play();
+      }
     },
     toggleMute: function() {
-      console.log(atnls.player.active)
-      atnls.player.active.muted = !atnls.player.active.muted;
-      atnls.player.mute = atnls.player.active.muted;
+      console.log(atnls.player.active);
+      if(!atnls.player.active) return;
 
+      if(atnls.player.active.muted()) {
+        atnls.player.active.unmute();
+      } else {
+        atnls.player.active.mute();
+      }
       return false;
     }
   },
