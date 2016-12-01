@@ -1,14 +1,15 @@
 /* Desarrollo: David Ruiz @2016__________________________ */
 
 'use strict';
-/*global labTools */
-/*global Modernizr */
-/*global Waypoint */
-/*global $ */
-/*global EDI */
-/*global YT */
-/*global Popcorn */
-/*global Cookies */
+/* global labTools */
+/* global Modernizr */
+/* global Waypoint */
+/* global $ */
+/* global EDI */
+/* global YT */
+/* global Popcorn */
+/* global Cookies */
+/* global projRoot */
 
 
 /*global dataCalc */
@@ -186,6 +187,7 @@ var atnls = {
 
     } else {
       $('#poemas').hide();
+      if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
     }
 
     if (target.indexOf('/poetas') != -1) {
@@ -274,24 +276,56 @@ var atnls = {
 
   player: {
     active: null,
-    activePage: null,
+    $activePoemPage: null,
     mute: true,
     miniDisplay: false,
     isVideoPlaying: false,
+    audios: {},
 
     keepBrowsing: function() {
+      labTools.url.setUrl(projRoot + 'poetas/');
+
+      $('#miniplayer').slideDown(400);
+
       atnls.player.miniDisplay = true;
+
+      return false;
     },
     back2Poems: function() {
       
+      labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
+
+      atnls.player.$activePoemPage.fadeIn(400);
+      $('#miniplayer').slideUp(400);
+
+      atnls.player.miniDisplay = false;
+
+      return false;
     },
 
     prev: function() {
 
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev()) return;
+
+      if(!atnls.player.miniDisplay) {
+        labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.prev().data('poema'));
+      } else {
+        atnls.player.playPage(atnls.player.$activePoemPage.prev());
+      }
+      
+      return false;
+
     },
     next: function() {
-      if(!atnls.player.active) return;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next()) return;
 
+      if(!atnls.player.miniDisplay) {
+        labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.next().data('poema'));
+      } else {
+        atnls.player.playPage(atnls.player.$activePoemPage.next());
+      }
+      
+      return false;
     },
     togglePlay: function() {
       if(!atnls.player.active) return false;
@@ -316,33 +350,45 @@ var atnls = {
     },
     playPage: function($page) {
 
-        // si el widget está activado, el comportamiento cambia
-      if(atnls.player.miniDisplay) {
+      var poema = $page.data('poema');
 
-        atnls.player.miniDisplay = false;
-        return;
+      var PCaudio = atnls.player.audios[poema] ? atnls.player.audios[poema] : atnls.player.initPage($page);
+      atnls.player.audios[poema] = PCaudio;
+
+      if(atnls.player.active == PCaudio) return;
+
+      if(!atnls.player.miniDisplay) PCaudio.currentTime(0);
+
+        // audio reproducido previamente? Toma propiedades
+      var prevAudio = atnls.player.active;
+      if(prevAudio && prevAudio.muted()) {
+        PCaudio.mute();
+      } else {
+        PCaudio.unmute();
       }
 
-        // 
       atnls.player.stopAll();
 
-      var $body = $page.find('.poema-body');
-      var times = $body.data('times');
+        // save info
+      atnls.player.active = PCaudio;
+      atnls.player.$activePoemPage = $page;
+
+        // autoplay
+      if(!atnls.player.isVideoPlaying) PCaudio.play();
+
+    },
+    initPage: function($page) {
 
       var id = 'd' + Date.now();
       var $audio = $page.find('audio').attr('id', id);
 
-      var prevAudio = atnls.player.active;
+      var PCaudio = Popcorn('#' + id);
 
-      atnls.player.active = Popcorn('#' + id);
-      atnls.player.activePage = $page;
+      $audio.on('ended', atnls.player.next);
 
-      if(prevAudio && prevAudio.muted()) atnls.player.active.mute();
-
-        // autoplay
-      if(!atnls.player.isVideoPlaying) $audio[0].play();
-
-      if(!times) return;
+      var $body = $page.find('.poema-body');
+      var times = $body.data('times');
+      if(!times) { console.log('No hay minutado!'); return PCaudio; };
 
       for (var i = 0; i < times.length; i++) {
         if(i === 0) continue;
@@ -351,7 +397,7 @@ var atnls = {
           
           var pos = i - 1;
 
-          atnls.player.active.code({
+          PCaudio.code({
             start: times[i-1]/1000,
             end: times[i]/1000,
             onStart: function(options) {
@@ -369,9 +415,12 @@ var atnls = {
         })();
 
       }
+
+      return PCaudio;
+
     },
     toggleMute: function() {
-      console.log(atnls.player.active);
+
       if(!atnls.player.active) return;
 
       if(atnls.player.active.muted()) {
@@ -588,7 +637,7 @@ atnls.cache = {
   responsive: true,
   mini: true,
 
-  baseUrl: '/atnls',
+  baseUrl: projRoot,
 
   ajaxUrl: '/ajax/',
 
