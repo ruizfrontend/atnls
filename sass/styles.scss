@@ -114,7 +114,58 @@ iframe { border: none; }
   .headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
 
 #compo { position: relative; clear: both;
+  * { cursor: pointer; }
   .wrp { overflow: hidden; }
+  }
+
+  #luis { position: absolute; right: 0.6%; top: 17.4%; width: 25.3%; height: 77%;
+    img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
+    #luis-fill1, #luis-fill2, #luis-end1, #luis-end2, #luis-end3, #luis-end4 { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #luis-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
+      .wrp { height: 0; }
+      img { position: relative; }
+    }
+    &:hover {
+      #luis-fill1 { opacity: 1; }
+      #luis-fill2 { display: block;
+        .wrp { height: 100%; @include transition(all .6s ease-in-out); @include transition-delay(1s); }
+      }
+    }
+    &.luis1 { #luis-end1 { opacity: 1; } }
+    &.luis2 { #luis-end1, #luis-end2 { opacity: 1; } }
+    &.luis3 { #luis-end1, #luis-end2, #luis-end3 { opacity: 1; } }
+    &.luis4 { #luis-end1, #luis-end2, #luis-end3, #luis-end4 { opacity: 1; } }
+    &.luis5 { #luis-end1, #luis-end2, #luis-end3, #luis-end4, #luis-fill1 { opacity: 1; } }
+  }
+
+  #escandar { position: absolute; left: 58.7%; top: 7.2%; width: 20.9%; height: 86%;
+    img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
+    #escandar-fill1, #escandar-fill1bis, #escandar-fill2, #escandar-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #escandar-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
+      .wrp { height: 0; position: absolute; bottom: 0; }
+      img { display: block; position: relative; top: -100%; } }
+    #escandar-text { position: absolute; width: 40%; left: 52.3%; top: 61%; display: block; display: none;
+      img { position: relative; } }
+    &:hover {
+      #escandar-fill1 { opacity: 1; }
+      #escandar-fill1bis { opacity: 1; @include transition-delay(0.7s); }
+    }
+    &.active { #escandar-end { opacity: 1; } }
+  }
+
+  #guille { position: absolute; left: 43.5%; top: 12.2%; width: 22.7%; height: 86%;
+    img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
+    #guille-fill1, #guille-fill1bis, #guille-fill2, #guille-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #guille-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
+      .wrp { height: 0; position: absolute; bottom: 0; }
+      img { display: block; position: relative; top: -100%; } }
+    #guille-text { position: absolute; width: 27%; left: 59.5%; top: 14.6%; display: block; display: none;
+      img { position: relative; } }
+    &:hover {
+      #guille-fill1 { opacity: 1; }
+      #guille-fill1bis { opacity: 1; @include transition-delay(0.7s); }
+    }
+    &.active { #guille-end { opacity: 1; } }
   }
 
   #carlos { position: absolute; left: 32.5%; top: 6.9%; width: 20%; height: 73%;
@@ -125,10 +176,6 @@ iframe { border: none; }
       img { display: block; position: relative; top: -100%; } }
     &:hover {
       #carlos-fill1 { opacity: 1; }
-      // #carlos-fill2 { display: block;
-      //   .wrp { height: 100%; @include transition(all .6s ease-in-out); @include transition-delay(1s); }
-      //   img { top: 0; } // @include transition(all 3s ease-in-out); } // @include transition-delay(1s); }
-      // }
     }
     &.active { #carlos-end { opacity: 1; } }
   }
@@ -143,7 +190,7 @@ iframe { border: none; }
       #marwan-dust { opacity: 1; @include transition-delay(1s); }
       #marwan-fill2 { opacity: 1; @include transition-delay(0.5s); }
     }
-    &.active { #marwan-end { opacity: 1; } }
+    &.active { #marwan-end { opacity: 1; } #marwan-dust { opacity: 1; } }
   }
 
   #elvira { position: absolute; left: 18.5%; top: 16.4%; width: 21.7%; height: 83%;

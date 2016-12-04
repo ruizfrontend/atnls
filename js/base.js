@@ -74,39 +74,71 @@ var atnls = {
 
   },
 
+  increaseLuis: function() {
+      var luis = parseInt($('#luis').data('luis'));
+      if(luis > 6) return;
+      $('#luis').data('luis', luis + 1).addClass('luis' + luis);
+  },
+
   initIllus: function() {
 
+    
     $('#escandar').hover(function(){
       
-      $('#carlos-text').delay(400).stop(true,false)
-        .find('img').css('width', $('#elvira-text').width()).end()
+      $('#escandar-text').delay(400).stop(true,false)
+        .find('img').css('width', $('#escandar-text').width()).end()
         .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
         .show();
 
+      $('#escandar-fill2').delay(1000).stop(true,false)
+        .find('img').css('width', $('#escandar-fill2').width()).css('top', -1 * $('#escandar-fill2').height()).delay(1000).animate({'top': 0}, 1200).end()
+        .find('.wrp').css('height', 0).delay(1000).animate({'height': $('#escandar-fill2').height()}, 1200).end()
+        .show();
+
     }, function(){
-      $('#carlos-text').stop(true,false).hide();
-      $('#carlos-text img').stop(true,false).css('width', '100%');
-      $('#carlos-text .wrp').stop(true,false).css('width', 0);
+      $('#escandar-fill2').stop(true,false).hide();
+      $('#escandar-fill2 .wrp').stop(true,false).css('height', 0);
+      $('#escandar-fill2 img').stop(true,false).css('top', '-100%');
+
+      $('#escandar-text').stop(true,false).hide();
+      $('#escandar-text img').stop(true,false).css('width', '100%');
+      $('#escandar-text .wrp').stop(true,false).css('width', 0);
     
     }).click(function(){
-      $(this).addClass('active');
+      var $this = $(this).addClass('active');
+      if(!$this.hasClass('viewed')) {
+        $this.addClass('viewed');
+        atnls.increaseLuis();
+      }
     });
     
-
     $('#guille').hover(function(){
       
-      $('#carlos-text').delay(400).stop(true,false)
-        .find('img').css('width', $('#elvira-text').width()).end()
+      $('#guille-text').delay(400).stop(true,false)
+        .find('img').css('width', $('#guille-text').width()).end()
         .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
         .show();
 
+      $('#guille-fill2').delay(1000).stop(true,false)
+        .find('img').css('width', $('#guille-fill2').width()).css('top', -1 * $('#guille-fill2').height()).delay(1000).animate({'top': 0}, 1200).end()
+        .find('.wrp').css('height', 0).delay(1000).animate({'height': $('#guille-fill2').height()}, 1200).end()
+        .show();
+
     }, function(){
-      $('#carlos-text').stop(true,false).hide();
-      $('#carlos-text img').stop(true,false).css('width', '100%');
-      $('#carlos-text .wrp').stop(true,false).css('width', 0);
+      $('#guille-fill2').stop(true,false).hide();
+      $('#guille-fill2 .wrp').stop(true,false).css('height', 0);
+      $('#guille-fill2 img').stop(true,false).css('top', '-100%');
+
+      $('#guille-text').stop(true,false).hide();
+      $('#guille-text img').stop(true,false).css('width', '100%');
+      $('#guille-text .wrp').stop(true,false).css('width', 0);
     
     }).click(function(){
-      $(this).addClass('active');
+      var $this = $(this).addClass('active');
+      if(!$this.hasClass('viewed')) {
+        $this.addClass('viewed');
+        atnls.increaseLuis();
+      }
     });
 
 
@@ -122,7 +154,11 @@ var atnls = {
       $('#carlos-fill2 .wrp').stop(true,false).css('height', 0);
     
     }).click(function(){
-      $(this).addClass('active');
+      var $this = $(this).addClass('active');
+      if(!$this.hasClass('viewed')) {
+        $this.addClass('viewed');
+        atnls.increaseLuis();
+      }
     });
 
 
@@ -139,7 +175,11 @@ var atnls = {
       $('#marwan-text .wrp').stop(true,false).css('width', 0);
 
     }).click(function(){
-      $(this).addClass('active');
+      var $this = $(this).addClass('active');
+      if(!$this.hasClass('viewed')) {
+        $this.addClass('viewed');
+        atnls.increaseLuis();
+      }
     });
 
 
@@ -156,7 +196,11 @@ var atnls = {
       $('#elvira-text .wrp').stop(true,false).css('width', 0);
     
     }).click(function(){
-      $(this).addClass('active');
+      var $this = $(this).addClass('active');
+      if(!$this.hasClass('viewed')) {
+        $this.addClass('viewed');
+        atnls.increaseLuis();
+      }
     });
   },
 
