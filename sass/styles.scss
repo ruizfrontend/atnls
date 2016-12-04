@@ -30,7 +30,8 @@ $green: #35bebd;
 $breakpoint: 980;
 
   /* ELEMENTOS GENERALES */
-body { background: white; padding: 0; @include oxy; font-size: 14px; line-height: 1.2em; font-weight: 300; }
+body { background: white; padding: 0; @include oxy; font-size: 14px; line-height: 1.2em; font-weight: 300;
+      position: absolute; height: 100%; width: 100%; }
 a { cursor: pointer!important; color: $yellow; font-weight: 900; @include transition(all 0.4s ease-in-out); }
 a.btn { text-decoration: none; }
 a:hover { color: $green; }
@@ -85,19 +86,20 @@ iframe { border: none; }
 // .url-current { color: red; }
 // .url-active { background: #ccc; }
 
-#webdoc { position: absolute; overflow: auto; background: url('./img/fondo-low-low.jpg'); box-shadow: 0 10px 10px #ccc; }
-#webdoc:before { content: ''; display: block; position: absolute; z-index: 0; pointer-events: none; width: 100%; height: 100%;
-  background: -moz-linear-gradient(left, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 89%, rgba(0,0,0,0.18) 99%, rgba(0,0,0,0.05) 100%);
-  background: -webkit-linear-gradient(left, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 89%,rgba(0,0,0,0.18) 99%,rgba(0,0,0,0.05) 100%);
-  background: linear-gradient(to right, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,0.05) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#33000000',GradientType=1 );
-}
+#webdoc { overflow: hidden; background: url('./img/fondo-low-low.jpg'); box-shadow: 0 10px 10px #ccc; height: 100%; position: relative; }
+.wrap { width: 100%; max-width: 1500px; margin: 0 auto; }
+  #webdoc:before { content: ''; display: block; position: absolute; z-index: 0; pointer-events: none; width: 100%; height: 100%;
+    background: -moz-linear-gradient(left, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 89%, rgba(0,0,0,0.18) 99%, rgba(0,0,0,0.05) 100%);
+    background: -webkit-linear-gradient(left, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 89%,rgba(0,0,0,0.18) 99%,rgba(0,0,0,0.05) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,0.05) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,0.05) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#33000000',GradientType=1 );
+  }
 
 .head { position: relative; top: 0; width: 100%; }
   .logo { display: block; margin: 0 auto; width: 40%; }
-  .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 10px; margin-top: 20px;
+  .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 20px; margin-top: 20px;
       background: url(./img/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
-  .lab { width: 94px; float: right; background-position: -308px -72px; height: 85px; margin-right: 10px; }
+  .lab { width: 94px; float: right; background-position: -308px -72px; height: 85px; margin-right: 20px; }
   .hamb { width: 55px; background-position: -291px -247px; height: 55px; margin-left: 11px; clear: left; margin-top: 10px; }
 
     // cabecera interna
@@ -110,6 +112,58 @@ iframe { border: none; }
         font-weight: 100; margin-left: 0.4em; }
   }
   .headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
+
+#compo { position: relative; clear: both;
+  .wrp { overflow: hidden; }
+  }
+
+  #carlos { position: absolute; left: 32.5%; top: 6.9%; width: 20%; height: 73%;
+    img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
+    #carlos-fill1, #carlos-fill2, #carlos-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #carlos-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
+      .wrp { height: 0; position: absolute; bottom: 0; }
+      img { display: block; position: relative; top: -100%; } }
+    &:hover {
+      #carlos-fill1 { opacity: 1; }
+      // #carlos-fill2 { display: block;
+      //   .wrp { height: 100%; @include transition(all .6s ease-in-out); @include transition-delay(1s); }
+      //   img { top: 0; } // @include transition(all 3s ease-in-out); } // @include transition-delay(1s); }
+      // }
+    }
+    &.active { #carlos-end { opacity: 1; } }
+  }
+
+  #marwan { position: absolute; left: 0; top: 11.8%; width: 24.8%; height: 83%;
+    img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
+    #marwan-text { position: absolute; width: 27%; left: 13.5%; top: 18.6%; display: block; display: none;
+      img { position: relative; } }
+    #marwan-fill1, #marwan-fill2, #marwan-end, #marwan-dust { @include transition(all 0.6s ease-in-out); display: block; opacity: 0; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    &:hover {
+      #marwan-fill1 { opacity: 1; }
+      #marwan-dust { opacity: 1; @include transition-delay(1s); }
+      #marwan-fill2 { opacity: 1; @include transition-delay(0.5s); }
+    }
+    &.active { #marwan-end { opacity: 1; } }
+  }
+
+  #elvira { position: absolute; left: 18.5%; top: 16.4%; width: 21.7%; height: 83%;
+    img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
+    #elvira-text { position: absolute; width: 38.9%; left: 34.5%; top: 10.6%; display: none;
+      img { position: relative; } }
+    #elvira-reloj { position: absolute; width: 8.1%; height: 14%; left: 63.6%; top: 14%;
+      .wrp { height: 0; }
+      img { position: relative; } }
+    #elvira-fill1, #elvira-fill2, #elvira-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #elvira-fill2 { @include transition(all 1s ease-in-out);  }
+    &:hover {
+      #elvira-fill1 { opacity: 1; }
+      #elvira-fill2 { opacity: 1; @include transition-delay(0.5s); }
+      #elvira-reloj { display: block;
+        .wrp { height: 100%; @include transition(all 0.6s ease-in-out); @include transition-delay(1s); }
+      }
+    }
+    &.active { #elvira-end { opacity: 1; } }
+  }
 
 
   // pagina de poemas
@@ -130,7 +184,12 @@ iframe { border: none; }
     }
   }
 
-  .bl-playlist a { text-decoration: none; color: white; @include cutie; font-size: 2.7em; line-height: 1.2em; }
+  .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white;
+      li { display: inline-block; margin: 0 1em;
+        a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; }
+      }
+    // a { text-decoration: none; color: white; @include cutie; font-size: 2.7em; line-height: 1.2em; }
+  }
 }
 
 .bl-player {

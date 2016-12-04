@@ -9,7 +9,9 @@
 /* global YT */
 /* global Popcorn */
 /* global Cookies */
+
 /* global projRoot */
+/* global rawData */
 
 
 /*global dataCalc */
@@ -66,9 +68,96 @@ var atnls = {
   initUI: function() {
 
     atnls.initPlayer();
+    atnls.initIllus();
     atnls.initNav();
     atnls.initVid();
 
+  },
+
+  initIllus: function() {
+
+    $('#escandar').hover(function(){
+      
+      $('#carlos-text').delay(400).stop(true,false)
+        .find('img').css('width', $('#elvira-text').width()).end()
+        .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
+        .show();
+
+    }, function(){
+      $('#carlos-text').stop(true,false).hide();
+      $('#carlos-text img').stop(true,false).css('width', '100%');
+      $('#carlos-text .wrp').stop(true,false).css('width', 0);
+    
+    }).click(function(){
+      $(this).addClass('active');
+    });
+    
+
+    $('#guille').hover(function(){
+      
+      $('#carlos-text').delay(400).stop(true,false)
+        .find('img').css('width', $('#elvira-text').width()).end()
+        .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
+        .show();
+
+    }, function(){
+      $('#carlos-text').stop(true,false).hide();
+      $('#carlos-text img').stop(true,false).css('width', '100%');
+      $('#carlos-text .wrp').stop(true,false).css('width', 0);
+    
+    }).click(function(){
+      $(this).addClass('active');
+    });
+
+
+    $('#carlos').hover(function(){
+      
+      $('#carlos-fill2').delay(400).stop(true,false)
+        .find('img').css('width', $('#carlos-fill2').width()).css('top', -1 * $('#carlos-fill2').height()).animate({'top': 0}, 1200).end()
+        .find('.wrp').css('height', 0).animate({'height': $('#carlos-fill2').height()}, 1200).end()
+        .show();
+
+    }, function(){
+      $('#carlos-fill2').stop(true,false).hide();
+      $('#carlos-fill2 .wrp').stop(true,false).css('height', 0);
+    
+    }).click(function(){
+      $(this).addClass('active');
+    });
+
+
+    $('#marwan').hover(function(){
+      
+      $('#marwan-text').delay(400).stop(true,false)
+        .find('img').css('width', $('#marwan-text').width()).end()
+        .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
+        .show();
+
+    }, function(){
+      $('#marwan-text').stop(true,false).hide();
+      $('#marwan-text img').stop(true,false).css('width', '100%');
+      $('#marwan-text .wrp').stop(true,false).css('width', 0);
+
+    }).click(function(){
+      $(this).addClass('active');
+    });
+
+
+    $('#elvira').hover(function(){
+      
+      $('#elvira-text').delay(400).stop(true,false)
+        .find('img').css('width', $('#elvira-text').width()).end()
+        .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
+        .show();
+
+    }, function(){
+      $('#elvira-text').stop(true,false).hide();
+      $('#elvira-text img').stop(true,false).css('width', '100%');
+      $('#elvira-text .wrp').stop(true,false).css('width', 0);
+    
+    }).click(function(){
+      $(this).addClass('active');
+    });
   },
 
     // video inicial de lgm
@@ -115,7 +204,7 @@ var atnls = {
 
       // toggle menu
     $('.showMenu').click(function(){
-      console.log('da')
+
       $('#credits').hide();
       $('#menu').fadeToggle(400);
     
@@ -159,6 +248,7 @@ var atnls = {
         
         var $this = $(this);
 
+          // checkea la url con la de cada páginas de poemas
         if(target.indexOf($this.data('poema')) != -1) {
           $this.fadeIn(400).addClass('act');
           atnls.player.playPage($this);
@@ -204,6 +294,7 @@ var atnls = {
 
     } else {
       $('#presentacion').hide();
+      atnls.video.stopVideo($('#presentacion iframe'));
     }
 
     if (target.indexOf('/redes') != -1) {
@@ -467,10 +558,10 @@ var atnls = {
       top = (atnls.cache.winHeigth - h) / 2;
 
       atnls.cache.$canvas.css({
-        'left': (atnls.cache.winWidth - w) / 2,
-        'top': top > 0 ? top : 0,
-        'width': w,
-        'height': h
+        // 'left': (atnls.cache.winWidth - w) / 2,
+        // 'top': top > 0 ? top : 0,
+        // 'width': w,
+        // 'height': h
       });
 
     } else if(atnls.cache.winWidth > atnls.cache.breakpoint){
@@ -480,18 +571,18 @@ var atnls = {
       top = (atnls.cache.winHeigth - h) / 2;
 
       atnls.cache.$canvas.css({
-        'left': padd,
-        'top': top > 0 ? top : 0,
-        'width': w,
-        'height': h
+        // 'left': padd,
+        // 'top': top > 0 ? top : 0,
+        // 'width': w,
+        // 'height': h
       });
     } else {
 
       atnls.cache.$canvas.css({
-        'left': 0,
-        'top': 0,
-        'width': atnls.cache.winWidth,
-        'height': atnls.cache.winHeigth
+        // 'left': 0,
+        // 'top': 0,
+        // 'width': atnls.cache.winWidth,
+        // 'height': atnls.cache.winHeigth
       });
 
     }

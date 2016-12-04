@@ -8,15 +8,15 @@
 			<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
 		</div>
 
+		<div class="bl-playlist">
+			{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+		</div>
+
 		<div class="wrap">
 			
 			<div class="col-player">
 
 				<div class="wk-valign"><div class="wk-valign-cont">
-				
-					<div class="bl-playlist" style="display: none;">
-						{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
-					</div>
 
 					<div class="bl-player">
 						<a href="#" class="plyr-prev" title="poema anterior"></a>
@@ -51,7 +51,51 @@
 
 	</div>
 
-	<div id="poetas">
+	<div id="poetas" style="display: none;">
+		<div id="compo">
+
+			<a href="{{ path('poeta', {'poeta': 'elvira-sanchez'}) }}" class="url-lib" id="marwan">
+				<img id="marwan-dust" src="img/marwan-dust.png">
+				<img id="marwan-end" src="img/marwan-end.png">
+				<img id="marwan-fill1" src="img/marwan-fill1.png">
+				<img id="marwan-fill2" src="img/marwan-fill2.png">
+				<div id="marwan-text"><div class="wrp">
+					<img src="img/marwan-text2.png">
+				</div></div>
+			</a>
+
+			<a href="{{ path('poeta', {'poeta': 'marwan'}) }}" class="url-lib" id="elvira">
+				<img id="elvira-end" src="img/elvira-end.png">
+				<img id="elvira-fill1" src="img/elvira-fill1.png">
+				<img id="elvira-fill2" src="img/elvira-fill2.png">
+				<div id="elvira-text"><div class="wrp">
+					<img src="img/elvira-texto.png">
+				</div></div>
+				<div id="elvira-reloj"><div class="wrp">
+					<img src="img/elvira-reloj.png">
+				</div></div>
+			</a>
+
+			<a href="{{ path('poeta', {'poeta': 'carlos-prado'}) }}" class="url-lib" id="carlos">
+				<img id="carlos-end" src="img/carlos-end.png">
+				<img id="carlos-fill1" src="img/carlos-fill1.png">
+				<div id="carlos-fill2"><div class="wrp">
+					<img src="img/carlos-fill2.png">
+				</div></div>
+			</a>
+
+			<a href="{{ path('poeta', {'poeta': 'escandar-algeet'}) }}" class="url-lib" id="escandar">
+			</a>
+
+			<a href="{{ path('poeta', {'poeta': 'guille-galvan'}) }}" class="url-lib" id="guille">
+			</a>
+
+			<a href="{{ path('poeta', {'poeta': 'luis-garcia-montero'}) }}" class="url-lib" id="luis">
+			</a>
+
+			<img src="img/bg1.jpg" style="width: 100%; height: auto;">
+		</div>
+
 		{% for poeta, name in rawData['poetas'] %}
 			<div class="page-poeta">{% include twigFolder ~ '/pages/poeta.html.twig' with {'poetaId': poeta, 'list': false} %}</div>
 		{% endfor %}
