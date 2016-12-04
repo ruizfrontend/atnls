@@ -1,11 +1,7 @@
-{{ poeta }}{# <h2>Listado de poetas</h2>
-<ul>
-	{% for poeta, name in rawData['poetas'] %}
-
-		{% set target = path('poeta', {'poeta': poeta}) %}
-		
-		<li><a class="url-lib {% if target == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
-
-	{% endfor %}
-</ul>
- #}
+<div class="poeta-col-l">
+	<img src="./img/{{ poetaId | split('-') | first }}-alone.jpg">
+</div>
+<div class="poeta-col-R">
+	<h2>Texto de {{ poeta }}</h2>
+	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
+</div>

@@ -324,11 +324,36 @@ var atnls = {
       if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
     }
 
+
     if (target.indexOf('/poetas') != -1) {
       $('#poetas').fadeIn(400);
+
+      var found = false;
+      $('#poetas .page-poeta').each(function(){
+        
+        var $this = $(this);
+
+          // checkea la url con la de cada páginas de poemas
+        if(target.indexOf($this.data('poeta')) != -1) {
+          $this.fadeIn(400).addClass('act');
+          found = true;
+
+        } else {
+          $this.removeClass('act').fadeOut(500);
+
+        }
+      });
+
+      if(!found) {
+      
+      } else {
+      
+      }
+
     } else {
       $('#poetas').hide();
     }
+
 
     if (target.indexOf('/presentacion') != -1) {
       $('#presentacion').fadeIn(400);
