@@ -96,7 +96,7 @@ iframe { border: none; }
   // }
 
 .head { position: relative; top: 0; width: 100%; padding-bottom: 1em; }
-  .logo { display: block; margin: 0 auto; width: 40%; }
+  .logo { display: block; margin: 0 auto; width: 40%; padding-top: 1.6em; }
   .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 20px; margin-top: 20px;
       background: url(./img/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
   .hamb:hover { @include transform(rotate(90deg)); }

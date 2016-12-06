@@ -218,7 +218,7 @@ var atnls = {
       // toggle credits page
     $('.toggleCredits').click(function(){
       
-      $('#menu').hide();
+      $('#menu').fadeOut(400);
       $('#credits').fadeToggle(400);
     
       return false;
@@ -235,7 +235,7 @@ var atnls = {
       // toggle menu
     $('.showMenu').click(function(){
 
-      $('#credits').hide();
+      $('#credits').fadeOut(400);
       $('#menu').fadeToggle(400);
     
       return false;
@@ -317,7 +317,7 @@ var atnls = {
       }
 
     } else {
-      $('#poemas').hide();
+      $('#poemas').fadeOut(400);
       if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
     }
 
