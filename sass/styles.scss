@@ -26,7 +26,7 @@
 
 $yellow: #a876af;
 // $green: #1c262c;
-$green: #35bebd;
+$green: #35bebd; .bg-green { background: $green; color: #333; }
 $breakpoint: 980;
 
   /* ELEMENTOS GENERALES */
@@ -242,11 +242,16 @@ iframe { border: none; }
     }
   }
 
-  .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden;
+  .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
+      ul { width: 20000px; }
       li { display: inline-block; margin: 0 1em;
-        a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; }
+        a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; line-height: 3em; padding: 0 1em; @include transition(none);
+          &.act { font-weight: 900; font-size: 1.3em; }
+        }
       }
     // a { text-decoration: none; color: white; @include cutie; font-size: 2.7em; line-height: 1.2em; }
+    #playlist-before, #playlist-after { display: block; height: 20px; width: 20px; left: 0; }
+    #playlist-after { position: absolute; right: 0; left: inherit; }
   }
 }
 
@@ -262,7 +267,7 @@ iframe { border: none; }
   .plyr-mute { background-position: -177px -186px; }
 
   .bl-timer { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 1em 0; }
-    .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 50%;  }
+    .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 0; }
 }
 
 .verso { display: block; float: left; clear: left; padding: 0 0.4em; position: relative; cursor: pointer; }
@@ -758,3 +763,56 @@ iframe { border: none; }
 // }
 
 // .footer-title { background: $yellow; color: white; text-transform: uppercase; margin: 0; line-height: 2.4em; text-align: center; }
+
+/*****************************************************
+ * generic styling for ALS elements: outer container
+ ******************************************************/
+
+.als-container {
+  position: relative;
+  width: 100%;
+  margin: 0px auto;
+  z-index: 0;
+}
+
+/****************************************
+ * viewport styling
+ ***************************************/
+
+.als-viewport {
+  position: relative;
+  overflow: hidden;
+  margin: 0px auto;
+}
+
+/***************************************************
+ * wrapper styling
+ **************************************************/
+
+.als-wrapper {
+  position: relative;
+  /* if you are using a list with <ul> <li> */
+  list-style: none;
+}
+
+/*************************************
+ * item: single list element
+ ************************************/
+
+.als-item {
+  position: relative;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  float: left;
+}
+
+/***********************************************
+ * prev, next: buttons styling
+ **********************************************/
+ 
+.als-prev, .als-next {
+  position: absolute;
+  cursor: pointer;
+  clear: both;
+}

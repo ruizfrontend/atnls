@@ -189,6 +189,26 @@ var atnls = {
     }
   },
 
+  // scroll: {
+  //   $wrap: '.bl-playlist',
+  //   init: function() {
+  //     atnls.scroll.$wrap = $(atnls.scroll.$wrap);
+  //     $(window).bind('orientationchange resize', throttle(atnls.scroll.update, 200)).resize();
+  //     atnls.scroll.update();
+
+  //     $('#playlist-after').mouseenter()('#playlist-before');
+  //   },
+  //   update: {
+
+  //   },
+  //   scrollLeft: function(){
+
+  //   },
+  //   scrollRight: function(){
+
+  //   }
+  // },
+
   postInitVid: function() {
 
   },
@@ -268,9 +288,13 @@ var atnls = {
 
           $this.fadeIn(400).addClass('act');
 
+          $('.bl-playlist').find('.act').removeClass('act').end()
+            .find('[href*="' + $this.data('poema') + '"]').addClass('act');
+
           atnls.player.playPage($this);
           found = true;
 
+            // recalcula alto
           var $elm = $this;
           setTimeout(function(){
             var height = $elm.height();
@@ -391,10 +415,10 @@ var atnls = {
 
   tweetText: function(e) {
     var $text = $(this);
-    var text = $text.data('text') ? $text.data('text') : $text.text() ? $text.text() : null;
+    var text = $text.data('text') ? $text.data('text') : $text.html() ? $text.html() : null;
     if(!text) return false;
 
-    atnls.openTweet(text);
+    atnls.openTweet(text.replace(/<br>/g, " "));
   },
 
   openTweet: function(texto, url) {
@@ -466,7 +490,7 @@ var atnls = {
     audios: {},
 
     keepBrowsing: function() {
-      labTools.url.setUrl(projRoot + 'poetas/');
+      labTools.url.setUrl(projRoot);
 
       $('#miniplayer').slideDown(400);
 
@@ -489,7 +513,7 @@ var atnls = {
 
     prev: function() {
 
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev()) return false;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev().length) return false;
 
       if(!atnls.player.miniDisplay) {
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.prev().data('poema'));
@@ -501,7 +525,7 @@ var atnls = {
 
     },
     next: function() {
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next()) return false;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next().length) return false;
 
       if(!atnls.player.miniDisplay) {
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.next().data('poema'));

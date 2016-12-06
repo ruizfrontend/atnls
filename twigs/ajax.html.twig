@@ -9,8 +9,12 @@
 			<span class="url-lib titleThis"><strong>Selección de poemas</strong></span>
 		</div>
 
-		<div class="bl-playlist">
-			{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+		<div class="bl-playlist als-container">
+			<a href="#" id="playlist-before" class="als-prev"></a>
+			<div class="als-viewport">
+				{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+			</div>
+			<a href="#" id="playlist-after" class="als-next"></a>
 		</div>
 
 		<div class="wrap">
@@ -38,11 +42,13 @@
 			</div>
 
 			<div class="col-poemas">
-				{% for poema, name in rawData['poemas'] %}
-					<div class="page-poema" style="display: none;" data-poema="{{ poema }}"><div class="scrool-wrap">
-						{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}
-					</div></div>
-				{% endfor %}
+				<div>
+					{% for poema, name in rawData['poemas'] %}
+						<div class="page-poema" style="display: none;" data-poema="{{ poema }}"><div class="scrool-wrap">
+							{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}
+						</div></div>
+					{% endfor %}
+				</div>
 				<div class="bl-helpPlayer">
 					Selecciona un poema en la parte inferior de la pantalla <br>
 					Controla la reproducción con los controles de la izquierda <br>
@@ -51,11 +57,11 @@
 			</div>
 
 			<div class="col-help"><div class="wk-valign"><div class="wk-valign-cont">
-				<p>Comparte el poema completo<br>con tus amigos<br>
+				<p><strong>Comparte el poema completo</strong><br>con tus amigos<br>
 					<a href="#" class="share-poema-twitter" title="compartir en twitter"></a>
 					<a href="#" class="share-poema-facebook" title="compartir en Facebook"></a>
 				</p>
-				<p>O <span>selecciona un verso</span><br>y compártelo</p>
+				<p>o <span class="bg-green">selecciona un verso</span><br>y compártelo</p>
 			</div></div></div>
 		</div>
 
