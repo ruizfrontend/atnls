@@ -231,13 +231,15 @@ iframe { border: none; }
 
   .player { float: left; height: 100%; width: 300px; }
 
-  .col-player, .col-poemas, .col-help { float: left; width: 40%; height: 100%; @include box-sizing(border-box); }
+  .col-player, .col-poemas, .col-help { float: left; width: 30%; height: 100%; @include box-sizing(border-box); }
+  .col-poemas { width: 40%; }
+  .col-player { max-width: 400px; }
 
   // .col-poemas { overflow: auto; }
   @media (min-width: 800px) {
-    .col-player { padding-left: 2em; }
+    .col-player { padding: 0 1em; }
     .col-poemas { padding-left: 2em }
-    .col-help { width: 20%; text-align: right;
+    .col-help { width: 20%; text-align: right; padding: 0 1em;
       p { text-align: right; }
     }
   }
@@ -256,7 +258,7 @@ iframe { border: none; }
   }
 }
 
-.bl-player { max-width: 280px; text-align: center; margin: 0 auto;
+.bl-player { max-width: 280px; text-align: left; margin: 0 auto;
   a { display: inline-block; width: 44px; height: 44px; margin-right: 10px; background: #ccc;
       background: url(./img/atnls-sprite.png) -19px -186px no-repeat; @include transition(none); }
   // .plyr-prev { }
