@@ -76,8 +76,12 @@ var atnls = {
 
   increaseLuis: function() {
       var luis = parseInt($('#luis').data('luis'));
+      
       if(luis > 6) return;
-      $('#luis').data('luis', luis + 1).addClass('luis' + luis);
+
+      setTimeout(function(){
+        $('#luis').data('luis', luis + 1).addClass('luis' + luis);
+      }, 600);
   },
 
   initIllus: function() {
@@ -104,12 +108,6 @@ var atnls = {
       $('#escandar-text img').stop(true,false).css('width', '100%');
       $('#escandar-text .wrp').stop(true,false).css('width', 0);
     
-    }).click(function(){
-      var $this = $(this).addClass('active');
-      if(!$this.hasClass('viewed')) {
-        $this.addClass('viewed');
-        atnls.increaseLuis();
-      }
     });
     
     $('#guille').hover(function(){
@@ -133,12 +131,6 @@ var atnls = {
       $('#guille-text img').stop(true,false).css('width', '100%');
       $('#guille-text .wrp').stop(true,false).css('width', 0);
     
-    }).click(function(){
-      var $this = $(this).addClass('active');
-      if(!$this.hasClass('viewed')) {
-        $this.addClass('viewed');
-        atnls.increaseLuis();
-      }
     });
 
 
@@ -153,12 +145,6 @@ var atnls = {
       $('#carlos-fill2').stop(true,false).hide();
       $('#carlos-fill2 .wrp').stop(true,false).css('height', 0);
     
-    }).click(function(){
-      var $this = $(this).addClass('active');
-      if(!$this.hasClass('viewed')) {
-        $this.addClass('viewed');
-        atnls.increaseLuis();
-      }
     });
 
 
@@ -174,12 +160,6 @@ var atnls = {
       $('#marwan-text img').stop(true,false).css('width', '100%');
       $('#marwan-text .wrp').stop(true,false).css('width', 0);
 
-    }).click(function(){
-      var $this = $(this).addClass('active');
-      if(!$this.hasClass('viewed')) {
-        $this.addClass('viewed');
-        atnls.increaseLuis();
-      }
     });
 
 
@@ -195,12 +175,6 @@ var atnls = {
       $('#elvira-text img').stop(true,false).css('width', '100%');
       $('#elvira-text .wrp').stop(true,false).css('width', 0);
     
-    }).click(function(){
-      var $this = $(this).addClass('active');
-      if(!$this.hasClass('viewed')) {
-        $this.addClass('viewed');
-        atnls.increaseLuis();
-      }
     });
   },
 
@@ -280,7 +254,9 @@ var atnls = {
       }
     });
 
+
     $('#credits, #menu').fadeOut(400);
+
 
       // pinta la página correspondiente (controlador lol)
     if(target.indexOf('/poemas') != -1) {
@@ -294,7 +270,9 @@ var atnls = {
 
           // checkea la url con la de cada páginas de poemas
         if(target.indexOf($this.data('poema')) != -1) {
+
           $this.fadeIn(400).addClass('act');
+
           atnls.player.playPage($this);
           found = true;
 
@@ -326,7 +304,6 @@ var atnls = {
 
 
     if (target.indexOf('/poetas') != -1) {
-      $('#poetas').fadeIn(400);
 
       var found = false;
       $('#poetas .page-poeta').each(function(){
@@ -335,45 +312,79 @@ var atnls = {
 
           // checkea la url con la de cada páginas de poemas
         if(target.indexOf($this.data('poeta')) != -1) {
-          $this.fadeIn(400).addClass('act');
+
+          if(atnls.cache.initialLoad) {
+            $this.show().addClass('act');
+          } else {
+            $this.fadeIn(400).addClass('act');
+          }
+          
           found = true;
 
         } else {
-          $this.removeClass('act').fadeOut(500);
+          if($this.hasClass('act')) {
+            
+            $this.removeClass('act').fadeOut(500);
+
+            if(!$this.hasClass('viewed')) {
+              $this.addClass('viewed');
+              setTimeout(function(){
+                $('#compo [href*="' + $this.data('poeta') + '"]').addClass('viewed');
+              }, 500);
+              atnls.increaseLuis();
+            }
+          }
 
         }
       });
 
       if(!found) {
-      
+        if(atnls.cache.initialLoad) {
+          $('#poetas').show();
+        } else {
+          $('#poetas').fadeIn(400);
+        }
       } else {
-      
+        $('#poetas').show();
       }
 
     } else {
-      $('#poetas').hide();
+      $('#poetas').fadeOut(400);
     }
 
 
     if (target.indexOf('/presentacion') != -1) {
-      $('#presentacion').fadeIn(400);
+      if(atnls.cache.initialLoad) {
+        $('#presentacion').show();
+      } else {
+        $('#presentacion').fadeIn(400);
+      }
+        
 
       $('#presentacion').show().click(function(){ atnls.video.playVideo($(this)); });
       atnls.video.launchYoutube(1, $('#presentacion .vid')[0]);
 
     } else {
-      $('#presentacion').hide();
+      $('#presentacion').fadeOut();
       atnls.video.stopVideo($('#presentacion iframe'));
     }
 
     if (target.indexOf('/redes') != -1) {
-      $('#redes').fadeIn(400);
+      if(atnls.cache.initialLoad) {
+        $('#redes').show();
+      } else {
+        $('#redes').fadeIn(400);
+      }
+        
     } else {
-      $('#redes').hide();
+      $('#redes').fadeOut(400);
       // asumimos home
     }
 
     $('#loader').fadeOut(400);
+
+
+    atnls.cache.initialLoad = false; // marca la primera carga de la página
 
   },
 
@@ -808,6 +819,8 @@ atnls.cache = {
   mini: true,
 
   baseUrl: projRoot,
+
+  initialLoad: true,
 
   ajaxUrl: '/ajax/',
 

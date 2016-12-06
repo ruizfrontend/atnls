@@ -99,6 +99,7 @@ iframe { border: none; }
   .logo { display: block; margin: 0 auto; width: 40%; }
   .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 20px; margin-top: 20px;
       background: url(./img/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
+  .hamb:hover { @include transform(rotate(90deg)); }
   .lab { width: 94px; float: right; background-position: -308px -72px; height: 85px; margin-right: 20px; }
   .hamb { width: 55px; background-position: -291px -247px; height: 55px; margin-left: 11px; clear: left; margin-top: 10px; }
 
@@ -108,9 +109,10 @@ iframe { border: none; }
     .lab { background-position: -308px -155px; }
     .hamb { background-position: -232px -247px; }
     .head { z-index: 1; }
-    .titleHome { color: #333; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
+    .titleHome { color: white; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
         font-weight: 100; margin-left: 0.4em; }
   }
+
 
     // cabeceras internas blancas
   .page-poeta {
@@ -157,7 +159,7 @@ iframe { border: none; }
       #escandar-fill1 { opacity: 1; }
       #escandar-fill1bis { opacity: 1; @include transition-delay(0.7s); }
     }
-    &.active { #escandar-end { opacity: 1; } }
+    &.viewed { #escandar-end { opacity: 1; } }
   }
 
   #guille { position: absolute; left: 43.5%; top: 12.2%; width: 22.7%; height: 86%;
@@ -172,7 +174,7 @@ iframe { border: none; }
       #guille-fill1 { opacity: 1; }
       #guille-fill1bis { opacity: 1; @include transition-delay(0.7s); }
     }
-    &.active { #guille-end { opacity: 1; } }
+    &.viewed { #guille-end { opacity: 1; } }
   }
 
   #carlos { position: absolute; left: 32.5%; top: 6.9%; width: 20%; height: 73%;
@@ -184,7 +186,7 @@ iframe { border: none; }
     &:hover {
       #carlos-fill1 { opacity: 1; }
     }
-    &.active { #carlos-end { opacity: 1; } }
+    &.viewed { #carlos-end { opacity: 1; } }
   }
 
   #marwan { position: absolute; left: 0; top: 11.8%; width: 24.8%; height: 83%;
@@ -197,7 +199,7 @@ iframe { border: none; }
       #marwan-dust { opacity: 1; @include transition-delay(1s); }
       #marwan-fill2 { opacity: 1; @include transition-delay(0.5s); }
     }
-    &.active { #marwan-end { opacity: 1; } #marwan-dust { opacity: 1; } }
+    &.viewed { #marwan-end { opacity: 1; } #marwan-dust { opacity: 1; } }
   }
 
   #elvira { position: absolute; left: 18.5%; top: 16.4%; width: 21.7%; height: 83%;
@@ -216,7 +218,7 @@ iframe { border: none; }
         .wrp { height: 100%; @include transition(all 0.6s ease-in-out); @include transition-delay(1s); }
       }
     }
-    &.active { #elvira-end { opacity: 1; } }
+    &.viewed { #elvira-end { opacity: 1; } }
   }
 
   // pagina de poemas
@@ -286,11 +288,12 @@ iframe { border: none; }
 
 #loader { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white url(./img/loading2.gif) center center no-repeat; z-index: 999; }
 
-.page-poeta { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; @include transition(all 0.6s ease-in-out); 
+.page-poeta { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; //@include transition(all 0.6s ease-in-out); 
     background: url('./img/fondo-low-low.jpg'); color: #333;
-  .poeta-col-l, .poeta-col-r { width: 50%; float: left;
+  .poeta-col-l, .poeta-col-r { width: 50%; float: left; @include box-sizing(border-box);
     img { width: 100%; height: auto; }
   } 
+  .poeta-col-l { padding-right: 1em; }
 }
 
 #initVid, #initVid iframe { z-index: 100; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black; }
