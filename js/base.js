@@ -367,6 +367,11 @@ var atnls = {
           // checkea la url con la de cada páginas de poemas
         if(target.indexOf($this.data('poeta')) != -1) {
 
+          var $prefoto = $this.find('.preFoto');
+          if($prefoto.length) { console.log('si')
+            $prefoto.html('<img src="' + $prefoto.data('src') + '">').removeClass('preFoto');
+          }
+
           if(atnls.cache.initialLoad) {
             $this.show().addClass('act');
           } else {

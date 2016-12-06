@@ -1,7 +1,13 @@
 <div class="poeta-col-l">
-	<img src="./img/{{ poetaId | split('-') | first }}-alone.jpg">
+	{% if ajax is not defined %}
+		<img src="./img/{{ poetaId | split('-') | first }}-alone.jpg">
+	{% else %}
+		<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone.jpg"></div>
+	{% endif %}
 </div>
 <div class="poeta-col-R">
-	<h2>Texto de {{ poeta }}</h2>
+	{% if ajax is not defined %}
+		<h2>Presentación de {{ poeta }}</h2>
+	{% endif %}
 	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
 </div>
