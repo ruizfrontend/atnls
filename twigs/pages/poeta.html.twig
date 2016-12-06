@@ -5,9 +5,29 @@
 		<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone.jpg"></div>
 	{% endif %}
 </div>
-<div class="poeta-col-R">
+<div class="poeta-col-r">
 	{% if ajax is not defined %}
 		<h2>Presentación de {{ poeta }}</h2>
 	{% endif %}
+
 	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
+
+	<a href="#" class="btn btn-red">Ver video</a>
+
+	{% for poeta, name in rawData['poetas'] %}
+		{% if act is defined %}
+			{% if act == poetaId %}
+				<div class="col-l"><a class="url-lib btn" href="{{ path('poeta', {'poeta': poeta}) }}">Siguiente poeta: {{ rawData['poetas'][poeta] }}</a></div>
+			{% endif %}
+			{% set prev = act %}
+		{% endif %}
+		{% if poeta == poetaId and prev is defined %}
+			<div class="col-l"><a class="url-lib btn" href="{{ path('poeta', {'poeta': prev}) }}">Anterior: {{ rawData['poetas'][prev] }}</a></div>
+		{% endif %}
+		{% set act = poeta %}
+	{% endfor %}
+	
+	<div class="poeta-col-r-bottom">
+	</div>
+
 </div>
