@@ -81,7 +81,7 @@ var atnls = {
 
       setTimeout(function(){
         $('#luis').data('luis', luis + 1).addClass('luis' + luis);
-      }, 600);
+      }, 1000);
   },
 
   initIllus: function() {
@@ -94,15 +94,7 @@ var atnls = {
         .find('.wrp').css('width', 0).animate({'width': '100%'}, 1200).end()
         .show();
 
-      $('#escandar-fill2').delay(1000).stop(true,false)
-        .find('img').css('width', $('#escandar-fill2').width()).css('top', -1 * $('#escandar-fill2').height()).delay(1000).animate({'top': 0}, 1200).end()
-        .find('.wrp').css('height', 0).delay(1000).animate({'height': $('#escandar-fill2').height()}, 1200).end()
-        .show();
-
     }, function(){
-      $('#escandar-fill2').stop(true,false).hide();
-      $('#escandar-fill2 .wrp').stop(true,false).css('height', 0);
-      $('#escandar-fill2 img').stop(true,false).css('top', '-100%');
 
       $('#escandar-text').stop(true,false).hide();
       $('#escandar-text img').stop(true,false).css('width', '100%');
@@ -257,9 +249,12 @@ var atnls = {
 
     $('#credits, #menu').fadeOut(400);
 
+    var foundGlobal = false;
 
       // pinta la página correspondiente (controlador lol)
     if(target.indexOf('/poemas') != -1) {
+
+      foundGlobal = true;
 
       $('#poemas').fadeIn(400);
 
@@ -303,7 +298,42 @@ var atnls = {
     }
 
 
-    if (target.indexOf('/poetas') != -1) {
+    if (target.indexOf('/presentacion') != -1) {
+      
+      foundGlobal = true;
+
+      if(atnls.cache.initialLoad) {
+        $('#presentacion').show();
+      } else {
+        $('#presentacion').fadeIn(400);
+      }
+        
+
+      $('#presentacion').show().click(function(){ atnls.video.playVideo($(this)); });
+      atnls.video.launchYoutube(1, $('#presentacion .vid')[0]);
+
+    } else {
+      $('#presentacion').fadeOut();
+      atnls.video.stopVideo($('#presentacion iframe'));
+    }
+
+    if (target.indexOf('/redes') != -1) {
+      
+      foundGlobal = true;
+
+      if(atnls.cache.initialLoad) {
+        $('#redes').show();
+      } else {
+        $('#redes').fadeIn(400);
+      }
+        
+    } else {
+      $('#redes').fadeOut(400);
+      // asumimos home
+    }
+
+
+    if (!foundGlobal) {
 
       var found = false;
       $('#poetas .page-poeta').each(function(){
@@ -331,7 +361,9 @@ var atnls = {
               setTimeout(function(){
                 $('#compo [href*="' + $this.data('poeta') + '"]').addClass('viewed');
               }, 500);
-              atnls.increaseLuis();
+
+              if($this.data('poeta') != 'luis-garcia-montero') atnls.increaseLuis();
+
             }
           }
 
@@ -348,37 +380,6 @@ var atnls = {
         $('#poetas').show();
       }
 
-    } else {
-      $('#poetas').fadeOut(400);
-    }
-
-
-    if (target.indexOf('/presentacion') != -1) {
-      if(atnls.cache.initialLoad) {
-        $('#presentacion').show();
-      } else {
-        $('#presentacion').fadeIn(400);
-      }
-        
-
-      $('#presentacion').show().click(function(){ atnls.video.playVideo($(this)); });
-      atnls.video.launchYoutube(1, $('#presentacion .vid')[0]);
-
-    } else {
-      $('#presentacion').fadeOut();
-      atnls.video.stopVideo($('#presentacion iframe'));
-    }
-
-    if (target.indexOf('/redes') != -1) {
-      if(atnls.cache.initialLoad) {
-        $('#redes').show();
-      } else {
-        $('#redes').fadeIn(400);
-      }
-        
-    } else {
-      $('#redes').fadeOut(400);
-      // asumimos home
     }
 
     $('#loader').fadeOut(400);
@@ -472,6 +473,7 @@ var atnls = {
 
       return false;
     },
+
     back2Poems: function() {
       
       labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
@@ -508,13 +510,18 @@ var atnls = {
       
       return false;
     },
+    timeupdate: function() {
+      $('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
+    },
     togglePlay: function() {
       if(!atnls.player.active) return false;
 
       if(atnls.player.active.paused()) {
         atnls.player.active.play();
+        $('.plyr-play').removeClass('paused');
       } else {
         atnls.player.active.pause();
+        $('.plyr-play').addClass('paused');
       }
       
       return false;
@@ -566,6 +573,7 @@ var atnls = {
       var PCaudio = Popcorn('#' + id);
 
       $audio.on('ended', atnls.player.next);
+      $audio.on('timeupdate', atnls.player.timeupdate);
 
       var $body = $page.find('.poema-body');
       var times = $body.data('times');

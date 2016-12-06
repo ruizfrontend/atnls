@@ -5,7 +5,7 @@
   <div class="wk-valign">
   	<ul class="wk-valign-cont">
 	  <li><a class="url-lib {% if path('presentacion') == url %}url-current{% endif %}" href="{{ path('presentacion') }}">Presentación</a></li>
-	  <li><a class="url-lib url-poly {% if path('poetas') == url %}url-current{% endif %} {% if path('poetas') == url or path('poetas') in url %}url-active{% endif %}" href="{{ path('poetas') }}">Nuevos poetas</a></li>
+	  <li><a class="url-lib url-poly {% if path('home') == url %}url-current{% endif %} {% if path('home') == url or path('home') in url %}url-active{% endif %}" href="{{ path('home') }}">Nuevos poetas</a></li>
 	  <li><a class="url-lib url-poly {% if path('poemas') == url %}url-current{% endif %} {% if path('poemas') == url or path('poemas') in url %}url-active{% endif %}" href="{{ path('poemas') }}">Reproductor de poemas</a></li>
 	  <li><a class="url-lib {% if path('redes') == url %}url-current{% endif %}" href="{{ path('redes') }}">Redes</a></li>
 	  <li><a class="toggleCredits" href="#creditos">Créditos</a></li>

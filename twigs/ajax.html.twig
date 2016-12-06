@@ -5,7 +5,7 @@
 			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
 			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
 			<a class="hamb showMenu" href="#menu"></a>
-			<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+			<a href="{{ path('home') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
 		</div>
 
 		<div class="bl-playlist">
@@ -23,10 +23,14 @@
 						<a href="#" class="plyr-play" title="inicia la reproducción"></a>
 						<a href="#" class="plyr-next" title="Siguiente poema"></a>
 						<a href="#" class="plyr-mute" title="Silencia la reproducción"></a>
-						<a href="#" class="plyr-list" title="Selecciona poema"></a>
+						{# <a href="#" class="plyr-list" title="Selecciona poema"></a> #}
+
+						<div class="bl-timer">
+							<div class="bl-timer-time"></div>
+						</div>
 					</div>
 					
-					<a href="#" id="closePoemas">Seguir navegando</a>
+					<a href="#" id="closePoemas">Continuar navegando</a>
 
 				</div></div>
 
@@ -51,7 +55,7 @@
 
 	</div>
 
-	<div id="poetas" style="display: none;">
+	<div id="poetas">
 		<div id="compo">
 
 			<a href="{{ path('poeta', {'poeta': 'guille-galvan'}) }}" class="url-lib" id="guille">
@@ -129,7 +133,7 @@
 						<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
 						<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
 						<a class="hamb showMenu" href="#menu"></a>
-						<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+						<a href="{{ path('home') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
 					</div>
 
 					{% include twigFolder ~ '/pages/poeta.html.twig' with {'poeta': name, 'poetaId': poeta, 'list': false} %}
@@ -144,7 +148,7 @@
 			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
 			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
 			<a class="hamb showMenu" href="#menu"></a>
-			<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+			<a href="{{ path('home') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
 		</div>
 
 		{% include twigFolder ~ '/pages/redes.html.twig' %}
@@ -156,7 +160,7 @@
 			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
 			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
 			<a class="hamb showMenu" href="#menu"></a>
-			<a href="{{ path('poetas') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+			<a href="{{ path('home') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
 		</div>
 
 	    <div class="vid" data-autoplay="true" data-loop="false" data-controls="true" data-video="tTq63Or1pMA"><img src="./img/bg-luis.png" class="poster" alt=""></div>

@@ -95,7 +95,7 @@ iframe { border: none; }
   //   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#33000000', endColorstr='#33000000',GradientType=1 );
   // }
 
-.head { position: relative; top: 0; width: 100%; }
+.head { position: relative; top: 0; width: 100%; padding-bottom: 1em; }
   .logo { display: block; margin: 0 auto; width: 40%; }
   .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 20px; margin-top: 20px;
       background: url(./img/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
@@ -129,7 +129,7 @@ iframe { border: none; }
 
   #luis { position: absolute; right: 0.6%; top: 17.4%; width: 25.3%; height: 77%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
-    #luis-fill1, #luis-fill2, #luis-end1, #luis-end2, #luis-end3, #luis-end4 { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #luis-fill1, #luis-fill2, #luis-end1, #luis-end2, #luis-end3, #luis-end4 { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #luis-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
       .wrp { height: 0; }
       img { position: relative; }
@@ -137,7 +137,7 @@ iframe { border: none; }
     &:hover {
       #luis-fill1 { opacity: 1; }
       #luis-fill2 { display: block;
-        .wrp { height: 100%; @include transition(all .6s ease-in-out); @include transition-delay(1s); }
+        .wrp { height: 100%; @include transition(all 1s ease-in-out); @include transition-delay(0.6s); }
       }
     }
     &.luis1 { #luis-end1 { opacity: 1; } }
@@ -149,14 +149,15 @@ iframe { border: none; }
 
   #escandar { position: absolute; left: 58.7%; top: 7.2%; width: 20.9%; height: 86%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
-    #escandar-fill1, #escandar-fill1bis, #escandar-fill2, #escandar-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
-    #escandar-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
-      .wrp { height: 0; position: absolute; bottom: 0; }
+    #escandar-fill1, #escandar-fill1bis, #escandar-fill2, #escandar-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #escandar-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 0; @include transition(all 1s ease-in-out); @include transition-delay(1s);
+      // .wrp { height: 0; position: absolute; bottom: 0; }
       img { display: block; position: relative; top: -100%; } }
     #escandar-text { position: absolute; width: 40%; left: 52.3%; top: 61%; display: block; display: none;
       img { position: relative; } }
     &:hover {
       #escandar-fill1 { opacity: 1; }
+      #escandar-fill2 { opacity: 1; }
       #escandar-fill1bis { opacity: 1; @include transition-delay(0.7s); }
     }
     &.viewed { #escandar-end { opacity: 1; } }
@@ -164,7 +165,7 @@ iframe { border: none; }
 
   #guille { position: absolute; left: 43.5%; top: 12.2%; width: 22.7%; height: 86%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
-    #guille-fill1, #guille-fill1bis, #guille-fill2, #guille-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #guille-fill1, #guille-fill1bis, #guille-fill2, #guille-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #guille-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
       .wrp { height: 0; position: absolute; bottom: 0; }
       img { display: block; position: relative; top: -100%; } }
@@ -179,7 +180,7 @@ iframe { border: none; }
 
   #carlos { position: absolute; left: 32.5%; top: 6.9%; width: 20%; height: 73%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
-    #carlos-fill1, #carlos-fill2, #carlos-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #carlos-fill1, #carlos-fill2, #carlos-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #carlos-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
       .wrp { height: 0; position: absolute; bottom: 0; }
       img { display: block; position: relative; top: -100%; } }
@@ -193,7 +194,7 @@ iframe { border: none; }
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #marwan-text { position: absolute; width: 27%; left: 13.5%; top: 18.6%; display: block; display: none;
       img { position: relative; } }
-    #marwan-fill1, #marwan-fill2, #marwan-end, #marwan-dust { @include transition(all 0.6s ease-in-out); display: block; opacity: 0; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #marwan-fill1, #marwan-fill2, #marwan-end, #marwan-dust { @include transition(all 1s ease-in-out); display: block; opacity: 0; } // @include transform-origin(50%); @include transition-delay(0.4s);
     &:hover {
       #marwan-fill1 { opacity: 1; }
       #marwan-dust { opacity: 1; @include transition-delay(1s); }
@@ -209,7 +210,7 @@ iframe { border: none; }
     #elvira-reloj { position: absolute; width: 8.1%; height: 14%; left: 63.6%; top: 14%;
       .wrp { height: 0; }
       img { position: relative; } }
-    #elvira-fill1, #elvira-fill2, #elvira-end { @include transition(all 0.6s ease-in-out); display: block; opacity: 0; } // @include transform-origin(50%); @include transition-delay(0.4s);
+    #elvira-fill1, #elvira-fill2, #elvira-end { @include transition(all 1s ease-in-out); display: block; opacity: 0; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #elvira-fill2 { @include transition(all 1s ease-in-out);  }
     &:hover {
       #elvira-fill1 { opacity: 1; }
@@ -222,8 +223,8 @@ iframe { border: none; }
   }
 
   // pagina de poemas
-#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 51, 51, 0.98); color: white; overflow: auto; 
-  .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden;
+#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 51, 51, 0.98); color: white; overflow: auto; z-index: 10;
+  .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden; padding-bottom: 55px;
       top: 0; width: 100%; margin: 0 auto; box-sizing: border-box; display: block; left: 0; right: 0; }
 
   .player { float: left; height: 100%; width: 300px; }
@@ -239,7 +240,7 @@ iframe { border: none; }
     }
   }
 
-  .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white;
+  .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden;
       li { display: inline-block; margin: 0 1em;
         a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; }
       }
@@ -252,9 +253,14 @@ iframe { border: none; }
       background: url(./img/atnls-sprite.png) -19px -186px no-repeat; }
   // .plyr-prev { }
   .plyr-next { background-position: -120px -186px; }
-  .plyr-play { background-position: -66px -186px; }
+  .plyr-play { background-position: -66px -186px;
+    &.paused { background-position: -120px -186px; }
+  }
   .plyr-pause { background-position: -66px -186px; }
   .plyr-mute { background-position: -177px -186px; }
+
+  .bl-timer { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 1em 0; }
+    .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 50%;  }
 }
 
 .verso { display: block; float: left; clear: left; padding: 0 0.4em; position: relative; cursor: pointer; }
@@ -275,12 +281,12 @@ iframe { border: none; }
   .hideCredits { @include closeWhite; }
 }
 
-#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: #222222; color: white;
+#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(51, 51, 51, 0.98); color: white;
   a { text-decoration: none; color: white; &:hover { color: $green; }}
   .closeRedes { @include closeWhite; }
 }
 
-#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; z-index: 10; font-size: 1.6em; line-height: 2.4em;
+#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; z-index: 20; font-size: 1.6em; line-height: 2.4em;
   a { text-decoration: none; color: white; font-weight: 100; text-transform: uppercase; &:hover { color: $green; }}
   .url-current { border: 2.1px solid white; padding: 0.2em 0.6em;  &:hover { color: white; }}
   .hideMenu { @include closeWhite; }
