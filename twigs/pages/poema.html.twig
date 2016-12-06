@@ -5,7 +5,11 @@
 <div itemscope itemtype="http://schema.org/CreativeWork">
 
 	<div itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
-		<audio src="{{ path('poemaAudio', {'poema': poemaId}) }}"></audio>
+		{% if ajax is defined %}
+			<div class="audio" src="{{ path('poemaAudio', {'poema': poemaId}) }}"></div>
+		{% else %}
+			<audio src="{{ path('poemaAudio', {'poema': poemaId}) }}"></audio>
+		{% endif %}
 	</div>
 	
 	<meta itemprop="author" content="Luis García Montero">

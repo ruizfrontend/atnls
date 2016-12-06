@@ -1,3 +1,5 @@
+{% set ajax = true %}
+
 <div id="ajax">
 	<div id="poemas" style="display: none;" >
 		
@@ -9,12 +11,10 @@
 			<span class="url-lib titleThis"><strong>Selección de poemas</strong></span>
 		</div>
 
-		<div class="bl-playlist als-container">
-			<a href="#" id="playlist-before" class="als-prev"></a>
-			<div class="als-viewport">
-				{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
-			</div>
-			<a href="#" id="playlist-after" class="als-next"></a>
+		<div class="bl-playlist">
+			{# <a href="#" id="playlist-before"></a> #}
+			{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+			{# <a href="#" id="playlist-after"></a> #}
 		</div>
 
 		<div class="wrap">
@@ -177,7 +177,7 @@
 			<span class="url-lib titleThis"><strong>Presentación de Luis</strong></span>
 		</div>
 
-	    <div class="vid" data-autoplay="true" data-loop="false" data-controls="true" data-video="tTq63Or1pMA"><img src="./img/bg-luis.png" class="poster" alt=""></div>
+	    <div class="vid" data-autoplay="true" data-loop="false" data-controls="true" data-video="tTq63Or1pMA"><img src="./img/bg-luis.jpg" class="poster" alt=""></div>
 	</div>
 
 	<div id="miniplayer">

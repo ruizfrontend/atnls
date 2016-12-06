@@ -457,11 +457,17 @@ var atnls = {
     $('#openPoemas').click(atnls.player.back2Poems);
     $('#closePoemas').click(atnls.player.keepBrowsing);
     $('.bl-timer').click(atnls.player.timeChange);
-    // $('.plyr-list').click(function(){
-    //   $('.bl-playlist').slideToggle();
-
-    //   return false;
-    // });
+    
+    $('.bl-playlist').mThumbnailScroller({
+      axis: 'x', //change to "y" for vertical scroller
+      type: 'click-50',
+      markup:{
+        buttonsHTML:{
+          left: '<span id="playlist-before"></aspan>',
+          right: '<span id="playlist-after"></span>'
+        },
+      },
+    });
 
     atnls.initShares();
   },
@@ -560,9 +566,6 @@ var atnls = {
       return false;
     },
 
-    initAudio: function() {
-
-    },
     stopAll: function() {
       $('audio, video').each(function(){ this.pause(); });
       atnls.player.active = null;
@@ -570,6 +573,8 @@ var atnls = {
       return false;
     },
     playPage: function($page) {
+
+      atnls.player.stopAll();
 
       var poema = $page.data('poema');
 
@@ -588,20 +593,33 @@ var atnls = {
         PCaudio.unmute();
       }
 
-      atnls.player.stopAll();
-
         // save info
       atnls.player.active = PCaudio;
       atnls.player.$activePoemPage = $page;
 
         // autoplay
-      if(!atnls.player.isVideoPlaying) PCaudio.play();
+      if(!atnls.player.isVideoPlaying) {
+        PCaudio.play();
+
+        // $(PCaudio).on('ready', function(){ this.play(); console.log('later'); });
+        // if(PCaudio.readyState() > 3) {
+        //   PCaudio.play();
+        // } else {
+        //   $(PCaudio).on('ready', function(){ this.play(); console.log('later') });
+        // }
+        
+      }
+
+      $('.plyr-play').removeClass('paused');
 
     },
     initPage: function($page) {
 
       var id = 'd' + Date.now();
-      var $audio = $page.find('audio').attr('id', id);
+      var $audio = $page.find('.audio');
+      // var id = guidGenerator();//$audio.attr('id', id);
+      $audio.html('<audio src="' + $audio.attr('src') + '" id="' + id + '"></audio>');
+      // var $audio = $page.find('.audio').attr('id', id);
 
       var PCaudio = Popcorn('#' + id);
 
@@ -610,7 +628,7 @@ var atnls = {
 
       var $body = $page.find('.poema-body');
       var times = $body.data('times');
-      if(!times) { console.log('No hay minutado!'); return PCaudio; };
+      if(!times) { console.log('No hay minutado!'); return PCaudio; }
 
       for (var i = 0; i < times.length; i++) {
         if(i === 0) continue;
