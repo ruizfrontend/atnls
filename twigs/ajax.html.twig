@@ -6,6 +6,7 @@
 			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
 			<a class="hamb showMenu" href="#menu"></a>
 			<a href="{{ path('home') }}" class="url-lib titleHome"><strong>Memoria de futuro:</strong> García Montero y la nueva poesía</a>
+			<a href="{{ path('home') }}" class="url-lib titleThis"><strong>Selección de poemas</strong></a>
 		</div>
 
 		<div class="bl-playlist">
@@ -42,6 +43,11 @@
 						{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}
 					</div></div>
 				{% endfor %}
+				<div class="bl-helpPlayer">
+					Selecciona un poema en la parte inferior de la pantalla <br>
+					Controla la reproducción con los controles de la izquierda <br>
+					Comparte los versos del poema pulsando sobre ellos o el poema completo con los botones de la derehca
+				</div>
 			</div>
 
 			<div class="col-help"><div class="wk-valign"><div class="wk-valign-cont">

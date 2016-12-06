@@ -109,15 +109,17 @@ iframe { border: none; }
     .lab { background-position: -308px -155px; }
     .hamb { background-position: -232px -247px; }
     .head { z-index: 1; }
-    .titleHome { color: white; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
+    .titleHome, .titleThis { color: white; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
         font-weight: 100; margin-left: 0.4em; }
+    .titleThis { color: $green }
   }
 
 
     // cabeceras internas blancas
   .page-poeta {
-      .titleHome { color: #333; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
+      .titleHome, .titleThis { color: #333; float: left; line-height: 3.3em; text-decoration: none; font-size: 1.5em; text-transform: uppercase;
          font-weight: 100; margin-left: 0.4em; }
+    .titleThis { color: $green }
   }
 
   .headbar { position: absolute; bottom: 30px; width: 100%; height: auto; }
@@ -248,9 +250,9 @@ iframe { border: none; }
   }
 }
 
-.bl-player {
+.bl-player { max-width: 280px; text-align: center; margin: 0 auto;
   a { display: inline-block; width: 44px; height: 44px; margin-right: 10px; background: #ccc;
-      background: url(./img/atnls-sprite.png) -19px -186px no-repeat; }
+      background: url(./img/atnls-sprite.png) -19px -186px no-repeat; @include transition(none); }
   // .plyr-prev { }
   .plyr-next { background-position: -120px -186px; }
   .plyr-play { background-position: -66px -186px;

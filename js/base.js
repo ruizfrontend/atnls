@@ -77,7 +77,7 @@ var atnls = {
   increaseLuis: function() {
       var luis = parseInt($('#luis').data('luis'));
       
-      if(luis > 6) return;
+      if(luis > 6) return false;
 
       setTimeout(function(){
         $('#luis').data('luis', luis + 1).addClass('luis' + luis);
@@ -287,9 +287,9 @@ var atnls = {
       });
 
       if(!found) {
-        $('.bl-playlist').fadeIn(400);
+        $('.bl-helpPlayer').fadeIn(400);
       } else {
-        $('.bl-playlist').hide();
+        $('.bl-helpPlayer').hide();
       }
 
     } else {
@@ -392,13 +392,13 @@ var atnls = {
   tweetText: function(e) {
     var $text = $(this);
     var text = $text.data('text') ? $text.data('text') : $text.text() ? $text.text() : null;
-    if(!text) return;
+    if(!text) return false;
 
     atnls.openTweet(text);
   },
 
   openTweet: function(texto, url) {
-    if(!texto) return;
+    if(!texto) return false;
 
     var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
         width = 550,
@@ -432,11 +432,12 @@ var atnls = {
     $('.plyr-mute').click(atnls.player.toggleMute);
     $('#openPoemas').click(atnls.player.back2Poems);
     $('#closePoemas').click(atnls.player.keepBrowsing);
-    $('.plyr-list').click(function(){
-      $('.bl-playlist').slideToggle();
+    $('.bl-timer').click(atnls.player.timeChange);
+    // $('.plyr-list').click(function(){
+    //   $('.bl-playlist').slideToggle();
 
-      return false;
-    });
+    //   return false;
+    // });
 
     atnls.initShares();
   },
@@ -488,7 +489,7 @@ var atnls = {
 
     prev: function() {
 
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev()) return;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev()) return false;
 
       if(!atnls.player.miniDisplay) {
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.prev().data('poema'));
@@ -500,7 +501,7 @@ var atnls = {
 
     },
     next: function() {
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next()) return;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next()) return false;
 
       if(!atnls.player.miniDisplay) {
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.next().data('poema'));
@@ -512,6 +513,14 @@ var atnls = {
     },
     timeupdate: function() {
       $('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
+    },
+    timeChange: function(e) {
+      var $bar = $(this);
+      var posX = $bar.offset().left;
+
+      var percent = (e.pageX - posX) / $bar.width();
+
+      atnls.player.active.currentTime(atnls.player.active.duration() * percent);
     },
     togglePlay: function() {
       if(!atnls.player.active) return false;
@@ -543,7 +552,7 @@ var atnls = {
       var PCaudio = atnls.player.audios[poema] ? atnls.player.audios[poema] : atnls.player.initPage($page);
       atnls.player.audios[poema] = PCaudio;
 
-      if(atnls.player.active == PCaudio) return;
+      if(atnls.player.active == PCaudio) return false;
 
       if(!atnls.player.miniDisplay) PCaudio.currentTime(0);
 
@@ -610,7 +619,7 @@ var atnls = {
     },
     toggleMute: function() {
 
-      if(!atnls.player.active) return;
+      if(!atnls.player.active) return false;
 
       if(atnls.player.active.muted()) {
         atnls.player.active.unmute();
@@ -632,6 +641,20 @@ var atnls = {
     atnls.cache.responsive = atnls.cache.winWidth < 800 ? true : false;
     atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
 
+
+    $('#poemas .page-poema.act').each(function(){
+      
+      var $this = $(this);
+
+      var height = $this.height();
+      var pHeight = $('.col-poemas').height();
+
+      if(height > pHeight) {
+        $this.find('.scrool-wrap').slimScroll({ height: pHeight });
+      } else {
+        $this.find('.scrool-wrap').css('height', pHeight).slimScroll({destroy: true});
+      }
+    });
 
 
     var padd = 10;
@@ -676,39 +699,6 @@ var atnls = {
     }
   },
 
-
-
-      // imagenes responsibe
-    // if(!atnls.cache.mini) {
-    //   $('.wrap-graph img').each(function(){
-    //     var $this = $(this);
-    //     var img = $this.attr('src', $this.data('imgbig') );
-    //   });
-    // }
-    // atnls.initIframe();
-
-    // if(mapp) mapp.init();
-    
-    // atnls.drawSlides();
-
-    // $('.closefooter').click(function(){ $('.footer').slideUp(400); return false; });
-
-    // $('p').selectionSharer();
-
-    // $('#toggleMenu').click(function(){ $('html, body').animate({ scrollTop: $('#footer-grid').offset().top - 60 }, 500);; return false; });
-
-    // if(!atnls.cache.responsive) atnls.gl.init();
-
-      // esperamos hasta que la página está cargada al 100% para inicializar todo el tema waypoints
-    // $(window).load(function(){
-
-
-    //   $(window).trigger('resize');
-
-    //   // new Waypoint.Sticky({ element: $('#headFix')[0] });
-
-    // });
-
   videoCache: {},
   video: {
     launchYoutube: function(i, elm, opts) {
@@ -728,7 +718,7 @@ var atnls = {
         $wrap.html('')
           .unbind('click')
           .prepend('<iframe id="'+id+'" width="560" height="315" src="https://www.youtube.com/embed/'+videoID+'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>');
-        return;
+        return false;
       }
 
       if(!$wrap.find('iframe').length) {
@@ -783,20 +773,20 @@ var atnls = {
         });
 
       } else {
-        if($wrap.hasClass('playing')) return;
+        if($wrap.hasClass('playing')) return false;
         atnls.videoCache[$wrap.find('iframe').attr('id')].playVideo();
       }
 
     },
     playVideo: function($iframe) {
       var id = $iframe.attr('id');
-      if(!id) return;
-      if(!atnls.videoCache[id] || !atnls.videoCache[id].playVideo) return;
+      if(!id) return false;
+      if(!atnls.videoCache[id] || !atnls.videoCache[id].playVideo) return false;
       atnls.videoCache[id].playVideo();
     },
     stopAll: function(except) {
       for (var key in atnls.videoCache) {
-        if(except && key == except) return;
+        if(except && key == except) return false;
         if (atnls.videoCache.hasOwnProperty(key)) {
           if(atnls.videoCache[key].stopVideo) atnls.videoCache[key].stopVideo();
         }
@@ -804,7 +794,7 @@ var atnls = {
     },
     stopVideo: function($iframe) {
       var id = $iframe.attr('id');
-      if(!id || !atnls.videoCache[id]) { console.log('video no encontrado'); return; }
+      if(!id || !atnls.videoCache[id]) { console.log('video no encontrado'); return false; }
       atnls.videoCache[id].stopVideo();
     },
     pauseSection: function(wrap) {
