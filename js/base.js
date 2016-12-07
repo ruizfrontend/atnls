@@ -624,6 +624,7 @@ var atnls = {
       var $audio = $page.find('.audio');
       // var id = guidGenerator();//$audio.attr('id', id);
       $audio.html('<audio src="' + $audio.attr('src') + '" id="' + id + '"></audio>');
+      $audio = $audio.find('audio');
       // var $audio = $page.find('.audio').attr('id', id);
 
       var PCaudio = Popcorn('#' + id);
