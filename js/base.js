@@ -368,7 +368,7 @@ var atnls = {
         if(target.indexOf($this.data('poeta')) != -1) {
 
           var $prefoto = $this.find('.preFoto');
-          if($prefoto.length) { console.log('si')
+          if($prefoto.length) {
             $prefoto.html('<img src="' + $prefoto.data('src') + '">').removeClass('preFoto');
           }
 
