@@ -195,7 +195,7 @@ var atnls = {
     }, function(){
       $('#carlos-fill2').stop(true,false).hide();
       $('#carlos-fill2 .wrp').stop(true,false).css('height', 0);
-    
+      $('#carlos-fill2 img').stop(true,false).css('top', 0);
     });
 
 
