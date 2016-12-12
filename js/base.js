@@ -23,7 +23,9 @@ var atnls = {
   init: function() {
     
       // check required libraries
-    if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; }
+    if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; };
+
+    $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
 
     $(window).scrollTop(0);
 
@@ -33,7 +35,7 @@ var atnls = {
   ready: function() {
 
       // redimensionados____________________________________________________________
-    $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
+    $(window).resize();
 
     atnls.initUrls();
 
@@ -41,8 +43,18 @@ var atnls = {
   },
   preload: function(ready) {
     $.get(projRoot + rawData.ajaxUrl, function(e){
-      $('#content').html(e);
+      var $body = $(e);
+      
+      if(atnls.cache.responsive) {
+        $body.find('#compo').remove();
+      } else {
+        $body.find('#compoMobile').remove();
+      }
+
+      $('#content').replaceWith($body);
+
       ready();
+
     }, 'html');
   },
 
@@ -68,7 +80,7 @@ var atnls = {
   initUI: function() {
 
     atnls.initPlayer();
-    atnls.initIllus();
+    if(!atnls.cache.responsive) atnls.initIllus();
     atnls.initNav();
     atnls.initVid();
 
@@ -723,7 +735,7 @@ var atnls = {
         'width': w,
         'height': h
       });
-      
+
     }
 
     // if(atnls.cache.winWidth > maxWidth) {
