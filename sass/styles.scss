@@ -251,7 +251,7 @@ iframe { border: none; }
       background: url(./img/bar-white.png) bottom left no-repeat; }
   }
 
-  .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
+  .bl-playlist { position: fixed; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
       ul { width: 20000px; padding: 0.4em 2em;  }
       li { display: inline-block; margin: 0 1em;
         a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; line-height: 3em; padding: 0 1em; @include transition(none);
@@ -331,7 +331,7 @@ iframe { border: none; }
 
   .poeta-col-r-bottom { position: absolute; width: 100%; bottom: 0; left: 0; }
 
-  .wk-col-50 { padding: 0; img { margin: 1em; } }
+  .wk-col-50 { padding: 0; max-width: 200px; margin-right: 1em; text-align: center; }
 
   h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; letter-spacing: 0.3em; padding-bottom: 0.3em; }
   p { padding-left: 2.4em; margin-bottom: 1em; font-weight: 900; line-height: 1.2em; }
@@ -426,3 +426,19 @@ iframe { border: none; }
     }
   }
 }
+
+
+
+@media (max-width: 800px) {
+  #webdoc { overflow: auto; }
+  .rtve, .lab { display: none; }
+  .titleHome { line-height: 1em!important; margin-top: 10px;
+    strong { display: block; }
+  }
+  .page-poeta { .poeta-col-l, .poeta-col-r { width: 100%; padding: 0 1em; }}
+  #poemas {
+    .wrap { height: auto; position: initial; padding: 0; }
+    .col-player, .col-poemas, .col-help { width: 100%; max-width: inherit; padding: 0 1em; height: auto; .wk-valign { display: block; height: auto; } }
+  }
+}
+
