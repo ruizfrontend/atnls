@@ -87,13 +87,14 @@ var atnls = {
   },
 
   increaseLuis: function() {
-      var luis = parseInt($('#luis').data('luis'));
-      
-      if(luis > 6) return false;
+    var luis = parseInt($('#luis').data('luis'));
+    
+    if(luis > 6) return false;
 
-      setTimeout(function(){
-        $('#luis').data('luis', luis + 1).addClass('luis' + luis);
-      }, 1000);
+    setTimeout(function(){
+      $('#luis').data('luis', luis + 1).addClass('luis' + luis);
+    }, 600);
+
   },
 
   initIllus: function() {
