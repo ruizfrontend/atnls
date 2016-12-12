@@ -9,15 +9,15 @@
 /* ___-_ font-face _-________________ */
 
 @font-face {
-    font-family: 'cutie_starscript';
-    src: url('/atnls/fonts/cutie_star-webfont.woff2') format('woff2'),
-         url('/atnls/fonts/cutie_star-webfont.woff') format('woff');
+    font-family: 'rfont';
+    src: url('http://davidruizlopez.es/ruizfont-webfont.woff2') format('woff2'),
+         url('http://davidruizlopez.es/ruizfont-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 @mixin oxy { font-family: 'Oxygen', sans-serif; }
-@mixin cutie { font-family: 'cutie_starscript', serif; }
+@mixin cutie { font-family: 'rfont', serif; line-height: 1.4em; margin-bottom: 0.2em; letter-spacing: 0.3em; }
 
 @mixin closeWhite { position: absolute; z-index: 1; right: 1em; top: 1em; width: 44px; height: 44px; background: url(./img/atnls-sprite.png) -249px -82px no-repeat; }
 
@@ -32,7 +32,7 @@ $breakpoint: 980;
   /* ELEMENTOS GENERALES */
 body { background: white; padding: 0; @include oxy; font-size: 14px; line-height: 1.2em; font-weight: 300;
       position: absolute; height: 100%; width: 100%; }
-a { cursor: pointer!important; color: $yellow; font-weight: 900; @include transition(all 0.4s ease-in-out); }
+a { cursor: pointer!important; color: $green; font-weight: 900; @include transition(all 0.4s ease-in-out); }
 a.btn { text-decoration: none; padding: 0.6em 1em; background: #333; color: white; display: inline-block; margin: 0.4em 0; }
 a.btn-red { background: #CB324B; }
 a:hover { color: $green; }
@@ -42,7 +42,7 @@ p { font-size: 1.2em; line-height: 1.4em; margin-bottom: 1.4em; }
   p em { font-style: italic; }
 
 h1 { @include cutie; font-size: 10em; line-height: 1em; }
-h2 { @include cutie; line-height: 0.8em; font-size: 6em; margin-bottom: 0.2em; }
+h2 { @include cutie; font-size: 2.4em; margin-bottom: 0.4em; }
 h3 { display: block; text-transform: uppercase; font-weight: 900; font-size: 1.4em; padding-bottom: 3em; line-height: 1.2em; text-decoration: none;
   a { text-decoration: none; color: $yellow; }
   i.fa { color: #333; font-size: 2em; padding-left: 0.5em; }
@@ -66,13 +66,14 @@ iframe { border: none; }
 .wk-media-l { float:left; }
   .wk-media-l img,
   .wk-media-r img { display:block; }
+  img { width: 100%; height: auto; }
 .wk-media-r { display: table-cell; zoom:1; }
 
 /* Columns */
 .wk-col-l { display:inline; float:left; }
 .wk-col-r { display:inline; float:right; }
-.wk-col-50 { width: 48%; margin: 0 1%; }
-.wk-col-33 { width: 33%; }
+.wk-col-50 { width: 50%; @include box-sizing(border-box); padding: 0.4em; }
+.wk-col-33 { width: 33%; @include box-sizing(border-box); padding: 0.4em; }
 .wk-cent { text-align: center; }
 .wk-right { text-align: right; }
 
@@ -130,7 +131,7 @@ iframe { border: none; }
   .wrp { overflow: hidden; }
   }
 
-  #luis { position: absolute; right: 0.6%; top: 17.4%; width: 25.3%; height: 77%;
+  #luis { position: absolute; right: 0.6%; top: 9%; width: 25.3%; height: 77%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #luis-fill1, #luis-fill2, #luis-end1, #luis-end2, #luis-end3, #luis-end4 { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #luis-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
@@ -150,13 +151,13 @@ iframe { border: none; }
     &.luis5 { #luis-end1, #luis-end2, #luis-end3, #luis-end4, #luis-fill1 { opacity: 1; } }
   }
 
-  #escandar { position: absolute; left: 58.7%; top: 7.2%; width: 20.9%; height: 86%;
+  #escandar { position: absolute; left: 58.7%; top: -1.5%; width: 20.9%; height: 86%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #escandar-fill1, #escandar-fill1bis, #escandar-fill2, #escandar-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #escandar-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 0; @include transition(all 1s ease-in-out); @include transition-delay(1s);
       // .wrp { height: 0; position: absolute; bottom: 0; }
       img { display: block; position: relative; top: -100%; } }
-    #escandar-text { position: absolute; width: 40%; left: 52.3%; top: 61%; display: block; display: none;
+    #escandar-text { position: absolute; width: 40%; left: 52.3%; top: 66.4%; display: block; display: none;
       img { position: relative; } }
     &:hover {
       #escandar-fill1 { opacity: 1; }
@@ -166,7 +167,7 @@ iframe { border: none; }
     &.viewed { #escandar-end { opacity: 1; } }
   }
 
-  #guille { position: absolute; left: 43.5%; top: 12.2%; width: 22.7%; height: 86%;
+  #guille { position: absolute; left: 43.5%; top: 4.2%; width: 22.7%; height: 86%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #guille-fill1, #guille-fill1bis, #guille-fill2, #guille-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #guille-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
@@ -181,7 +182,7 @@ iframe { border: none; }
     &.viewed { #guille-end { opacity: 1; } }
   }
 
-  #carlos { position: absolute; left: 32.5%; top: 6.9%; width: 20%; height: 73%;
+  #carlos { position: absolute; left: 32.5%; top: -1.7%; width: 20%; height: 79%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #carlos-fill1, #carlos-fill2, #carlos-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #carlos-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
@@ -193,7 +194,7 @@ iframe { border: none; }
     &.viewed { #carlos-end { opacity: 1; } }
   }
 
-  #marwan { position: absolute; left: 0; top: 11.8%; width: 24.8%; height: 83%;
+  #marwan { position: absolute; left: 0; top: 3.6%; width: 24.8%; height: 83%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #marwan-text { position: absolute; width: 27%; left: 13.5%; top: 18.6%; display: block; display: none;
       img { position: relative; } }
@@ -206,7 +207,7 @@ iframe { border: none; }
     &.viewed { #marwan-end { opacity: 1; } #marwan-dust { opacity: 1; } }
   }
 
-  #elvira { position: absolute; left: 18.5%; top: 16.4%; width: 21.7%; height: 83%;
+  #elvira { position: absolute; left: 18.5%; top: 8.7%; width: 21.7%; height: 83%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #elvira-text { position: absolute; width: 38.9%; left: 34.5%; top: 10.6%; display: none;
       img { position: relative; } }
@@ -226,9 +227,9 @@ iframe { border: none; }
   }
 
   // pagina de poemas
-#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 51, 51, 0.98); color: white; overflow: auto; z-index: 10;
+#poemas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 51, 51, 0.9); color: white; overflow: auto; z-index: 10;
   .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden; padding-bottom: 55px;
-      top: 0; width: 100%; margin: 0 auto; box-sizing: border-box; display: block; left: 0; right: 0; }
+      top: 0; width: 100%; margin: 0 auto; @include box-sizing(border-box); display: block; left: 0; right: 0; }
 
   .player { float: left; height: 100%; width: 300px; }
 
@@ -243,6 +244,11 @@ iframe { border: none; }
     .col-help { width: 20%; text-align: right; padding: 0 1em;
       p { text-align: right; }
     }
+  }
+
+  .page-poema h2 { padding-left: 0.2em; position: relative;
+    &:before { content: ''; display: block; width: 100%; height: 20px; position: absolute; bottom: -0.4em; left: 0; 
+      background: url(./img/bar-white.png) bottom left no-repeat; }
   }
 
   .bl-playlist { position: absolute; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
@@ -265,10 +271,10 @@ iframe { border: none; }
   // .plyr-prev { }
   .plyr-next { background-position: -120px -186px; }
   .plyr-play { background-position: -66px -186px;
-    &.paused { background-position: -120px -186px; }
+    &.paused { background-position: -409px -105px; }
   }
   .plyr-pause { background-position: -66px -186px; }
-  .plyr-mute { background-position: -177px -186px; }
+  // .plyr-mute { background-position: -177px -186px; }
 
   .bl-timer { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 1em 0; }
     .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 0; }
@@ -292,13 +298,18 @@ iframe { border: none; }
   .hideCredits { @include closeWhite; }
 }
 
-#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(51, 51, 51, 0.98); color: white;
+#redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(51, 51, 51, 0.92); color: white;
   a { text-decoration: none; color: white; &:hover { color: $green; }}
   .closeRedes { @include closeWhite; }
 }
 
-#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(0,0,0,0.8); color: white; z-index: 20; font-size: 1.6em; line-height: 2.4em;
-  a { text-decoration: none; color: white; font-weight: 100; text-transform: uppercase; &:hover { color: $green; }}
+#menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; background: rgba(51, 51, 51, 0.92); color: white; 
+    z-index: 20; font-size: 1.6em; line-height: 2.4em; @include cutie; line-height: 2.4em;
+  a { text-decoration: none; color: white; font-weight: 100; text-transform: uppercase; position: relative;
+      &:before { content: ''; display: block; width: 0; height: 20px; position: absolute; bottom: -0.8em; left: 0; @include transition(all 1s);
+      background: url(./img/bar-white.png) bottom left no-repeat; }
+      &:hover:before { width: 100%; }
+  }
   .url-current { border: 2.1px solid white; padding: 0.2em 0.6em;  &:hover { color: white; }}
   .hideMenu { @include closeWhite; }
 }
@@ -308,10 +319,22 @@ iframe { border: none; }
     background: url('./img/fondo-low-low.jpg'); color: #333;
   .wrap { height: 100%; }
   .poeta-col-l, .poeta-col-r { width: 50%; float: left; @include box-sizing(border-box);
+    strong { @include cutie; }
     img { width: 100%; height: auto; }
   } 
-  .poeta-col-l { padding-right: 1em; }
+  .poeta-col-l { padding-right: 1em;
+    img { position: relative; z-index: 0; @include transform(scale(5)); @include transition(opacity 1s, all 0.6s); opacity: 0; }
+  }
+  &.act .poeta-col-l img { @include transform(scale(1)); opacity: 1; }
+  
+  .poeta-col-r, .head { position: relative; z-index: 1; }
+
   .poeta-col-r-bottom { position: absolute; width: 100%; bottom: 0; left: 0; }
+
+  .wk-col-50 { padding: 0; img { margin: 1em; } }
+
+  h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; letter-spacing: 0.3em; padding-bottom: 0.3em; }
+  p { padding-left: 2.4em; margin-bottom: 1em; font-weight: 900; line-height: 1.2em; }
 }
 
 #initVid, #initVid iframe { z-index: 100; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black; }
@@ -321,13 +344,13 @@ iframe { border: none; }
 
 #presentacion { display: none; z-index: 1; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black;
   .head { margin-bottom: 1em; }
-  .vid { width: 100%; height: 0; padding-bottom: 50.7%; position: relative; max-width: 90%; margin: 0 auto;}
+  .vid { width: 100%; height: 0; padding-bottom: 50.7%; position: relative; max-width: 90%; margin: 0 auto; }
   img, iframe { position: absolute; width: 100%; height: 100%; }
 
 }
 
 #miniplayer { position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; background: #333; color: white; font-size: 1.2em; line-height: 1.4em; display: none;
-  .bl-player { position: absolute; left: 0; bottom: 0; padding: 0 0.8em; z-index: 1; }
+  .bl-player { position: absolute; left: 0; bottom: 0; padding: 0 0.8em; z-index: 1; text-align: center; }
   .bl-player-current { position: absolute; height: 50px; width: 100%; padding-right: 80px; padding-left: 300px; z-index: 0;
       bottom: 0; line-height: 1.4em; @include box-sizing(border-box);  }
   #openPoemas { position: absolute; right: 0; bottom: 0; line-height: 3em; text-decoration: none; background: #333; color: white; padding: 0 1em; z-index: 1;

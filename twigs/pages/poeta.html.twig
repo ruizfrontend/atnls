@@ -2,7 +2,7 @@
 	{% if ajax is not defined %}
 		<img src="./img/{{ poetaId | split('-') | first }}-alone.jpg">
 	{% else %}
-		<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone.jpg"></div>
+		<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
 	{% endif %}
 </div>
 <div class="poeta-col-r">
@@ -12,8 +12,16 @@
 
 	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
 
-	<a href="#" class="btn btn-red">Ver video</a>
-
+	<div class="wk-col-l wk-col-50">
+		<h3>Entrevista:</h3>
+		<img src="./img/{{ poetaId | split('-') | first }}-vid-1.jpg" alt="">
+	</div>
+	<div class="wk-col-l wk-col-50">
+		<h3>Un poema de Luis García Montero:</h3>
+		<img src="./img/{{ poetaId | split('-') | first }}-vid-2.jpg" alt="">
+	</div>
+	
+{# 
 	{% for poeta, name in rawData['poetas'] %}
 		{% if act is defined %}
 			{% if act == poetaId %}
@@ -25,7 +33,7 @@
 			<div class="col-l"><a class="url-lib btn" href="{{ path('poeta', {'poeta': prev}) }}">Anterior: {{ rawData['poetas'][prev] }}</a></div>
 		{% endif %}
 		{% set act = poeta %}
-	{% endfor %}
+	{% endfor %} #}
 	
 	<div class="poeta-col-r-bottom">
 	</div>
