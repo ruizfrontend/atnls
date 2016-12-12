@@ -130,6 +130,12 @@ var atnls = {
       $('#luis').data('luis', luis + 1).addClass('luis' + luis);
     }, 600);
 
+<<<<<<< HEAD
+=======
+      setTimeout(function(){
+        $('#luis').data('luis', luis + 1).addClass('luis' + luis);
+      }, 600);
+>>>>>>> a636acd0949509a8b2bb105a19359d145c3b4619
   },
 
   initIllus: function() {
