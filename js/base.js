@@ -62,9 +62,20 @@ var atnls = {
   initRedes: function() {
 
     $.getJSON(projRoot + rawData.ajaxRedes, function(e){
-        for (var i = e.length - 1; i >= 0; i--) {
-          $('.col-redes').append(atnls.parseRedesElm(e[i]));
-        };
+
+      var $wrap = $('.col-redes-main');
+      $wrap.append('<div class="col-redes-col">');
+      if(atnls.cache.winWidth > 800) $wrap.append('<div class="col-redes-col">');
+      if(atnls.cache.winWidth > 1200) $wrap.append('<div class="col-redes-col">');
+
+      var cols = $('.col-redes-col').length;
+      $wrap.addClass('col-redes-' + cols);
+
+      for (var i = e.length - 1; i >= 0; i--) {
+        var target = i % cols;
+        $('.col-redes-col:eq(' + target + ')').append(atnls.parseRedesElm(e[i]));
+      };
+
     });
 
   },
@@ -79,7 +90,7 @@ var atnls = {
 
       if(elm.img) $elm.append('<a target="_blank" href="' + url + '"><img src="' + elm.img + '"></a>');
 
-      var usr = '<a href="https://twitter.com/' + elm.usrName + '" title="visita el perfil del usuario" target="_blank">' + elm.usr + '</a>';
+      var usr = '<a href="https://twitter.com/' + elm.usrName + '" title="visita el perfil del usuario" target="_blank">@' + elm.usr + ':</a> ';
 
       var text = elm.texto.replace(/#(\S*)/g,'<a href="http://twitter.com/#!/search/$1" title="Ver todos los tweets con el hashtag" target="_blank">#$1</a>');
 
@@ -101,6 +112,7 @@ var atnls = {
 
       // internal links
     $('body').delegate('.url-lib', 'click', function(){
+
         // ignore if link is active
       if($(this).hasClass('url-current')) return false;
 
@@ -129,13 +141,6 @@ var atnls = {
     setTimeout(function(){
       $('#luis').data('luis', luis + 1).addClass('luis' + luis);
     }, 600);
-
-<<<<<<< HEAD
-=======
-      setTimeout(function(){
-        $('#luis').data('luis', luis + 1).addClass('luis' + luis);
-      }, 600);
->>>>>>> a636acd0949509a8b2bb105a19359d145c3b4619
   },
 
   initIllus: function() {
@@ -235,36 +240,49 @@ var atnls = {
       Cookies.set('initVid', 1);
 
       $('#initVid').show().click(function(){ atnls.video.playVideo($(this)); });
-      atnls.video.launchYoutube(1, $('#initVid .vid')[0], { end: function(){ $('#initVid').fadeOut(400); }});
 
-      setTimeout(function(){ $('#jumpInitVid').fadeIn('1000'); }, 4000);
+      var $vid = $('#initVid video');
+      
+      $vid.ready(function(){
+
+        var vidWidth = $vid.width();
+        var time = $vid[0].duration;
+        
+        var swipe = false;
+        
+        var hammertime = new Hammer($('#initVid')[0]);
+        hammertime.on('swipe', function(ev) {
+          if(swipe) return;
+
+          $vid[0].play();
+          swipe = true;
+          $('#arrastra').fadeOut(400);
+        });
+
+        hammertime.on('pan', function(ev) {
+          if(swipe) return;
+          $vid[0].currentTime = time * (ev.deltaX / vidWidth);
+        });
+
+        $vid.on('ended', function(){
+          $('#initvidsub').animate({opacity: 1}, 400, function(){
+            $(this).addClass('end');
+            setTimeout(function() { $('#initvidLogos').animate({opacity: 1},400); });
+
+              // click para comenzar
+            $('#initVidMain').click(function() {
+              $('#initVid .wk-valign').fadeOut(400);
+              atnls.video.launchYoutube(1, $('#initVid .vid')[0], { end: function(){ $('#initVid').fadeOut(400); }});
+              setTimeout(function(){ $('#jumpInitVid').fadeIn('1000'); }, 4000);
+            });
+          });
+        });
+
+      });
+
     } else {
-
+      
     }
-  },
-
-  // scroll: {
-  //   $wrap: '.bl-playlist',
-  //   init: function() {
-  //     atnls.scroll.$wrap = $(atnls.scroll.$wrap);
-  //     $(window).bind('orientationchange resize', throttle(atnls.scroll.update, 200)).resize();
-  //     atnls.scroll.update();
-
-  //     $('#playlist-after').mouseenter()('#playlist-before');
-  //   },
-  //   update: {
-
-  //   },
-  //   scrollLeft: function(){
-
-  //   },
-  //   scrollRight: function(){
-
-  //   }
-  // },
-
-  postInitVid: function() {
-
   },
 
   initNav: function() {
@@ -306,7 +324,7 @@ var atnls = {
 
   updatePage: function(target) {
     
-    console.log('nueva url: ', target);
+    // console.log('nueva url: ', target);
 
       // manage active elements classes
     $('.url-current').removeClass('url-current');
