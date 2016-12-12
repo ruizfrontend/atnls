@@ -310,8 +310,14 @@ iframe { border: none; }
       background: url(./img/bar-white.png) bottom left no-repeat; }
       &:hover:before { width: 100%; }
   }
-  .url-current { border: 2.1px solid white; padding: 0.2em 0.6em;  &:hover { color: white; }}
   .hideMenu { @include closeWhite; }
+  
+  .wk-valign { max-width: 600px; margin: 0 auto; }
+
+  li {
+    ul { display: block; line-height: 1em; @include oxy; margin-bottom: 0.4em; }
+    li { display: inline-block; font-size: 0.8em; padding: 0 0.4em; }
+  }
 }
 
 
