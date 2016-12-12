@@ -93,7 +93,7 @@ var atnls = {
 
       setTimeout(function(){
         $('#luis').data('luis', luis + 1).addClass('luis' + luis);
-      }, 1000);
+      }, 600);
   },
 
   initIllus: function() {
