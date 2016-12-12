@@ -369,6 +369,7 @@ var atnls = {
     }
 
 
+      // como la url es la raiz no podemos buscar la url de poetas
     if (!foundGlobal) {
 
       var found = false;
@@ -411,20 +412,31 @@ var atnls = {
         }
       });
 
+          // no hay poeta => página principal
       if(!found) {
         if(atnls.cache.initialLoad) {
           $('#poetas').show();
+          if(atnls.cache.responsive) $('#compoMobile, #webdoc > .wrap > .head').show();
         } else {
           $('#poetas').fadeIn(400);
+          if(atnls.cache.responsive) $('#compoMobile, #webdoc > .wrap > .head').fadeIn(400);
         }
+
+          // poeta encontrado => página de poeta
       } else {
         $('#poetas').show();
+        if(atnls.cache.responsive) $('#compoMobile, #webdoc > .wrap > .head').fadeOut(400);
       }
 
+    } else {
+
+        // en mobile eliminamos todo el bloque, en dsktop queda de fondo
+      if(atnls.cache.responsive) $('#compoMobile, #poetas, #webdoc > .wrap > .head').fadeOut(400);
     }
 
     $('#loader').fadeOut(400);
 
+    if(atnls.cache.responsive) $(window).add('#webdoc').scrollTop(0);
 
     atnls.cache.initialLoad = false; // marca la primera carga de la página
 
@@ -736,6 +748,11 @@ var atnls = {
         'height': h
       });
 
+    } else {
+      atnls.cache.$canvas.css({
+        'width': 'auto',
+        'height': 'auto'
+      });
     }
 
     // if(atnls.cache.winWidth > maxWidth) {
