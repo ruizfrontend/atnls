@@ -689,40 +689,42 @@ var atnls = {
     atnls.cache.responsive = atnls.cache.winWidth < 800 ? true : false;
     atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
 
+    if(!atnls.cache.responsive) {
+      $('#poemas .page-poema.act').each(function(){
+        
+        var $this = $(this);
 
-    $('#poemas .page-poema.act').each(function(){
-      
-      var $this = $(this);
+        var height = $this.height();
+        var pHeight = $('.col-poemas').height();
 
-      var height = $this.height();
-      var pHeight = $('.col-poemas').height();
+        if(height > pHeight) {
+          $this.find('.scrool-wrap').slimScroll({ height: pHeight });
+        } else {
+          $this.find('.scrool-wrap').css('height', pHeight).slimScroll({destroy: true});
+        }
+      });
 
-      if(height > pHeight) {
-        $this.find('.scrool-wrap').slimScroll({ height: pHeight });
+
+      var padd = 10;
+      var maxWidth = 1500;
+      var proportion = 0.64;// 1500 / 933  // 9 / 16; // 3 / 4; 
+      var w, h, top;
+
+      w = (atnls.cache.winWidth > maxWidth) ? maxWidth : atnls.cache.winWidth;
+
+      if(atnls.cache.winHeigth < (w * proportion)) {
+        h = atnls.cache.winHeigth;
+        w = h / proportion;
       } else {
-        $this.find('.scrool-wrap').css('height', pHeight).slimScroll({destroy: true});
+        h = 'auto';
       }
-    });
 
-
-    var padd = 10;
-    var maxWidth = 1500;
-    var proportion = 0.64;// 1500 / 933  // 9 / 16; // 3 / 4; 
-    var w, h, top;
-
-    w = (atnls.cache.winWidth > maxWidth) ? maxWidth : atnls.cache.winWidth;
-console.log(w, w*proportion, atnls.cache.winHeigth)
-    if(atnls.cache.winHeigth < (w * proportion)) {
-      h = atnls.cache.winHeigth;
-      w = h / proportion;
-    } else {
-      h = 'auto';
+      atnls.cache.$canvas.css({
+        'width': w,
+        'height': h
+      });
+      
     }
-
-    atnls.cache.$canvas.css({
-      'width': w,
-      'height': h
-    });
 
     // if(atnls.cache.winWidth > maxWidth) {
       
