@@ -595,7 +595,7 @@ var atnls = {
     audios: {},
 
     // $('#openPoemas').click(atnls.player.back2Poems);
-    // $('#closePoemas').click(atnls.player.keepBrowsing);
+    // $('#'closePoemas'').click(atnls.player.keepBrowsing);
   
     // keepBrowsing: function() {
 

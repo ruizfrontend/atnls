@@ -25,7 +25,7 @@
 						<a href="#" class="plyr-prev" title="poema anterior"></a>
 						<a href="#" class="plyr-play" title="inicia la reproducción"></a>
 						<a href="#" class="plyr-next" title="Siguiente poema"></a>
-						{# <a href="#" class="plyr-mute" title="Silencia la reproducción"></a> #}
+						<a href="#" class="plyr-list" id="closePoemas" title="Silencia la reproducción"></a>
 
 						<div class="bl-timer">
 							<div class="bl-timer-time"></div>
@@ -189,14 +189,12 @@
 
 	<div id="miniplayer">
 		<div class="bl-miniplayer">
-			<div class="player-nav"><a href="#" class="url-lib ft-cutie">Poemario</a></div>
+			<div class="player-nav"><a href="{{ path('poemas') }}" class="url-lib ft-cutie">Poemario</a></div>
 			<div class="bl-player">
 				<a href="#" class="plyr-prev" title="poema anterior"></a>
 				<a href="#" class="plyr-play" title="inicia la reproducción"></a>
 				<a href="#" class="plyr-next" title="Siguiente poema"></a>
-				<a href="{{ url('poemas') }}" class="url-lib" title="abrir poemario"></a>
-				{# <a href="#" class="plyr-mute" title="Silencia la reproducción"></a> #}
-				{# <a href="#" class="plyr-list" title="Selecciona poema"></a> #}
+				<a href="{{ path('poemas') }}" class="plyr-list url-lib" title="abrir poemario"></a>
 			</div>
 		</div>
 		<div class="bl-player-current"><div class="wk-valign"><div class="wk-valign-cont bl-player-current-inn"></div></div></div>
