@@ -405,7 +405,8 @@ var atnls = {
 
     } else {
       $('#poemas').removeClass('act');
-      if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
+      
+      // if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
     }
 
 
@@ -554,8 +555,6 @@ var atnls = {
     $('.plyr-play').click(atnls.player.togglePlay);
     $('.plyr-next').click(atnls.player.next);
     $('.plyr-mute').click(atnls.player.toggleMute);
-    $('#openPoemas').click(atnls.player.back2Poems);
-    $('#closePoemas').click(atnls.player.keepBrowsing);
     $('.bl-timer').click(atnls.player.timeChange);
     
     $('.bl-playlist').mThumbnailScroller({
@@ -595,28 +594,31 @@ var atnls = {
     isVideoPlaying: false,
     audios: {},
 
-    keepBrowsing: function() {
+    // $('#openPoemas').click(atnls.player.back2Poems);
+    // $('#closePoemas').click(atnls.player.keepBrowsing);
+  
+    // keepBrowsing: function() {
 
-      labTools.url.setUrl(projRoot);
+    //   labTools.url.setUrl(projRoot);
 
-      $('#miniplayer').slideDown(400);
+    //   $('#miniplayer').slideDown(400);
 
-      atnls.player.miniDisplay = true;
+    //   atnls.player.miniDisplay = true;
 
-      return false;
-    },
+    //   return false;
+    // },
 
-    back2Poems: function() {
+    // back2Poems: function() {
       
-      labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
+    //   labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
 
-      atnls.player.$activePoemPage.fadeIn(400);
-      $('#miniplayer').slideUp(400);
+    //   atnls.player.$activePoemPage.fadeIn(400);
+    //   $('#miniplayer').slideUp(400);
 
-      atnls.player.miniDisplay = false;
+    //   atnls.player.miniDisplay = false;
 
-      return false;
-    },
+    //   return false;
+    // },
 
     prev: function() {
 

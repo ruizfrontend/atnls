@@ -47,7 +47,8 @@
 					{% endfor %}
 				</div>
 				<div class="bl-helpPlayer">
-					<div id="helpBottom"><img src="img/arrow.png">Selecciona un poema<br>para escuchar la narración de Luis</div>
+					<p style="font-weight: 900; font-size: 1.5em; max-width: 400px; margin: 0 auto;">Te ofrecemos una selección de poemas leídos por Luis García Montero:</p>
+					<div id="helpBottom"><img src="img/arrow.png">Selecciona un poema<br>para escuchar la narración</div>
 					<div id="helpLeft"><img src="img/arrow.png">Usa los botones<br>para controlar la reproducción</div>
 					<div id="helpRight"><img src="img/arrow.png">Comparte los versos<br>o el poema completo<br>y únete a nuestro <a href="{{ path('redes') }}" class="url-lib">radar social</a></div>
 				</div>
@@ -187,15 +188,19 @@
 	</div>
 
 	<div id="miniplayer">
-		<div class="bl-player">
-			<a href="#" class="plyr-prev" title="poema anterior"></a>
-			<a href="#" class="plyr-play" title="inicia la reproducción"></a>
-			<a href="#" class="plyr-next" title="Siguiente poema"></a>
-			{# <a href="#" class="plyr-mute" title="Silencia la reproducción"></a> #}
-			{# <a href="#" class="plyr-list" title="Selecciona poema"></a> #}
+		<div class="bl-miniplayer">
+			<div class="player-nav"><a href="#" class="url-lib ft-cutie">Poemario</a></div>
+			<div class="bl-player">
+				<a href="#" class="plyr-prev" title="poema anterior"></a>
+				<a href="#" class="plyr-play" title="inicia la reproducción"></a>
+				<a href="#" class="plyr-next" title="Siguiente poema"></a>
+				<a href="{{ url('poemas') }}" class="url-lib" title="abrir poemario"></a>
+				{# <a href="#" class="plyr-mute" title="Silencia la reproducción"></a> #}
+				{# <a href="#" class="plyr-list" title="Selecciona poema"></a> #}
+			</div>
 		</div>
 		<div class="bl-player-current"><div class="wk-valign"><div class="wk-valign-cont bl-player-current-inn"></div></div></div>
-		<a href="#" id="openPoemas">Abrir</a>
+		<div class="bl-nav"><a href="{{ path('redes') }}" class="url-lib ft-cutie">Radar social</a></div>
 	</div>
 
 
