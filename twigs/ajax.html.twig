@@ -1,7 +1,7 @@
 {% set ajax = true %}
 
 <div id="ajax">
-	<div id="poemas" style="display: none;" >
+	<div id="poemas">
 		
 		<div class="head clearfix">
 			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
@@ -12,9 +12,7 @@
 		</div>
 
 		<div class="bl-playlist">
-			{# <a href="#" id="playlist-before"></a> #}
 			{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
-			{# <a href="#" id="playlist-after"></a> #}
 		</div>
 
 		<div class="wrap">
@@ -49,9 +47,9 @@
 					{% endfor %}
 				</div>
 				<div class="bl-helpPlayer">
-					Selecciona un poema en la parte inferior de la pantalla <br>
-					Controla la reproducción con los controles de la izquierda <br>
-					Comparte los versos del poema pulsando sobre ellos o el poema completo con los botones de la derehca
+					<div id="helpBottom"><img src="img/arrow.png">Selecciona un poema<br>para escuchar la narración de Luis</div>
+					<div id="helpLeft"><img src="img/arrow.png">Usa los botones<br>para controlar la reproducción</div>
+					<div id="helpRight"><img src="img/arrow.png">Comparte los versos<br>o el poema completo<br>y únete a nuestro <a href="{{ path('redes') }}" class="url-lib">radar social</a></div>
 				</div>
 			</div>
 

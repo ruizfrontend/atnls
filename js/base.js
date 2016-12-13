@@ -29,20 +29,7 @@ var atnls = {
 
     $(window).scrollTop(0);
 
-    atnls.preload(atnls.ready);
-
-  },
-  ready: function() {
-
-      // redimensionados____________________________________________________________
-    $(window).resize();
-
-    atnls.initUrls();
-    atnls.initRedes();
-    atnls.initUI();
-  },
-
-  preload: function(ready) {
+      // carga y pinta el html real
     $.get(projRoot + rawData.ajaxUrl, function(e){
       var $body = $(e);
       
@@ -54,9 +41,26 @@ var atnls = {
 
       $('#content').replaceWith($body);
 
-      ready();
+      atnls.ready();
 
     }, 'html');
+
+  },
+
+  ready: function() {
+
+      // redimensionados____________________________________________________________
+    $(window).resize();
+
+    atnls.initUrls();
+    atnls.initRedes();
+
+    atnls.initPlayer();
+    if(!atnls.cache.responsive) atnls.initIllus();
+    atnls.initNav();
+    atnls.initVid();
+
+    setTimeout(function(){ $('body').addClass('pageReady'); }, 1000);
   },
 
   initRedes: function() {
@@ -108,7 +112,9 @@ var atnls = {
 
     labTools.url.data.baseUrl = '';
 
-    labTools.url.initiate(false, atnls.updatePage, function(){ console.log('url changed!!'); });
+    labTools.url.initiate(false, atnls.updatePage, function(){
+      // console.log('url changed!!');
+    });
 
       // internal links
     $('body').delegate('.url-lib', 'click', function(){
@@ -124,14 +130,6 @@ var atnls = {
     });
 
   },
-  initUI: function() {
-
-    atnls.initPlayer();
-    if(!atnls.cache.responsive) atnls.initIllus();
-    atnls.initNav();
-    atnls.initVid();
-
-  },
 
   increaseLuis: function() {
     var luis = parseInt($('#luis').data('luis'));
@@ -145,7 +143,6 @@ var atnls = {
 
   initIllus: function() {
 
-    
     $('#escandar').hover(function(){
       
       $('#escandar-text').delay(400).stop(true,false)
@@ -332,7 +329,7 @@ var atnls = {
     });
 
     $('.hideMenu').click(function(e){
-      if(e.target != this) return
+
       $('#menu').fadeOut(400);
 
       return false;
@@ -366,7 +363,7 @@ var atnls = {
 
       foundGlobal = true;
 
-      $('#poemas').fadeIn(400);
+      $('#poemas').addClass('act');
 
       var found = false;
       $('#poemas .page-poema').each(function(){
@@ -407,7 +404,7 @@ var atnls = {
       }
 
     } else {
-      $('#poemas').fadeOut(400);
+      $('#poemas').removeClass('act');
       if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
     }
 
@@ -435,14 +432,10 @@ var atnls = {
       
       foundGlobal = true;
 
-      if(atnls.cache.initialLoad) {
-        $('#redes').show();
-      } else {
-        $('#redes').fadeIn(400);
-      }
+      $('#redes').addClass('act');
         
     } else {
-      $('#redes').fadeOut(400);
+      $('#redes').removeClass('act');
       // asumimos home
     }
 
@@ -603,6 +596,7 @@ var atnls = {
     audios: {},
 
     keepBrowsing: function() {
+
       labTools.url.setUrl(projRoot);
 
       $('#miniplayer').slideDown(400);
