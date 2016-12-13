@@ -12,6 +12,7 @@
 
 /* global projRoot */
 /* global rawData */
+/* global Hammer */
 
 
 /*global dataCalc */
@@ -56,11 +57,31 @@ var atnls = {
     atnls.initRedes();
 
     atnls.initPlayer();
-    if(!atnls.cache.responsive) atnls.initIllus();
+
     atnls.initNav();
     atnls.initVid();
 
+    atnls.initShares();
+
+    if(!atnls.cache.responsive) atnls.initIllus();
+
     setTimeout(function(){ $('body').addClass('pageReady'); }, 1000);
+
+  },
+
+  initShares: function() {
+
+    $('body')
+      .delegate('.twIntent, .verso', 'click', atnls.tweetText);
+    
+
+    $('.share-poema-twitter').click(function(){
+
+    });
+
+    $('.share-poema-facebook').click(function(){
+
+    });
   },
 
   initRedes: function() {
@@ -78,7 +99,7 @@ var atnls = {
       for (var i = e.length - 1; i >= 0; i--) {
         var target = i % cols;
         $('.col-redes-col:eq(' + target + ')').append(atnls.parseRedesElm(e[i]));
-      };
+      }
 
     });
 
@@ -233,6 +254,8 @@ var atnls = {
 
     if(!player || window.location.hash.indexOf('noJump') != -1) {
 
+      atnls.cache.presentacion = true;
+
       Cookies.set('initVid', 1);
 
       $('#initVid').show().click(function(){ atnls.video.playVideo($(this)); });
@@ -275,6 +298,8 @@ var atnls = {
 
                   // elimina intro
               $('#initVid .wk-valign').fadeOut(400);
+
+            atnls.cache.presentacion = false; // damos por terminada la presentación
 
                   // carga video
               atnls.video.launchYoutube(1, $('#initVid .vid')[0], { end: function(){ $('#initVid').fadeOut(400); }});
@@ -342,16 +367,16 @@ var atnls = {
     // console.log('nueva url: ', target);
 
       // manage active elements classes
-    $('.url-current').removeClass('url-current');
-    $('[href="' + target + '"]').addClass('url-current');
-    $('.url-poly').each(function(){
-      var $this = $(this);
-      if(target.indexOf($this.attr('href')) != -1 ) {
-        $this.addClass('url-active');
-      } else {
-        $this.removeClass('url-active');
-      }
-    });
+    // $('.url-current').removeClass('url-current');
+    // $('[href="' + target + '"]').addClass('url-current');
+    // $('.url-poly').each(function(){
+    //   var $this = $(this);
+    //   if(target.indexOf($this.attr('href')) != -1 ) {
+    //     $this.addClass('url-active');
+    //   } else {
+    //     $this.removeClass('url-active');
+    //   }
+    // });
 
 
     $('#credits, #menu').fadeOut(400);
@@ -381,20 +406,10 @@ var atnls = {
           atnls.player.playPage($this);
           found = true;
 
-            // recalcula alto
-          var $elm = $this;
-          setTimeout(function(){
-            var height = $elm.height();
-            var pHeight = $('.col-poemas').height();
-            if(height > pHeight) {
-              $elm.find('.scrool-wrap').slimScroll({ height: pHeight });
-            }
-          }, 100);
-
         } else {
           $this.removeClass('act').hide();
-
         }
+
       });
 
       if(!found) {
@@ -554,7 +569,7 @@ var atnls = {
     $('.plyr-prev').click(atnls.player.prev);
     $('.plyr-play').click(atnls.player.togglePlay);
     $('.plyr-next').click(atnls.player.next);
-    $('.plyr-mute').click(atnls.player.toggleMute);
+    // $('.plyr-mute').click(atnls.player.toggleMute);
     $('.bl-timer').click(atnls.player.timeChange);
     
     $('.bl-playlist').mThumbnailScroller({
@@ -568,32 +583,17 @@ var atnls = {
       },
     });
 
-    atnls.initShares();
-  },
-
-  initShares: function() {
-
-    $('body')
-      .delegate('.twIntent, .verso', 'click', atnls.tweetText);
-    
-
-    $('.share-poema-twitter').click(function(){
-
-    });
-
-    $('.share-poema-facebook').click(function(){
-
-    });
   },
 
   player: {
     active: null,
     $activePoemPage: null,
-    mute: true,
     miniDisplay: false,
     isVideoPlaying: false,
     audios: {},
 
+    // mute: true,
+    
     // $('#openPoemas').click(atnls.player.back2Poems);
     // $('#'closePoemas'').click(atnls.player.keepBrowsing);
   
@@ -622,11 +622,19 @@ var atnls = {
 
     prev: function() {
 
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev().length) return false;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev().length) {
+        console.log('no hay prev')
+        atnls.player.active = null;
+        atnls.player.$activePoemPage = null;
+        if(!atnls.player.miniDisplay) labTools.url.setUrl(projRoot + 'poemas/');
+        return false;
+      }
 
       if(!atnls.player.miniDisplay) {
+        console.log('next Mini')
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.prev().data('poema'));
       } else {
+        console.log('next Full')
         atnls.player.playPage(atnls.player.$activePoemPage.prev());
       }
       
@@ -634,11 +642,19 @@ var atnls = {
 
     },
     next: function() {
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next().length) return false;
+      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next().length) {
+        console.log('no hay next')
+        atnls.player.active = null;
+        atnls.player.$activePoemPage = null;
+        if(!atnls.player.miniDisplay) labTools.url.setUrl(projRoot + 'poemas/');
+        return false;
+      }
 
       if(!atnls.player.miniDisplay) {
+        console.log('next Mini')
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.next().data('poema'));
       } else {
+        console.log('next Full')
         atnls.player.playPage(atnls.player.$activePoemPage.next());
       }
       
@@ -677,6 +693,15 @@ var atnls = {
     },
     playPage: function($page) {
 
+        // recalcula alto
+      setTimeout(function(){
+        var height = $page.height();
+        var pHeight = $('.col-poemas').height();
+        if(height > pHeight) {
+          $page.find('.scrool-wrap').slimScroll({ height: pHeight });
+        }
+      }, 100);
+
       atnls.player.stopAll();
 
       var poema = $page.data('poema');
@@ -684,34 +709,48 @@ var atnls = {
       var PCaudio = atnls.player.audios[poema] ? atnls.player.audios[poema] : atnls.player.initPage($page);
       atnls.player.audios[poema] = PCaudio;
 
-      if(atnls.player.active == PCaudio) return false;
+      if(atnls.cache.presentacion || atnls.player.active == PCaudio) return false;
 
       if(!atnls.player.miniDisplay) PCaudio.currentTime(0);
 
         // audio reproducido previamente? Toma propiedades
       var prevAudio = atnls.player.active;
-      if(prevAudio && prevAudio.muted()) {
-        PCaudio.mute();
-      } else {
-        PCaudio.unmute();
-      }
 
         // save info
       atnls.player.active = PCaudio;
       atnls.player.$activePoemPage = $page;
 
         // autoplay
-      if(!atnls.player.isVideoPlaying) {
-        PCaudio.play();
-
-        // $(PCaudio).on('ready', function(){ this.play(); console.log('later'); });
-        // if(PCaudio.readyState() > 3) {
-        //   PCaudio.play();
-        // } else {
-        //   $(PCaudio).on('ready', function(){ this.play(); console.log('later') });
-        // }
+// if(!atnls.player.isVideoPlaying) {
+// console.log(PCaudio.readyState())
+      if(PCaudio.readyState() == 0 || PCaudio.readyState() == 1) {
         
+        PCaudio.audio.addEventListener( "canplay", function(){
+          // console.log(PCaudio.readyState(), );
+          // PCaudio.play();
+          setTimeout(function(){ PCaudio.audio.play() }, 100);
+        });
+
+      } else {
+        PCaudio.play();
       }
+
+// if(PCaudio.canPlay()) {
+
+// } else {
+//   $(PCaudio).ready(function(){
+//     atnls.player.active.play()
+//   }); 
+// }
+
+  // $(PCaudio).on('ready', function(){ this.play(); console.log('later'); });
+  // if(PCaudio.readyState() > 3) {
+  //   PCaudio.play();
+  // } else {
+  //   $(PCaudio).on('ready', function(){ this.play(); console.log('later') });
+  // }
+  
+// }
 
       $('.plyr-play').removeClass('paused');
 
@@ -763,19 +802,19 @@ var atnls = {
       return PCaudio;
 
     },
-    toggleMute: function() {
+    // toggleMute: function() {
 
-      if(!atnls.player.active) return false;
+    //   if(!atnls.player.active) return false;
 
-      if(atnls.player.active.muted()) {
-        atnls.player.active.unmute();
-        Cookies.set('muted', 0);
-      } else {
-        atnls.player.active.mute();
-        Cookies.set('muted', 1);
-      }
-      return false;
-    }
+    //   if(atnls.player.active.muted()) {
+    //     atnls.player.active.unmute();
+    //     Cookies.set('muted', 0);
+    //   } else {
+    //     atnls.player.active.mute();
+    //     Cookies.set('muted', 1);
+    //   }
+    //   return false;
+    // }
   },
 
           // función control de redimensionados______________________________________________________
@@ -988,6 +1027,8 @@ atnls.cache = {
   initialLoad: true,
 
   breakpoint: 980, // swithchs from canvas layout to full
+
+  presentacion: false, // está lanzada la página de login?
 
   hash: 'atnls',
   via: 'ruizfrontend',
