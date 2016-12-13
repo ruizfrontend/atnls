@@ -24,7 +24,7 @@ var atnls = {
   init: function() {
     
       // check required libraries
-    if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; };
+    if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; }
 
     $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
 
@@ -141,7 +141,7 @@ var atnls = {
     $('body').delegate('.url-lib', 'click', function(){
 
         // ignore if link is active
-      if($(this).hasClass('url-current')) return false;
+      // if($(this).hasClass('url-current')) return false;
 
       var target = $(this).attr('href');
       
@@ -299,7 +299,7 @@ var atnls = {
                   // elimina intro
               $('#initVid .wk-valign').fadeOut(400);
 
-            atnls.cache.presentacion = false; // damos por terminada la presentación
+              atnls.cache.presentacion = false; // damos por terminada la presentación
 
                   // carga video
               atnls.video.launchYoutube(1, $('#initVid .vid')[0], { end: function(){ $('#initVid').fadeOut(400); }});
@@ -361,10 +361,10 @@ var atnls = {
     });
   },
 
-
+    // funcion llamada ante cualquier cambio de url
   updatePage: function(target) {
     
-    // console.log('nueva url: ', target);
+    console.log('nueva url: ', target);
 
       // manage active elements classes
     // $('.url-current').removeClass('url-current');
@@ -408,19 +408,23 @@ var atnls = {
 
         } else {
           $this.removeClass('act').hide();
+          atnls.player.pausePage($this);
         }
 
       });
 
       if(!found) {
         $('.bl-helpPlayer').fadeIn(400);
+        atnls.player.stop();
       } else {
         $('.bl-helpPlayer').hide();
       }
 
+      atnls.player.miniDisplay = false;
+
     } else {
       $('#poemas').removeClass('act');
-      
+      atnls.player.miniDisplay = true;
       // if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
     }
 
@@ -534,7 +538,7 @@ var atnls = {
     var text = $text.data('text') ? $text.data('text') : $text.html() ? $text.html() : null;
     if(!text) return false;
 
-    atnls.openTweet(text.replace(/<br>/g, " "));
+    atnls.openTweet(text.replace(/<br>/g, ' '));
   },
 
   openTweet: function(texto, url) {
@@ -571,6 +575,7 @@ var atnls = {
     $('.plyr-next').click(atnls.player.next);
     // $('.plyr-mute').click(atnls.player.toggleMute);
     $('.bl-timer').click(atnls.player.timeChange);
+    $('.showPoemas').click(atnls.player.showPoemas);
     
     $('.bl-playlist').mThumbnailScroller({
       axis: 'x', //change to "y" for vertical scroller
@@ -619,22 +624,45 @@ var atnls = {
 
     //   return false;
     // },
+    stop: function() {
+      if(atnls.player.active) atnls.player.active.pause();
+      atnls.player.active = null;
+      atnls.player.$activePoemPage = null;
+      $('.plyr-play').addClass('paused');
+      $('.bl-timer-time').css('width', 0);
+      $('#miniplayer .bl-player').hide();
+      $('#miniplayer .player-nav').show();
+    },
+    play: function() {
+      $('#miniplayer .bl-player').show();
+      $('#miniplayer .player-nav').hide();
+    },
 
     prev: function() {
 
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.prev().length) {
-        console.log('no hay prev')
-        atnls.player.active = null;
-        atnls.player.$activePoemPage = null;
-        if(!atnls.player.miniDisplay) labTools.url.setUrl(projRoot + 'poemas/');
+      if(!atnls.player.$activePoemPage) {
+        labTools.url.setUrl(projRoot + 'poemas/' + $('.page-poema:last').data('poema'));
+        return false;
+      }
+
+        // stop!
+      if(!atnls.player.$activePoemPage.prev().length) {
+        console.log('no hay prev');
+        if(!atnls.player.miniDisplay) {
+          labTools.url.setUrl(projRoot + 'poemas/');
+        } else {
+          atnls.player.stop();
+        }
+
         return false;
       }
 
       if(!atnls.player.miniDisplay) {
-        console.log('next Mini')
+        console.log('next Mini');
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.prev().data('poema'));
       } else {
-        console.log('next Full')
+        console.log('next Full');
+        atnls.player.stopAll();
         atnls.player.playPage(atnls.player.$activePoemPage.prev());
       }
       
@@ -642,26 +670,49 @@ var atnls = {
 
     },
     next: function() {
-      if(!atnls.player.$activePoemPage || !atnls.player.$activePoemPage.next().length) {
-        console.log('no hay next')
-        atnls.player.active = null;
-        atnls.player.$activePoemPage = null;
-        if(!atnls.player.miniDisplay) labTools.url.setUrl(projRoot + 'poemas/');
+      if(!atnls.player.$activePoemPage) {
+        labTools.url.setUrl(projRoot + 'poemas/' + $('.page-poema:eq(0)').data('poema'));
+        return false;
+      }
+
+        // stop!
+      if(!atnls.player.$activePoemPage.next().length) {
+        console.log('no hay next');
+        if(!atnls.player.miniDisplay) {
+          labTools.url.setUrl(projRoot + 'poemas/');
+        } else {
+          atnls.player.stop();
+        }
         return false;
       }
 
       if(!atnls.player.miniDisplay) {
-        console.log('next Mini')
+        console.log('next Mini');
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.next().data('poema'));
       } else {
-        console.log('next Full')
+        console.log('next Full');
+        atnls.player.stopAll();
         atnls.player.playPage(atnls.player.$activePoemPage.next());
       }
       
       return false;
     },
+    showPoemas: function() {
+      console.log('showP', atnls.player.$activePoemPage);
+      if(atnls.player.$activePoemPage) {
+        labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
+      } else {
+        labTools.url.setUrl(projRoot + 'poemas/');
+      }
+      return false;
+    },
     timeupdate: function() {
-      $('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
+      if(atnls.player.active) {
+        $('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
+      } else {
+        $('.bl-timer-time').css('width', 0);
+      }
+      
     },
     timeChange: function(e) {
       var $bar = $(this);
@@ -676,6 +727,7 @@ var atnls = {
 
       if(atnls.player.active.paused()) {
         atnls.player.active.play();
+        atnls.player.play()
         $('.plyr-play').removeClass('paused');
       } else {
         atnls.player.active.pause();
@@ -691,7 +743,16 @@ var atnls = {
 
       return false;
     },
+    pausePage: function($page) {
+      var poema = $page.data('poema');
+
+      var PCaudio = atnls.player.audios[poema];
+      if(PCaudio) PCaudio.pause();
+
+    },
     playPage: function($page) {
+
+console.log('playPag');
 
         // recalcula alto
       setTimeout(function(){
@@ -702,14 +763,15 @@ var atnls = {
         }
       }, 100);
 
-      atnls.player.stopAll();
-
       var poema = $page.data('poema');
 
       var PCaudio = atnls.player.audios[poema] ? atnls.player.audios[poema] : atnls.player.initPage($page);
       atnls.player.audios[poema] = PCaudio;
 
-      if(atnls.cache.presentacion || atnls.player.active == PCaudio) return false;
+      // atnls.player.stopAll();
+
+      if(atnls.cache.presentacion) return false; console.log(PCaudio.paused())
+      if(!PCaudio.paused()) return false;
 
       if(!atnls.player.miniDisplay) PCaudio.currentTime(0);
 
@@ -720,15 +782,18 @@ var atnls = {
       atnls.player.active = PCaudio;
       atnls.player.$activePoemPage = $page;
 
-        // autoplay
+        // play
 // if(!atnls.player.isVideoPlaying) {
 // console.log(PCaudio.readyState())
-      if(PCaudio.readyState() == 0 || PCaudio.readyState() == 1) {
+// 
+      atnls.player.play()
+
+      if(PCaudio.readyState() === 0 || PCaudio.readyState() == 1) {
         
-        PCaudio.audio.addEventListener( "canplay", function(){
+        PCaudio.audio.addEventListener('canplay', function(){
           // console.log(PCaudio.readyState(), );
           // PCaudio.play();
-          setTimeout(function(){ PCaudio.audio.play() }, 100);
+          setTimeout(function(){ PCaudio.audio.play(); }, 100);
         });
 
       } else {
