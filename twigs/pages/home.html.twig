@@ -1,4 +1,4 @@
-<h2>Listado de poetas</h2>
+<h2>La nueva poesía</h2>
 <ul>
 	{% for poeta, name in rawData['poetas'] %}
 		<li><a href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>

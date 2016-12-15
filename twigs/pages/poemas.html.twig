@@ -1,4 +1,5 @@
-<h2>Selección de poemas de Luis García Montero, leídos por el autor:</h2>
+<h2>La voz de Luis García Montero</h2>
+<p>Selección de poemas, leídos por el autor:</p>
 <ul>
 	{% for poema, name in rawData['poemas'] %}
 		<li><a class="url-lib" href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
