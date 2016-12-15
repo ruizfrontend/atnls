@@ -61,6 +61,8 @@ var atnls = {
     atnls.initNav();
     atnls.initVid();
 
+    atnls.initKeys();
+
     atnls.initShares();
 
     if(!atnls.cache.responsive) atnls.initIllus();
@@ -69,6 +71,39 @@ var atnls = {
 
   },
 
+  initKeys: function() {
+    $(document).keydown(function(e) {
+      switch(e.which) {
+      case 27: // scape
+
+        if($('#jumpInitVid:visible').length) return;
+
+        if($('#menu:visible').length) {
+          $('#menu').fadeOut(400);
+
+        } else if($('#credits:visible').length) {
+          $('#credits').fadeToggle(400);
+
+        } else {
+          labTools.url.setUrl(projRoot);
+        }
+        return;
+        break;
+      case 32: // space
+        break;
+      case 37: // left
+      case 38: // up
+      case 39: // right
+      case 40: // down
+        break;
+      default:
+        return; // exit this handler for other keys
+      }
+      e.preventDefault(); // prevent the default action (scroll / move caret)
+    });
+    
+  },
+  
   initShares: function() {
 
     $('body')
@@ -133,7 +168,7 @@ var atnls = {
 
     labTools.url.data.baseUrl = '';
 
-    labTools.url.initiate(false, atnls.updatePage, function(){
+    labTools.url.initiate(atnls.updatePage, atnls.updatePage, function(){
       // console.log('url changed!!');
     });
 
@@ -266,6 +301,8 @@ var atnls = {
 
         var vidWidth = $vid.width();
         var time = $vid[0].duration;
+        var initLeft = 0;
+        var wrapLeft = $('#initVidMain').offset().left;
         
         var swipe = false;
         
@@ -275,13 +312,23 @@ var atnls = {
 
           $vid[0].play();
           swipe = true;
-          $('#arrastra, #swipeIcon').fadeOut(400);
+          $('#arrastra, #swipeIcon').addClass('go').fadeOut(400);
         });
 
         hammertime.on('pan', function(ev) {
           if(swipe) return;
-          $vid[0].currentTime = time * (ev.deltaX / vidWidth);
-          $('#swipeIcon').css('left', ev.deltaX);
+          var avance = (ev.srcEvent.clientX - wrapLeft) / vidWidth; // ev.deltaX / vidWidth;
+          if(avance > 0.14) {
+            $('#arrastra').fadeOut(400);
+          }
+          if(avance > 0.5) {
+            swipe = true;
+            $vid[0].play();
+            $('#swipeIcon').addClass('go').fadeOut(400);
+            return;
+          }
+          $vid[0].currentTime = time * avance;
+          $('#swipeIcon').css('left', (100 * avance) + '%');
         });
 
             // termina el video inicial
@@ -364,6 +411,7 @@ var atnls = {
     // funcion llamada ante cualquier cambio de url
   updatePage: function(target) {
     
+    // var target = target ? target : '';
     console.log('nueva url: ', target);
 
       // manage active elements classes
@@ -1096,7 +1144,7 @@ atnls.cache = {
   presentacion: false, // está lanzada la página de login?
 
   hash: 'atnls',
-  via: 'ruizfrontend',
+  via: 'atnls_doc',
 };
 
 

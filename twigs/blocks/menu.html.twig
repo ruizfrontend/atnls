@@ -5,8 +5,8 @@
   <div class="wk-valign">
   	<ul class="wk-valign-cont">
   	  <li><a class="url-lib" href="{{ path('home') }}"><img style="display: block; width: 100%; margin: 0 auto; max-width: 600px; padding: 0 1em; box-sizing: border-box;" src="img/logo-menu.png" alt="Memorias de futuro"></a></li>
-	  <li><a class="url-lib {% if path('presentacion') == url %}url-current{% endif %}" href="{{ path('presentacion') }}">Presentación</a></li>
-	  <li><a class="url-lib url-poly {% if path('home') == url %}url-current{% endif %} {% if path('home') == url or path('home') in url %}url-active{% endif %}" href="{{ path('home') }}">Nuevos poetas</a></li>
+	  <li><a class="url-lib {% if path('presentacion') == url %}url-current{% endif %}" href="{{ path('presentacion') }}">Memoria de futuro</a></li>
+	  <li><a class="url-lib url-poly {% if path('home') == url %}url-current{% endif %} {% if path('home') == url or path('home') in url %}url-active{% endif %}" href="{{ path('home') }}">La nueva poesía</a></li>
 	  <li>
 	  	<ul>
 			{% for poeta, name in rawData['poetas'] %}
@@ -14,8 +14,8 @@
 			{% endfor %}
 	  	</ul>
 	  </li>
-	  <li><a class="url-lib url-poly {% if path('poemas') == url %}url-current{% endif %} {% if path('poemas') == url or path('poemas') in url %}url-active{% endif %}" href="{{ path('poemas') }}">Poemario</a></li>
-	  <li><a class="url-lib {% if path('redes') == url %}url-current{% endif %}" href="{{ path('redes') }}">Radar social</a></li>
+	  <li><a class="url-lib url-poly {% if path('poemas') == url %}url-current{% endif %} {% if path('poemas') == url or path('poemas') in url %}url-active{% endif %}" href="{{ path('poemas') }}">La voz de Luis García Montero</a></li>
+	  <li><a class="url-lib {% if path('redes') == url %}url-current{% endif %}" href="{{ path('redes') }}">El muro de la poesía</a></li>
 	  <li><a class="toggleCredits" href="#creditos">Créditos</a></li>
   	</ul>
   </div>

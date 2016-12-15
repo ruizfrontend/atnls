@@ -62,7 +62,9 @@ labTools.url = {
 */
   initiate: function(callbackOnUrlReady, callbackOnChange) {
 
-    if(!Modernizr.history) return; // navegador no compatible
+    if(!Modernizr.history) {
+      return; // navegador no compatible
+    }
 
     if(callbackOnChange) labTools.url.data.callbackOnChange = callbackOnChange;
 
