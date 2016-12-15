@@ -34,7 +34,7 @@ dataImports:
   #   exposeTWIG: true
 
 rawData: # plain data imported in the templates
-  audioPath: 'audios/'
+  audioPath: 'img/'
   poemasUrl: 'poemas/'
   poetasUrl: '/'
   ajaxUrl: 'ajax/'
@@ -43,7 +43,7 @@ rawData: # plain data imported in the templates
   poemas:
     bajo-una-lluvia-fria-de-poligono: 'Bajo Una Lluvia Fria De Poligono'
     cabo-sounion: 'Cabo Sounion'
-    canciones-asesinato: 'Canciones Asesinato'
+    cancion-asesinato: 'Canción Asesinato'
     completamente-viernes: 'Completamente Viernes'
     cuarentena: 'Cuarentena'
     el-amor: 'El Amor'
