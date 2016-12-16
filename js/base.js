@@ -705,7 +705,7 @@ var atnls = {
 
         // stop!
       if(!atnls.player.$activePoemPage.prev().length) {
-        console.log('no hay prev');
+        
         if(!atnls.player.miniDisplay) {
           labTools.url.setUrl(projRoot + 'poemas/');
         } else {
@@ -716,10 +716,10 @@ var atnls = {
       }
 
       if(!atnls.player.miniDisplay) {
-        console.log('next Mini');
+        
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.prev().data('poema'));
       } else {
-        console.log('next Full');
+        
         atnls.player.stopAll();
         atnls.player.playPage(atnls.player.$activePoemPage.prev());
       }
@@ -735,7 +735,7 @@ var atnls = {
 
         // stop!
       if(!atnls.player.$activePoemPage.next().length) {
-        console.log('no hay next');
+        
         if(!atnls.player.miniDisplay) {
           labTools.url.setUrl(projRoot + 'poemas/');
         } else {
@@ -745,10 +745,10 @@ var atnls = {
       }
 
       if(!atnls.player.miniDisplay) {
-        console.log('next Mini');
+      
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.next().data('poema'));
       } else {
-        console.log('next Full');
+        
         atnls.player.stopAll();
         atnls.player.playPage(atnls.player.$activePoemPage.next());
       }
@@ -756,7 +756,7 @@ var atnls = {
       return false;
     },
     showPoemas: function() {
-      console.log('showP', atnls.player.$activePoemPage);
+      
       if(atnls.player.$activePoemPage) {
         labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
       } else {
@@ -765,6 +765,7 @@ var atnls = {
       return false;
     },
     timeupdate: function() {
+
       if(atnls.player.active) {
         $('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
       } else {
@@ -773,6 +774,7 @@ var atnls = {
       
     },
     timeChange: function(e) {
+
       var $bar = $(this);
       var posX = $bar.offset().left;
 
@@ -810,8 +812,6 @@ var atnls = {
     },
     playPage: function($page) {
 
-console.log('playPag');
-
         // recalcula alto
       setTimeout(function(){
         var height = $page.height();
@@ -828,7 +828,7 @@ console.log('playPag');
 
       // atnls.player.stopAll();
 
-      if(atnls.cache.presentacion) return false; console.log(PCaudio.paused())
+      if(atnls.cache.presentacion) return false;
       if(!PCaudio.paused()) return false;
 
       if(!atnls.player.miniDisplay) PCaudio.currentTime(0);
@@ -894,7 +894,7 @@ console.log('playPag');
 
       var $body = $page.find('.poema-body');
       var times = $body.data('times');
-      console.log(times)
+
       if(!times) { console.log('No hay minutado!'); return PCaudio; }
 
       for (var i = 0; i < times.length; i++) {
@@ -907,7 +907,7 @@ console.log('playPag');
           PCaudio.code({
             start: times[i-1]/1000,
             end: times[i]/1000,
-            onStart: function(options) { console.log(options.start)
+            onStart: function(options) {
               var verso = $body
                 .find('.act').removeClass('act').end()
                 .find('.verso:eq(' + pos + ')').addClass('act');
