@@ -24,7 +24,7 @@ var atnls = {
   init: function() {
     
       // check required libraries
-    if(!labTools || !labTools.url) { console.log('ERROR INICIANDO LABTOOLS'); return; }
+    if(!labTools || !labTools.url || !labTools.media) { console.log('ERROR INICIANDO LABTOOLS'); return; }
 
     $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
 
@@ -61,6 +61,8 @@ var atnls = {
     atnls.initNav();
     atnls.initVid();
 
+    atnls.initMedia();
+
     atnls.initKeys();
 
     atnls.initShares();
@@ -71,6 +73,19 @@ var atnls = {
 
       // calcula tiempos de poemas
     // atnls.timeMeter();
+
+  },
+
+  initMedia: function() {
+    
+    labTools.media.init();
+    $('#viddd').click(function(){
+      labTools.media.generaVideo($('#jfk-init-video'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', { title: 'video Prueba',controls: true, muted: true, autoplay: true, readyCallback: function(){
+        console.log('ready', this);
+        return false;
+      } });
+      return false;
+    });
 
   },
 

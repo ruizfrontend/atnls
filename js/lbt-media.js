@@ -54,7 +54,10 @@ labTools.media = {
       width: null,
       height: null,
           // poster: the html5 poster image url
-      poster: null
+      poster: null,
+      readyCallback: null,
+      title: null,
+      muted: false
     }
   },
 
@@ -66,8 +69,8 @@ labTools.media = {
 * @method init
 */
   init: function() {
-    labTools.media.data.videoExtension = Modernizr.video.h264 ? '.mp4' : Modernizr.video.webm ? '.webm' : Modernizr.video.ogg ? '.ogv' : null;
-    labTools.media.data.audioExtension = Modernizr.audio.mp3 ? '.mp3' : Modernizr.audio.ogg ? '.ogg' : null;
+    labTools.media.data.videoExtension = Modernizr.video.h264 ? '.mp4' : null;
+    labTools.media.data.audioExtension = Modernizr.audio.mp3 ? '.mp3' : null;
     return false;
   },
 
@@ -94,7 +97,13 @@ labTools.media = {
 
   generaVideo: function ($wrapper, videoFile, settings) {
       // si no se ha iniciado el tema, lo iniciamos
-    if(!labTools.media.data.videoExtension) labTools.media.init();
+    if(!labTools.media.data.videoExtension) {
+      labTools.media.init();
+      if(!labTools.media.data.videoExtension) {
+        console.log('Formato de video no válido');
+        return;
+      }
+    }
 
     if(!$wrapper.length || !videoFile || $wrapper.hasClass('video-ready')) return;
 
@@ -108,10 +117,11 @@ labTools.media = {
     if(defaults.controls == 'auto') $newVideo.attr('controls', 'controls');
     if(defaults.autoplay) $newVideo.attr('autoplay', 'autoplay');
     if(defaults.loop) $newVideo.attr('loop', 'loop');
+    if(defaults.muted) $newVideo.attr('muted', 'muted');
     if(defaults.preload) {
       $newVideo.attr('preload', 'preload');
       $newVideo.attr('autobuffer', 'autobuffer');
-    };
+    }
     if(defaults.poster) $newVideo.attr('poster', defaults.poster);
     if(defaults.width) $newVideo.attr('width', defaults.width);
     if(defaults.height) $newVideo.attr('height', defaults.height);
@@ -123,14 +133,19 @@ labTools.media = {
       // si controls esta definido y no es auto, asumimos que dibujamos los controles del lab 
     if(defaults.controls && defaults.controls != 'auto') {
           // generamos los controles
-      var $controls = $('<div class="bl-controls"><div class="bl-time-bar"><div class="bl-time-bar-pos" style="width: 0%;"></div></div><a href="#" class="toggleVid">Pausa/Reanuda la reproducción</a><span class="bl-time">00:00/00:22</span></div>');
+      var $controls = '<div class="bl-video-head">';
+      if(defaults.title) $controls += '<h2>' + defaults.title + '</h2>';
+      $controls += '<div class="bl-controls"><div class="bl-"><div class="bl-time-bar"><div class="bl-time-bar-pos" style="width: 0%;"></div></div><a href="#" class="toggleVid">Pausa/Reanuda la reproducción</a><a href="#" class="bl-ctrl-mute">Mute</a><a href="#" class="bl-ctrl-close">close</a><span class="bl-time">00:00/00:22</span></div>';
+      $controls += '</div>';
 
-      if(labTools.fullScreen && Modernizr.fullscreen) {
-        var $full = $controls.append('<a href="#" class="toggleFull wk-col-r" title="muestra en pantalla completa"></a>').find('.toggleFull');
-        $full.click(function(){
-          labTools.fullScreen.toggleFull($wrapper);
-        });
-      }
+      $controls = $($controls);
+
+      // if(labTools.fullScreen && Modernizr.fullscreen) {
+      //   var $full = $controls.append('<a href="#" class="toggleFull wk-col-r" title="muestra en pantalla completa"></a>').find('.toggleFull');
+      //   $full.click(function(){
+      //     labTools.fullScreen.toggleFull($wrapper);
+      //   });
+      // }
 
       $newVideo.bind('timeupdate', function(){
         //if(labTools.data.canvas) jfk.updateCanvas();
@@ -183,18 +198,39 @@ labTools.media = {
           return false;
         });
 
+        $controls.find('.bl-ctrl-mute')
+          .click(function(){
+            if($newVideo[0].muted) {
+              $newVideo[0].muted = false;
+            } else {
+              $newVideo[0].muted = true;
+            }
+            return false;
+          });
+
+        $controls.find('.bl-ctrl-close')
+          .click(function(){
+            if($newVideo[0].muted) {
+              $newVideo[0].muted = false;
+            } else {
+              $newVideo[0].muted = true;
+            }
+            return false;
+          });
+
       $wrapper.append($controls);
     }
 
+
       //  eventos relacionados con la carga
     if(defaults.readyCallback){
-      if (labTools.data.video.readyState === 4){
+      if ($wrapper.find('video')[0].readyState === 4){
         defaults.readyCallback();
       } else {
-        $video.bind('canplaythrough loadeddata canplay', function(){
+        $wrapper.find('video').bind('canplaythrough loadeddata canplay', function(){
           defaults.readyCallback();
           $(this).unbind('canplaythrough loadeddata canplay');
-        })
+        });
       }
     }
 
@@ -224,9 +260,10 @@ labTools.media = {
 * @method videosWipeOut
 */
   videosWipeOut: function(){
-    $('.video-ready').find('video').remove();
-    $('.video-ready').find('.bl-controls').remove();
-    $('.video-ready').removeClass('video-ready');
+    $('.video-ready')
+      .find('video').remove().end()
+      .find('.bl-controls').remove().end()
+      .removeClass('video-ready');
   },
 
 /** 
@@ -238,10 +275,11 @@ labTools.media = {
 */
   audiosWipeOut: function(){
 
-    $('.audio-ready').find('audio').remove();
-    $('.audio-ready').find('.bl-controls').remove();
-    $('.audio-ready').removeClass('audio-ready');
-  }, 
+    $('.audio-ready')
+      .find('audio').remove().end()
+      .find('.bl-controls').remove().end()
+      .removeClass('audio-ready');
+  },
 
 /** 
 * labTools.media.stopMediaReproduction()
@@ -249,7 +287,7 @@ labTools.media = {
 *   Para la reproducción de todos los audios/videos del documento y reinicia sus tiempo (!important)
 * 
 * @method audiosWipeOut
-*/     
+*/   
   stopMediaReproduction: function() {
 
     var $videos  = $('video');
