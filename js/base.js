@@ -80,13 +80,15 @@ var atnls = {
 
     labTools.media.init();
 
-    $('.video-lnk').click(function(){
+    $('body').delegate('.video-lnk', 'click', function(){
       var $this = $(this);
       var data = $this.data();
 
       if(!data.video) return false;
 
       atnls.player.pause();
+
+      $('#menu, #pop').fadeOut(400);
 
       labTools.media.generaVideo($('#player .vrap'), data.video, {
         title: $this.attr('title') ? $this.attr('title') : null,
@@ -119,6 +121,9 @@ var atnls = {
         } else if($('#player:visible').length) {
           $('#player').fadeToggle(400);
           labTools.media.videosWipeOut();
+        } else if($('#pop:visible').length) {
+          $('#pop').fadeOut(400);
+
         } else {
           labTools.url.setUrl(projRoot);
         }
@@ -388,10 +393,7 @@ var atnls = {
               $('#player').fadeIn(400);
             
               labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
-                title: 'Presentación de Luis García Montero', controls: true, muted: false, autoplay: true, readyCallback: function(){
-                console.log('ready', this);
-                return false;
-              } });
+                title: 'Presentación de Luis García Montero', controls: true, muted: false, autoplay: true });
 
             });
           });
@@ -439,6 +441,12 @@ var atnls = {
       return false;
     });
 
+    $('body').delegate('.closePop, .closePop2', 'click', function(){
+      $('#pop').fadeOut(400);
+
+      return false;
+    });
+
     $('.closePlayer, #player .plyr-list').click(function(e) {
       labTools.media.videosWipeOut();
       $('#player').fadeOut(400);
@@ -451,33 +459,23 @@ var atnls = {
       atnls.player.pause();
     
       labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
-        title: 'Presentación de Luis García Montero', controls: true, muted: false, autoplay: true, readyCallback: function(){
-        console.log('ready', this);
-        return false;
-      } });
-    })
+        title: 'Presentación de Luis García Montero',
+        controls: true,
+        muted: false,
+        autoplay: true
+      });
+    });
   },
 
     // funcion llamada ante cualquier cambio de url
   updatePage: function(target) {
     
-    var target = target ? target : '';
+    target = target ? target : '';
     console.log('nueva url: ', target);
 
-      // manage active elements classes
-    // $('.url-current').removeClass('url-current');
-    // $('[href="' + target + '"]').addClass('url-current');
-    // $('.url-poly').each(function(){
-    //   var $this = $(this);
-    //   if(target.indexOf($this.attr('href')) != -1 ) {
-    //     $this.addClass('url-active');
-    //   } else {
-    //     $this.removeClass('url-active');
-    //   }
-    // });
-
-
-    $('#credits, #menu').fadeOut(400);
+      // elimina otras cosis
+    $('#credits, #menu, #player').fadeOut(400);
+    labTools.media.videosWipeOut();
 
     var foundGlobal = false;
 
@@ -549,20 +547,35 @@ var atnls = {
           // checkea la url con la de cada páginas de poemas
         if(target.indexOf($this.data('poeta')) != -1) {
 
-          var $prefoto = $this.find('.preFoto');
-          if($prefoto.length) {
-            $prefoto.html('<img src="' + $prefoto.data('src') + '">').removeClass('preFoto');
-          }
+            // si es la página de Luis, pero aún está bloqueado
+          if(target.indexOf('luis-garcia-montero') != -1 && $('#luis').data('luis') < 6) {
+            
+            $('#pop').find('.wk-valign-cont-inn')
+              .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk">Ir a la tertulia</a></div>')
+              .end()
+              .fadeIn(400);
 
-          if(atnls.cache.initialLoad) {
-            $this.show().addClass('act');
+            // resto de casos
           } else {
-            $this.fadeIn(400).addClass('act');
+
+            var $prefoto = $this.find('.preFoto');
+            if($prefoto.length) {
+              $prefoto.html('<img src="' + $prefoto.data('src') + '">').removeClass('preFoto');
+            }
+
+            if(atnls.cache.initialLoad) {
+              $this.show().addClass('act');
+            } else {
+              $this.fadeIn(400).addClass('act');
+            }
+            
+            found = true;
+
           }
-          
-          found = true;
 
         } else {
+
+            // si tiene clase act es la página anterior => marcomos como visto e incrementamos luis
           if($this.hasClass('act')) {
             
             $this.removeClass('act').fadeOut(500);

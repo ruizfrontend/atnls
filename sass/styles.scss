@@ -20,6 +20,7 @@
 @mixin cutie { font-family: 'rfont', serif; line-height: 1.4em; margin-bottom: 0.2em; letter-spacing: 0.3em; }
 
 @mixin closeWhite { position: absolute; z-index: 1; right: 1em; top: 1em; width: 44px; height: 44px; background: url(./img/atnls-sprite.png) -249px -82px no-repeat; }
+@mixin closeBlack { @include closeWhite; background-position: -251px -49px; }
 
 // .ft-awesome { @include cutie }
 .ft-cutie { @include cutie; }
@@ -33,9 +34,8 @@ $breakpoint: 980;
 body { background: white; padding: 0; @include oxy; font-size: 14px; line-height: 1.2em; font-weight: 300;
       position: absolute; height: 100%; width: 100%; }
 a { cursor: pointer!important; color: $green; font-weight: 900; @include transition(all 0.4s ease-in-out); }
-a.btn { text-decoration: none; padding: 0.6em 1em; background: #333; color: white; display: inline-block; margin: 0.4em 0; }
+a.btn { text-decoration: none; padding: 0.6em 1em; background: #333; color: white; display: inline-block; margin: 0.4em 0.4em; }
 a.btn-red { background: #CB324B; }
-a:hover { color: $green; }
 
 p { font-size: 1.2em; line-height: 1.4em; margin-bottom: 1.4em; }
   p.nota { font-size: 0.9em; text-align: right; padding-left: 40%; }
@@ -320,6 +320,16 @@ iframe { border: none; }
     background: rgba(51, 51, 51, 0.96);
   a { text-decoration: none; color: white; &:hover { color: $green; }}
   .closePlayer { @include closeWhite; }
+}
+
+  // páginas 100%
+#pop { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; color: white; z-index: 10;
+    background: rgba(255,255,255, 0.8);
+  .wk-valign { max-width: 600px; margin: 0 auto; }
+  .wk-valign-cont-inn { padding: 1em; background: rgba(51, 51, 51, 0.86); }
+  h4 { text-transform: none; line-height: 1.4em; padding-bottom: 0.4em; }
+  a { text-decoration: none; color: white; &:hover { color: $green; }}
+  .closePop { @include closeBlack; }
 }
 
 #redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 51, 51, 0.96); color: white; z-index: 2;
