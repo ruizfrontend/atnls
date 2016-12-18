@@ -486,6 +486,7 @@ var atnls = {
 
     $('.showPresentacion').click(function(){
 
+      $('#credits, #menu').fadeOut(400);
       $('#player').fadeIn(400);
     
       labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
@@ -608,7 +609,7 @@ var atnls = {
           if(target.indexOf('luis-garcia-montero') != -1 && $('#luis').data('luis') < 6) {
             
             $('#pop').find('.wk-valign-cont-inn')
-              .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk">Ir a la tertulia</a></div>')
+              .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk">Ir a la tertulia</a></div>')
               .end()
               .fadeIn(400);
 

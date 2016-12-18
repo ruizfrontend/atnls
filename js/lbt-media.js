@@ -107,7 +107,8 @@ labTools.media = {
 
     if(!$wrapper.length || !videoFile || $wrapper.hasClass('video-ready')) return;
 
-    $wrapper.addClass('video-wrapp');
+    $wrapper.addClass('video-wrapp')
+      .find('.bl-video-head, video').remove();
 
         // aumenta las propiedades por defecto
     var defaults = jQuery.extend({}, labTools.media.data.initialSettings);
@@ -285,6 +286,7 @@ labTools.media = {
     $('.video-ready')
       .find('video').remove().end()
       .find('.bl-player').remove().end()
+      .find('.bl-video-head').remove().end()
       .removeClass('video-ready');
   },
 
