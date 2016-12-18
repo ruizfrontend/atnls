@@ -77,24 +77,31 @@ var atnls = {
   },
 
   initMedia: function() {
-    
+
     labTools.media.init();
-    $('#viddd').click(function(){
-      labTools.media.generaVideo($('#jfk-init-video'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', { title: 'video Prueba',controls: true, muted: true, autoplay: true, readyCallback: function(){
-        console.log('ready', this);
-        return false;
-      } });
+
+    $('.video-lnk').click(function(){
+      var $this = $(this);
+      var data = $this.data();
+
+      if(!data.video) return false;
+
+      atnls.player.pause();
+
+      labTools.media.generaVideo($('#player .vrap'), data.video, {
+        title: $this.attr('title') ? $this.attr('title') : null,
+        controls: data.controls ? data.controls : true,
+        muted: data.muted ? data.muted : false,
+        autoplay: data.autoplay ? data.autoplay : true,
+        readyCallback: function(){
+          $('#player').fadeIn(400);
+        }
+      });
+
       return false;
     });
 
   },
-
-  // timeMeter: function() {
-  //   $('.col-player').click(function(){
-  //     if(atnls.player.active) console.log((1000 * atnls.player.active.currentTime()) + ',');
-  //   });
-
-  // },
 
   initKeys: function() {
     $(document).keydown(function(e) {
@@ -109,9 +116,13 @@ var atnls = {
         } else if($('#credits:visible').length) {
           $('#credits').fadeToggle(400);
 
+        } else if($('#player:visible').length) {
+          $('#player').fadeToggle(400);
+          labTools.media.videosWipeOut();
         } else {
           labTools.url.setUrl(projRoot);
         }
+
         return;
         break;
       case 32: // space
@@ -132,7 +143,7 @@ var atnls = {
   initShares: function() {
 
     $('body')
-      .delegate('.twIntent, .verso', 'click', atnls.tweetText);
+      .delegate('.twIntent, .verso, .bl-player-current-inn', 'click', atnls.tweetText);
     
 
     $('.share-poema-twitter').click(function(){
@@ -193,7 +204,7 @@ var atnls = {
 
     labTools.url.data.baseUrl = '';
 
-    labTools.url.initiate(atnls.updatePage, atnls.updatePage, function(){
+    labTools.url.initiate(null, atnls.updatePage, function(){
       // console.log('url changed!!');
     });
 
@@ -369,22 +380,18 @@ var atnls = {
             $('#initVidMain').click(function() {
 
                   // elimina intro
-              $('#initVid .wk-valign').fadeOut(400);
+              $('#initVid').fadeOut(400);
 
               atnls.cache.presentacion = false; // damos por terminada la presentación
 
                   // carga video
-              atnls.video.launchYoutube(1, $('#initVid .vid')[0], { end: function(){ $('#initVid').fadeOut(400); }});
-
-              setTimeout(function(){
-                $('#jumpInitVid').fadeIn('1000')
-                .click(function(){
-                  
-                  atnls.video.stopAll();
-
-                  $('#initVid').fadeOut(400);
-                });
-              }, 4000);
+              $('#player').fadeIn(400);
+            
+              labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
+                title: 'Presentación de Luis García Montero', controls: true, muted: false, autoplay: true, readyCallback: function(){
+                console.log('ready', this);
+                return false;
+              } });
 
             });
           });
@@ -431,12 +438,30 @@ var atnls = {
 
       return false;
     });
+
+    $('.closePlayer, #player .plyr-list').click(function(e) {
+      labTools.media.videosWipeOut();
+      $('#player').fadeOut(400);
+    });
+
+    $('.showPresentacion').click(function(){
+
+      $('#player').fadeIn(400);
+
+      atnls.player.pause();
+    
+      labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
+        title: 'Presentación de Luis García Montero', controls: true, muted: false, autoplay: true, readyCallback: function(){
+        console.log('ready', this);
+        return false;
+      } });
+    })
   },
 
     // funcion llamada ante cualquier cambio de url
   updatePage: function(target) {
     
-    // var target = target ? target : '';
+    var target = target ? target : '';
     console.log('nueva url: ', target);
 
       // manage active elements classes
@@ -498,27 +523,7 @@ var atnls = {
     } else {
       $('#poemas').removeClass('act');
       atnls.player.miniDisplay = true;
-      // if(atnls.player.active && !atnls.player.active.paused()) $('#miniplayer').slideDown(400);
-    }
-
-
-    if (target.indexOf('/presentacion') != -1) {
       
-      foundGlobal = true;
-
-      if(atnls.cache.initialLoad) {
-        $('#presentacion').show();
-      } else {
-        $('#presentacion').fadeIn(400);
-      }
-        
-
-      $('#presentacion').show().click(function(){ atnls.video.playVideo($(this)); });
-      atnls.video.launchYoutube(1, $('#presentacion .vid')[0]);
-
-    } else {
-      $('#presentacion').fadeOut();
-      atnls.video.stopVideo($('#presentacion iframe'));
     }
 
     if (target.indexOf('/redes') != -1) {
@@ -643,11 +648,12 @@ var atnls = {
   },
 
   initPlayer: function() {
-    $('.plyr-prev').click(atnls.player.prev);
-    $('.plyr-play').click(atnls.player.togglePlay);
-    $('.plyr-next').click(atnls.player.next);
+    $('#miniplayer, .col-player')
+      .find('.plyr-prev').click(atnls.player.prev).end()
+      .find('.plyr-play').click(atnls.player.togglePlay).end()
+      .find('.plyr-next').click(atnls.player.next).end()
     // $('.plyr-mute').click(atnls.player.toggleMute);
-    $('.bl-timer').click(atnls.player.timeChange);
+      .find('.bl-timer').click(atnls.player.timeChange);
     $('.showPoemas').click(atnls.player.showPoemas);
     
     $('.bl-playlist').mThumbnailScroller({
@@ -670,39 +676,12 @@ var atnls = {
     isVideoPlaying: false,
     audios: {},
 
-    // mute: true,
-    
-    // $('#openPoemas').click(atnls.player.back2Poems);
-    // $('#'closePoemas'').click(atnls.player.keepBrowsing);
-  
-    // keepBrowsing: function() {
-
-    //   labTools.url.setUrl(projRoot);
-
-    //   $('#miniplayer').slideDown(400);
-
-    //   atnls.player.miniDisplay = true;
-
-    //   return false;
-    // },
-
-    // back2Poems: function() {
-      
-    //   labTools.url.setUrl(projRoot + 'poemas/' + atnls.player.$activePoemPage.data('poema'));
-
-    //   atnls.player.$activePoemPage.fadeIn(400);
-    //   $('#miniplayer').slideUp(400);
-
-    //   atnls.player.miniDisplay = false;
-
-    //   return false;
-    // },
     stop: function() {
       if(atnls.player.active) atnls.player.active.pause();
       atnls.player.active = null;
       atnls.player.$activePoemPage = null;
-      $('.plyr-play').addClass('paused');
-      $('.bl-timer-time').css('width', 0);
+      $('#miniplayer, .col-player').find('.plyr-play').addClass('paused');
+      $('#miniplayer, .col-player').find('.bl-timer-time').css('width', 0);
       $('#miniplayer .bl-player').hide();
       $('#miniplayer .player-nav').show();
     },
@@ -782,9 +761,9 @@ var atnls = {
     timeupdate: function() {
 
       if(atnls.player.active) {
-        $('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
+        $('#miniplayer, .col-player').find('.bl-timer-time').css('width', (atnls.player.active.currentTime() * 100 / atnls.player.active.duration()) + '%');
       } else {
-        $('.bl-timer-time').css('width', 0);
+        $('#miniplayer, .col-player').find('.bl-timer-time').css('width', 0);
       }
       
     },
@@ -803,10 +782,10 @@ var atnls = {
       if(atnls.player.active.paused()) {
         atnls.player.active.play();
         atnls.player.play();
-        $('.plyr-play').removeClass('paused');
+        $('#miniplayer, .col-player').find('.plyr-play').removeClass('paused');
       } else {
         atnls.player.active.pause();
-        $('.plyr-play').addClass('paused');
+        $('#miniplayer, .col-player').find('.plyr-play').addClass('paused');
       }
       
       return false;
@@ -817,6 +796,14 @@ var atnls = {
       atnls.player.active = null;
 
       return false;
+    },
+    pause: function() {
+
+      if(atnls.player.active && !atnls.player.active.paused()) {
+        atnls.player.active.pause();
+        $('#miniplayer, .col-player').find('.plyr-play').addClass('paused');
+      }
+
     },
     pausePage: function($page) {
       var poema = $page.data('poema');
@@ -856,9 +843,6 @@ var atnls = {
       atnls.player.$activePoemPage = $page;
 
         // play
-// if(!atnls.player.isVideoPlaying) {
-// console.log(PCaudio.readyState())
-// 
       atnls.player.play()
 
       if(PCaudio.readyState() === 0 || PCaudio.readyState() == 1) {
@@ -873,24 +857,8 @@ var atnls = {
         PCaudio.play();
       }
 
-// if(PCaudio.canPlay()) {
 
-// } else {
-//   $(PCaudio).ready(function(){
-//     atnls.player.active.play()
-//   }); 
-// }
-
-  // $(PCaudio).on('ready', function(){ this.play(); console.log('later'); });
-  // if(PCaudio.readyState() > 3) {
-  //   PCaudio.play();
-  // } else {
-  //   $(PCaudio).on('ready', function(){ this.play(); console.log('later') });
-  // }
-  
-// }
-
-      $('.plyr-play').removeClass('paused');
+      $('#miniplayer, .col-player').find('.plyr-play').removeClass('paused');
 
     },
     initPage: function($page) {
@@ -927,7 +895,7 @@ var atnls = {
                 .find('.act').removeClass('act').end()
                 .find('.verso:eq(' + pos + ')').addClass('act');
 
-              $('#miniplayer .bl-player-current-inn').text(verso.html().replace('<br>', ' '));
+              $('#miniplayer .bl-player-current-inn').text(verso.html().replace(/<br>/g, ' '));
             },
             // onEnd: function( options ) {
             //  console.log(pos + ' end');
@@ -936,24 +904,12 @@ var atnls = {
 
         })();
 
-      }
+      };
 
       return PCaudio;
 
     },
-    // toggleMute: function() {
 
-    //   if(!atnls.player.active) return false;
-
-    //   if(atnls.player.active.muted()) {
-    //     atnls.player.active.unmute();
-    //     Cookies.set('muted', 0);
-    //   } else {
-    //     atnls.player.active.mute();
-    //     Cookies.set('muted', 1);
-    //   }
-    //   return false;
-    // }
   },
 
           // función control de redimensionados______________________________________________________
@@ -1007,144 +963,6 @@ var atnls = {
       });
     }
 
-    // if(atnls.cache.winWidth > maxWidth) {
-      
-    //   w = maxWidth;
-    //   h = maxWidth * proportion;
-    //   top = (atnls.cache.winHeigth - h) / 2;
-
-    //   atnls.cache.$canvas.css({
-    //     // 'left': (atnls.cache.winWidth - w) / 2,
-    //     // 'top': top > 0 ? top : 0,
-    //     // 'width': w,
-    //     // 'height': h
-    //   });
-
-    // } else if(atnls.cache.winWidth > atnls.cache.breakpoint){
-      
-    //   w = atnls.cache.winWidth - (2 * padd);
-    //   h = (w * proportion);
-    //   top = (atnls.cache.winHeigth - h) / 2;
-
-    //   atnls.cache.$canvas.css({
-    //     // 'left': padd,
-    //     // 'top': top > 0 ? top : 0,
-    //     // 'width': w,
-    //     // 'height': h
-    //   });
-    // } else {
-
-    //   atnls.cache.$canvas.css({
-    //     // 'left': 0,
-    //     // 'top': 0,
-    //     // 'width': atnls.cache.winWidth,
-    //     // 'height': atnls.cache.winHeigth
-    //   });
-
-    // }
-  },
-
-  videoCache: {},
-  video: {
-    launchYoutube: function(i, elm, opts) {
-      var $wrap = $(elm);
-
-      var videoData = $wrap.data();
-      var videoID = videoData.video;
-      var videoLoop = videoData.loop;
-      var videoAutoplay = videoData.autoplay;
-      var videoBackground = videoData.playbackground;
-      var videomuted = videoData.muted;
-      var controls = videoData.controls;
-
-      var id = 'player-' + parseInt(1000 * Math.random()).toString();
-
-      if(Modernizr.touch) {
-        $wrap.html('')
-          .unbind('click')
-          .prepend('<iframe id="'+id+'" width="560" height="315" src="https://www.youtube.com/embed/'+videoID+'?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>');
-        return false;
-      }
-
-      if(!$wrap.find('iframe').length) {
-
-        $wrap.prepend('<div id="'+id+'"></div>');
-
-        var settings = {
-          autoplay: videoAutoplay,
-          controls: controls ? controls : 0,
-          loop: videoLoop,
-
-          showinfo: 0,
-          modestbranding: 0,
-          playsinline: 1,
-          rel: 0,
-        };
-
-        if(videoBackground) $wrap.addClass('background');
-
-        atnls.videoCache[id] = new YT.Player(id, {
-          videoId: videoID,
-          playerVars: settings,
-          events: {
-            onReady: function(event){
-            },
-            onStateChange: function(event){
-              switch(event.data){
-                case 0: // fin
-                  if(opts && opts.end) opts.end();
-                case 2: // pause
-                  $wrap.removeClass('playing');
-                  $wrap.find('.poster').fadeIn(200);
-                  atnls.player.isVideoPlaying = false;
-                break;
-                case 1: // play
-                  atnls.video.stopAll(id);
-                  $wrap.addClass('playing');
-                  $wrap.find('.poster').fadeOut(600);
-                  atnls.player.isVideoPlaying = true;
-                break;
-              }
-            },
-            onError: function(){
-              $wrap.removeClass('playing');
-              $wrap.find('.poster').show();
-            },
-            onApiChange: function(){
-              $wrap.removeClass('playing');
-              $wrap.find('.poster').show();
-            }
-          }
-        });
-
-      } else {
-        if($wrap.hasClass('playing')) return false;
-        atnls.videoCache[$wrap.find('iframe').attr('id')].playVideo();
-      }
-
-    },
-    playVideo: function($iframe) {
-      var id = $iframe.attr('id');
-      if(!id) return false;
-      if(!atnls.videoCache[id] || !atnls.videoCache[id].playVideo) return false;
-      atnls.videoCache[id].playVideo();
-    },
-    stopAll: function(except) {
-      for (var key in atnls.videoCache) {
-        if(except && key == except) return false;
-        if (atnls.videoCache.hasOwnProperty(key)) {
-          if(atnls.videoCache[key].stopVideo) atnls.videoCache[key].stopVideo();
-        }
-      }
-    },
-    stopVideo: function($iframe) {
-      var id = $iframe.attr('id');
-      if(!id || !atnls.videoCache[id]) { console.log('video no encontrado'); return false; }
-      atnls.videoCache[id].stopVideo();
-    },
-    pauseSection: function(wrap) {
-      $(wrap).find('.playing iframe').each(function(){ atnls.video.stopVideo($(this)); });
-    }
   },
 
 };

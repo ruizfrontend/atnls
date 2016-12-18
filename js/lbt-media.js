@@ -107,6 +107,8 @@ labTools.media = {
 
     if(!$wrapper.length || !videoFile || $wrapper.hasClass('video-ready')) return;
 
+    $wrapper.addClass('video-wrapp');
+
         // aumenta las propiedades por defecto
     var defaults = jQuery.extend({}, labTools.media.data.initialSettings);
     defaults = jQuery.extend(labTools.media.data.initialSettings, settings);
@@ -134,11 +136,25 @@ labTools.media = {
     if(defaults.controls && defaults.controls != 'auto') {
           // generamos los controles
       var $controls = '<div class="bl-video-head">';
-      if(defaults.title) $controls += '<h2>' + defaults.title + '</h2>';
-      $controls += '<div class="bl-controls"><div class="bl-"><div class="bl-time-bar"><div class="bl-time-bar-pos" style="width: 0%;"></div></div><a href="#" class="toggleVid">Pausa/Reanuda la reproducción</a><a href="#" class="bl-ctrl-mute">Mute</a><a href="#" class="bl-ctrl-close">close</a><span class="bl-time">00:00/00:22</span></div>';
+      $controls += '<div class="wk-valign"><div class="wk-valign-cont"><div class="bl-player2"><div class="bl-player-ctrls"><a href="#" class="plyr-pause2">Pausa/Reanuda la reproducción</a><a href="#" class="plyr-mute2">Mute</a><a href="#" class="plyr-list2">close</a></div><div class="bl-timer2"><div class="bl-timer-time"></div></div><span class="bl-time">00:29/00:29</span></div></div></div>';
       $controls += '</div>';
 
       $controls = $($controls);
+
+      if(defaults.title) {
+        $controls.find('.wk-valign-cont').prepend('<h2>' + defaults.title + '</h2>');
+        $('#player .titleThis').html(defaults.title);
+      }
+
+      var moveTimer = false;
+      $controls.on('mousemove', function() {
+        var $this = $(this);
+        $this.addClass('act');
+        if(moveTimer) {
+          clearTimeout(moveTimer);
+        }
+        moveTimer = setTimeout(function(){ $this.removeClass('act'); }, 3000);
+      });
 
       // if(labTools.fullScreen && Modernizr.fullscreen) {
       //   var $full = $controls.append('<a href="#" class="toggleFull wk-col-r" title="muestra en pantalla completa"></a>').find('.toggleFull');
@@ -155,27 +171,39 @@ labTools.media = {
         var totalOk = labTools.media.tools.getTextSeconds(total);
         if(position && total) {
           $controls.find('.bl-time').html(timeOk + '/' + totalOk);
-          $controls.find('.bl-time-bar-pos').css('width', 100 * position / total + '%');
+          $controls.find('.bl-timer-time').css('width', 100 * position / total + '%');
         } else {
           $controls.find('.bl-time').html('00:00/--:--');
-          $controls.find('.bl-time-bar-pos').css('width', 0);
+          $controls.find('.bl-timer-time').css('width', 0);
         }
       });
 
         // eventos del boton de play
-      $controls.find('.toggleVid').click(function(){
-        if($newVideo[0].paused) {
-          $newVideo[0].play();
-          $(this).addClass('playing');
-        } else {
-          $newVideo[0].pause();
-          $(this).removeClass('playing');
-        }
+      $controls.find('.plyr-next').click(function(){
+        console.log('next');
         return false;
       });
 
+      $controls.find('.plyr-pause2').click(function(){
+        if($newVideo[0].paused) {
+          $newVideo[0].play();
+        } else {
+          $newVideo[0].pause();
+        }
+      });
+
+      $controls.find('.wk-valign-cont').click(function(e){
+        if(e.target == this){
+          if($newVideo[0].paused) {
+            $newVideo[0].play();
+          } else {
+            $newVideo[0].pause();
+          }
+        }
+      });
+
         // eventos al pulsar la barra de tiempo
-      $controls.find('.bl-time-bar')
+      $controls.find('.bl-timer2')
         .mousedown(function(e){
           if(!$newVideo[0].currentTime) return false;
           labTools.media.data.timerMouseDown = true;
@@ -198,7 +226,7 @@ labTools.media = {
           return false;
         });
 
-        $controls.find('.bl-ctrl-mute')
+        $controls.find('.plyr-mute2')
           .click(function(){
             if($newVideo[0].muted) {
               $newVideo[0].muted = false;
@@ -208,14 +236,9 @@ labTools.media = {
             return false;
           });
 
-        $controls.find('.bl-ctrl-close')
+        $controls.find('.plyr-list2')
           .click(function(){
-            if($newVideo[0].muted) {
-              $newVideo[0].muted = false;
-            } else {
-              $newVideo[0].muted = true;
-            }
-            return false;
+            console.log('cierra')
           });
 
       $wrapper.append($controls);
@@ -262,7 +285,7 @@ labTools.media = {
   videosWipeOut: function(){
     $('.video-ready')
       .find('video').remove().end()
-      .find('.bl-controls').remove().end()
+      .find('.bl-player').remove().end()
       .removeClass('video-ready');
   },
 
@@ -277,7 +300,7 @@ labTools.media = {
 
     $('.audio-ready')
       .find('audio').remove().end()
-      .find('.bl-controls').remove().end()
+      .find('.bl-player').remove().end()
       .removeClass('audio-ready');
   },
 

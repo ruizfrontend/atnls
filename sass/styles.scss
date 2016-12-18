@@ -106,7 +106,7 @@ iframe { border: none; }
   .hamb { width: 55px; background-position: -291px -247px; height: 55px; margin-left: 11px; clear: left; margin-top: 10px; }
 
     // cabeceras internas negras
-  #poemas, #redes, #presentacion { 
+  #poemas, #redes, #presentacion, #player { 
     .rtve { background-position: -20px -19px; }
     .lab { background-position: -308px -155px; }
     .hamb { background-position: -232px -247px; }
@@ -277,20 +277,23 @@ iframe { border: none; }
   }
 }
 
-.bl-player { max-width: 280px; text-align: left; margin: 0 auto; text-align: center;
+.bl-player, .bl-controls, .bl-player2 { max-width: 280px; text-align: left; margin: 0 auto; text-align: center;
   a { display: inline-block; width: 44px; height: 44px; margin-right: 10px; background: #ccc;
-      background: url(./img/atnls-sprite.png) -19px -186px no-repeat; @include transition(none); }
+      background: url(./img/atnls-sprite.png) -19px -186px no-repeat; @include transition(none);
+      text-indent: -9999px; overflow: hidden; }
   .bl-miniplayer & a { margin: 0; }
 
   .plyr-next { background-position: -120px -186px; }
   .plyr-play { background-position: -66px -186px;
     &.paused { background-position: -409px -105px; }
   }
-  .plyr-pause { background-position: -66px -186px; }
-  .plyr-list { background-position: -177px -186px; }
+  .plyr-pause, .plyr-pause2 { background-position: -66px -186px; }
+  .plyr-list, .plyr-pause2 { background-position: -177px -186px; }
 
-  .bl-timer { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 1em 0; }
+  .bl-timer, .bl-timer2 { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 1em 0; }
     .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 0; }
+
+  .plyr-mute2 { background-position: -66px -186px; }
 }
 
 .verso { display: block; float: left; clear: left; padding: 0 0.4em 0 0; position: relative; cursor: pointer;
@@ -313,10 +316,10 @@ iframe { border: none; }
 }
 
   // páginas 100%
-#player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; color: white; font-size: 1.2em; line-height: 1.2em; z-index: 10;
+#player { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; color: white; z-index: 10;
     background: rgba(51, 51, 51, 0.96);
   a { text-decoration: none; color: white; &:hover { color: $green; }}
-  .hideCredits { @include closeWhite; }
+  .closePlayer { @include closeWhite; }
 }
 
 #redes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 51, 51, 0.96); color: white; z-index: 2;
@@ -398,11 +401,19 @@ iframe { border: none; }
 }
 .poster { z-index: 200; position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
 
+.video-wrapp { position: absolute; height: 100%; width: 100%; top: 0;
+  video { width: 100%; height: 100%; }
+}
+.bl-video-head { position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0; @include transition(all 0.2s ease-in-out);
+  &.act { opacity: 1; }
+}
+
+
 #presentacion { display: none; z-index: 1; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black;
   .head { margin-bottom: 1em; }
   .vid { width: 100%; height: 0; padding-bottom: 50.7%; position: relative; max-width: 90%; margin: 0 auto; }
   img, iframe { position: absolute; width: 100%; height: 100%; }
-
 }
 
 #miniplayer { position: fixed; bottom: 0; left: 0; width: 100%; height: 50px; background: #333; color: white; font-size: 1.2em; line-height: 1.4em; z-index: 1; overflow: hidden;
