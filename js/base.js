@@ -157,11 +157,19 @@ var atnls = {
     
 
     $('.share-poema-twitter').click(function(){
-
+      var act = $('#poemas .bl-playlist .act');
+      if(act.length) {
+        atnls.openTweet('La voz de Luis García Montero: ' + act.html());
+      } else {
+        atnls.openTweet('La voz de Luis García Montero: selección de poemas leídos por el autor');
+      }
+      
     });
 
     $('.share-poema-facebook').click(function(){
-
+      var target = $(this).data(target);
+      target = target ? target : window.location.href;
+      atnls.openFacebook(window.location.href);
     });
   },
 
@@ -479,8 +487,6 @@ var atnls = {
     $('.showPresentacion').click(function(){
 
       $('#player').fadeIn(400);
-
-      atnls.player.pause();
     
       labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
         title: 'Presentación de Luis García Montero',
@@ -488,6 +494,8 @@ var atnls = {
         muted: false,
         autoplay: true
       });
+
+      return false;
     });
 
     $('.poeta-col-l a').on('mousemove', atnls.thrtleMove);
@@ -500,13 +508,13 @@ var atnls = {
 
     atnls.thrtleMoveSemaforo = setTimeout(function(){
       atnls.thrtleMoveSemaforo = false;
-    }, 100);
+    }, 500);
 
     var $this = $(this);
     var w = $this.width();
     var h = $this.height();
-    var pleft = 100 - (e.offsetX * 100 / w);
-    var ptop = 100 - (e.offsetY * 100 / h);
+    var pleft = (e.offsetX * 100 / w);
+    var ptop = (e.offsetY * 100 / h);
     
     $this.find('.imgTXT').css({
       '-moz-transform-origin': pleft + '% ' + ptop + '% ',
@@ -711,6 +719,26 @@ var atnls = {
     window.open(target, 'intent', windowOptions + ',width=' + width +
                                        ',height=' + height + ',left=' + left + ',top=' + top);
   },
+  openFacebook: function(url) {
+
+    var windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes',
+        width = 550,
+        height = 420,
+        winHeight = screen.height,
+        winWidth = screen.width;
+
+    var left = Math.round((winWidth / 2) - (width / 2));
+    var top = 0;
+
+    if (winHeight > height) {
+      top = Math.round((winHeight / 2) - (height / 2));
+    }
+
+    var target = 'https://www.facebook.com/sharer/sharer.php?app_id=435567026494540&u=' + url
+    window.open(target, 'intent', windowOptions + ',width=' + width +
+                                       ',height=' + height + ',left=' + left + ',top=' + top);
+
+  },
 
   initPlayer: function() {
     $('#miniplayer, .col-player')
@@ -721,16 +749,16 @@ var atnls = {
       .find('.bl-timer').click(atnls.player.timeChange);
     $('.showPoemas').click(atnls.player.showPoemas);
     
-    $('.bl-playlist').mThumbnailScroller({
-      axis: 'x', //change to "y" for vertical scroller
-      type: 'click-50',
-      markup:{
-        buttonsHTML:{
-          left: '<span id="playlist-before"></aspan>',
-          right: '<span id="playlist-after"></span>'
-        },
-      },
-    });
+    // $('.bl-playlist').mThumbnailScroller({
+    //   axis: 'x', //change to "y" for vertical scroller
+    //   type: 'click-50',
+    //   markup:{
+    //     buttonsHTML:{
+    //       left: '<span id="playlist-before"></aspan>',
+    //       right: '<span id="playlist-after"></span>'
+    //     },
+    //   },
+    // });
 
   },
 

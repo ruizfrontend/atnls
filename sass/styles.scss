@@ -230,14 +230,14 @@ iframe { border: none; }
     @include transform(translateY(100%)); opacity: 0; 
   .pageReady & { @include transition(all 0.8s); }
   &.act { @include transform(translateY(0)); opacity: 1; }
-  .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden; padding-bottom: 55px;
+  .wrap { max-width: 1200px; height: 100%; padding-top: 2em; position: absolute; padding-top: 150px; overflow: hidden;
       top: 0; width: 100%; margin: 0 auto; @include box-sizing(border-box); display: block; left: 0; right: 0; }
 
   .player { float: left; height: 100%; width: 300px; }
 
-  .col-player, .col-poemas, .col-help { float: left; width: 30%; height: 100%; @include box-sizing(border-box); }
+  .col-player, .col-poemas, .col-help { float: left; width: 35%; height: 100%; @include box-sizing(border-box); }
   .col-poemas { width: 40%; position: relative; }
-  .col-player { max-width: 400px; }
+  .col-player { max-width: 500px; }
 
   // .col-poemas { overflow: auto; }
   @media (min-width: 800px) {
@@ -253,17 +253,25 @@ iframe { border: none; }
       background: url(./img/bar-white.png) bottom left no-repeat; }
   }
 
-  .bl-playlist { position: fixed; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
-      ul { width: 20000px; padding: 0.4em 2em;  }
-      li { display: inline-block; margin: 0 1em;
-        a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; line-height: 3em; padding: 0 1em; @include transition(none);
-          &.act { font-weight: 900; font-size: 1.3em; line-height: 2.4em; }
-        }
-      }
-    #playlist-before, #playlist-after { height: 35px; width: 35px; display: block; background: url(./img/atnls-sprite.png) -19px -117px no-repeat; }
-    #playlist-after { background-position: -58px -117px; }
-    .mTSButton { height: 35px; width: 35px; padding: 0.6em; background: rgba(255,255,255,0.8); }
-    .mTSButtonIconContainer { display: block; position: relative; width: 100%; height: 100%; overflow: hidden; padding: 0; left: 0; top: 0; }
+  // .bl-playlist { position: fixed; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
+  //     ul { width: 20000px; padding: 0.4em 2em;  }
+  //     li { display: inline-block; margin: 0 1em;
+  //       a { text-decoration: none; color: #333; font-weight: 100; font-size: 1.1em; line-height: 3em; padding: 0 1em; @include transition(none);
+  //         &.act { font-weight: 900; font-size: 1.3em; line-height: 2.4em; }
+  //       }
+  //     }
+  //   #playlist-before, #playlist-after { height: 35px; width: 35px; display: block; background: url(./img/atnls-sprite.png) -19px -117px no-repeat; }
+  //   #playlist-after { background-position: -58px -117px; }
+  //   .mTSButton { height: 35px; width: 35px; padding: 0.6em; background: rgba(255,255,255,0.8); }
+  //   .mTSButtonIconContainer { display: block; position: relative; width: 100%; height: 100%; overflow: hidden; padding: 0; left: 0; top: 0; }
+  // }
+
+  .bl-playlist { @include cutie; line-height: 1.6em; font-size: 1.2em;
+    a { text-decoration: none; color: white; display: block; position: relative; margin-bottom: 1.2em;
+      &:before { content: ''; display: block; width: 0; height: 20px; position: absolute; bottom: -0.8em; left: 0; @include transition(all 1s);
+      background: url(./img/bar-white.png) bottom left no-repeat; }
+      &:hover:before, &.act:before { width: 100%; }
+    }
   }
 
   #helpRight { position: absolute; top: 50%; vertical-align: top; font-weight: 900; font-size: 1.2em; text-align: right; right: 0; line-height: 1.2em;
@@ -290,7 +298,7 @@ iframe { border: none; }
   .plyr-pause, .plyr-pause2 { background-position: -66px -186px; }
   .plyr-list, .plyr-pause2 { background-position: -177px -186px; }
 
-  .bl-timer, .bl-timer2 { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 1em 0; }
+  .bl-timer, .bl-timer2 { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 0.4em 0 2em 0; }
     .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 0; }
 
   .plyr-mute2 { background-position: -66px -186px; }
@@ -384,7 +392,7 @@ iframe { border: none; }
     &:before { content: ''; display: block; position: absolute; bottom: 1.2em; right: 1.6em; background: url(./img/play-button-big.png); width: 80px; height: 80px; opacity: 0.5; @include transition(all 1s); }
     &:hover:before { opacity: 1; }
 
-    .imgTXT { position: absolute; top: 0; left: 0; width: 100%; @include transition(all 1s); @include transform(scale(0.95)); }
+    .imgTXT { position: absolute; top: 0; left: 0; width: 100%; @include transition(all .1s); @include transition(all 1s); @include transform(scale(0.95)); }
   }
   &.act .poeta-col-l img { @include transform(scale(1)); opacity: 1; }
   
