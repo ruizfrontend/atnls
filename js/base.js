@@ -95,10 +95,15 @@ var atnls = {
         controls: data.controls ? data.controls : true,
         muted: data.muted ? data.muted : false,
         autoplay: data.autoplay ? data.autoplay : true,
-        readyCallback: function(){
-          $('#player').fadeIn(400);
+        poema: data.poema ? data.poema : null,
+        endCallback: function(){
+          $('#player').fadeOut(400, function(){
+            labTools.media.videosWipeOut();
+          });
         }
       });
+
+      $('#player').fadeIn(400);
 
       return false;
     });
@@ -128,7 +133,6 @@ var atnls = {
           labTools.url.setUrl(projRoot);
         }
 
-        return;
         break;
       case 32: // space
         break;
@@ -138,9 +142,10 @@ var atnls = {
       case 40: // down
         break;
       default:
-        return; // exit this handler for other keys
+        return;
       }
-      e.preventDefault(); // prevent the default action (scroll / move caret)
+      e.preventDefault();
+      return false;
     });
     
   },
@@ -328,13 +333,16 @@ var atnls = {
 
     var player = parseInt(Cookies.get('initVid'));
 
-    if(!player || window.location.hash.indexOf('noJump') != -1) {
+    if(window.location.pathname == projRoot || !player || window.location.hash.indexOf('noJump') != -1) {
 
       atnls.cache.presentacion = true;
 
       Cookies.set('initVid', 1);
 
-      $('#initVid').show().click(function(){ atnls.video.playVideo($(this)); });
+      $('#initVid').show()
+      // .click(function(){
+      //   atnls.video.playVideo($(this));
+      // });
 
       var $vid = $('#initVid video');
       
@@ -393,7 +401,23 @@ var atnls = {
               $('#player').fadeIn(400);
             
               labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
-                title: 'Presentación de Luis García Montero', controls: true, muted: false, autoplay: true });
+                title: 'Presentación de Luis García Montero',
+                controls: true,
+                muted: false,
+                autoplay: true,
+                endCallback: function(){
+
+                  $('#player').fadeOut(400);
+
+                  labTools.media.videosWipeOut();
+
+                  $('#pop').find('.wk-valign-cont-inn')
+                    .html('<h4>Para acceder a la tertulia final desbloquea a los 5 poetas jóvenes accediendo a sus fichas. <br />Al finalizar el webdoc obtendrás una selección de poemas de los autores como obsequio.<h4><div><a href="#" class="btn closePop2 btn-red">Comenzar</a></div>')
+                    .end()
+                    .fadeIn(400);
+
+                }
+              });
 
             });
           });
@@ -464,6 +488,31 @@ var atnls = {
         muted: false,
         autoplay: true
       });
+    });
+
+    $('.poeta-col-l a').on('mousemove', atnls.thrtleMove);
+
+  },
+  thrtleMoveSemaforo: null,
+  thrtleMove: function(e) {
+    
+    if(atnls.thrtleMoveSemaforo) return;
+
+    atnls.thrtleMoveSemaforo = setTimeout(function(){
+      atnls.thrtleMoveSemaforo = false;
+    }, 100);
+
+    var $this = $(this);
+    var w = $this.width();
+    var h = $this.height();
+    var pleft = 100 - (e.offsetX * 100 / w);
+    var ptop = 100 - (e.offsetY * 100 / h);
+    
+    $this.find('.imgTXT').css({
+      '-moz-transform-origin': pleft + '% ' + ptop + '% ',
+      '-ms-transform-origin': pleft + '% ' + ptop + '% ',
+      '-webkit-transform-origin': pleft + '% ' + ptop + '% ',
+      'transform-origin': pleft + '% ' + ptop + '% '
     });
   },
 
@@ -560,7 +609,10 @@ var atnls = {
 
             var $prefoto = $this.find('.preFoto');
             if($prefoto.length) {
-              $prefoto.html('<img src="' + $prefoto.data('src') + '">').removeClass('preFoto');
+              $prefoto.each(function(){
+                var $prefoto = $(this);
+                $prefoto.html('<img src="' + $prefoto.data('src') + '">').removeClass('preFoto');
+              });
             }
 
             if(atnls.cache.initialLoad) {

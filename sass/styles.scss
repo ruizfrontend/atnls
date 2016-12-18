@@ -269,8 +269,8 @@ iframe { border: none; }
   #helpRight { position: absolute; top: 50%; vertical-align: top; font-weight: 900; font-size: 1.2em; text-align: right; right: 0; line-height: 1.2em;
     img { width: 100px; height: 100px; @include transform(scaleX(-1) rotate(90deg)); position: relative; top: -30px; padding-top: 11px; float: right; }
   }
-  #helpLeft { position: absolute; top: 50%; vertical-align: top; font-weight: 900; font-size: 1.2em; margin-top: -80px; line-height: 1.2em;
-    img { width: 100px; height: 100px; @include transform(rotate(90deg)); position: relative; top: -10px; padding-top: 10px; float: left; }
+  #helpLeft { position: absolute; top: 50%; vertical-align: top; font-weight: 900; font-size: 1.2em; margin-top: -80px; line-height: 1.2em; padding-top: 30px;
+    img { width: 100px; height: 100px; @include transform(scaleY(-1) rotate(90deg)); position: relative; top: -10px; padding-top: 10px; float: left; }
   }
   #helpBottom { position: absolute; bottom: -20px; font-weight: 900; right: 0; font-size: 1.4em; line-height: 1.1em;
     img { width: 100px; height: 100px; position: relative; bottom: 30px; padding-left: 11px; float: right; }
@@ -328,7 +328,7 @@ iframe { border: none; }
   .wk-valign { max-width: 600px; margin: 0 auto; }
   .wk-valign-cont-inn { padding: 1em; background: rgba(51, 51, 51, 0.86); }
   h4 { text-transform: none; line-height: 1.4em; padding-bottom: 0.4em; }
-  a { text-decoration: none; color: white; &:hover { color: $green; }}
+  a { text-decoration: none; color: white; }
   .closePop { @include closeBlack; }
 }
 
@@ -373,12 +373,18 @@ iframe { border: none; }
 .page-poeta { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; //@include transition(all 0.6s ease-in-out); 
     background: url('./img/fondo-low-low.jpg'); color: #333;
   .wrap { height: 100%; }
-  .poeta-col-l, .poeta-col-r { width: 50%; float: left; @include box-sizing(border-box);
+  .poeta-col-l, .poeta-col-r { width: 34%; float: left; @include box-sizing(border-box);
     strong { @include cutie; }
     img { width: 100%; height: auto; }
-  } 
-  .poeta-col-l { padding-right: 1em;
+  }
+  .poeta-col-r { padding-top: 1em; }
+  .poeta-col-l { padding-right: 1em; width: 66%; position: relative;
+    a { display: block; }
     img { position: relative; z-index: 0; @include transform(scale(5)); @include transition(opacity 0.3s, all 0.6s ease-in-out); opacity: 0; }
+    &:before { content: ''; display: block; position: absolute; bottom: 1.2em; right: 1.6em; background: url(./img/play-button-big.png); width: 80px; height: 80px; opacity: 0.5; @include transition(all 1s); }
+    &:hover:before { opacity: 1; }
+
+    .imgTXT { position: absolute; top: 0; left: 0; width: 100%; @include transition(all 1s); @include transform(scale(0.95)); }
   }
   &.act .poeta-col-l img { @include transform(scale(1)); opacity: 1; }
   

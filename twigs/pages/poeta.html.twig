@@ -2,38 +2,21 @@
 	{% if ajax is not defined %}
 		<img src="./img/{{ poetaId | split('-') | first }}-alone.jpg">
 	{% else %}
-		<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
+		<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" title="Entrevista con {{ poeta }}">
+			<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
+			<div class="preFoto imgTXT" data-src="./img/{{ poetaId | split('-') | first }}-alone-text.png"></div>
+		</a>
 	{% endif %}
 </div>
+
 <div class="poeta-col-r">
+
 	{% if ajax is not defined %}
 		<h2>Presentación de {{ poeta }}</h2>
 	{% endif %}
 
 	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
-
-	<div class="wk-col-l wk-col-50">
-		<a href="#" class="video-lnk" title="Entrevista a {{ poeta }}" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy"><img src="./img/{# {{ poetaId | split('-') | first }} #}video_copy-1.png" alt=""></a>
-	</div>
-	<div class="wk-col-l wk-col-50">
-		<img src="./img/{# {{ poetaId | split('-') | first }} #}video_copy-1.png" alt="">
-		<h3>Un poema de Luis</h3>
-	</div>
-
-{# 
-	{% for poeta, name in rawData['poetas'] %}
-		{% if act is defined %}
-			{% if act == poetaId %}
-				<div class="col-l"><a class="url-lib btn" href="{{ path('poeta', {'poeta': poeta}) }}">Siguiente poeta: {{ rawData['poetas'][poeta] }}</a></div>
-			{% endif %}
-			{% set prev = act %}
-		{% endif %}
-		{% if poeta == poetaId and prev is defined %}
-			<div class="col-l"><a class="url-lib btn" href="{{ path('poeta', {'poeta': prev}) }}">Anterior: {{ rawData['poetas'][prev] }}</a></div>
-		{% endif %}
-		{% set act = poeta %}
-	{% endfor %} #}
 	
-	<div style="clear: both; padding: 0.4em;"><a style="text-decoration: none; color: #333" href="{{ path('home') }}" class="url-lib wk-col-r"><h3>Atrás</h3></a></div>
+	<div style="clear: both; padding: 0.4em; position: absolute; top: -1em; right: 0;"><a style="text-decoration: none; color: #333" href="{{ path('home') }}" class="url-lib wk-col-r"><h3>Volver</h3></a></div>
 
 </div>

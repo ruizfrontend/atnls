@@ -190,6 +190,7 @@ labTools.media = {
         } else {
           $newVideo[0].pause();
         }
+        return false;
       });
 
       $controls.find('.wk-valign-cont').click(function(e){
@@ -236,10 +237,6 @@ labTools.media = {
             return false;
           });
 
-        $controls.find('.plyr-list2')
-          .click(function(){
-            console.log('cierra')
-          });
 
       $wrapper.append($controls);
     }
@@ -256,6 +253,8 @@ labTools.media = {
         });
       }
     }
+
+    if(defaults.endCallback) $wrapper.find('video').bind('ended', defaults.endCallback);
 
     $wrapper.addClass('video-ready');
 
