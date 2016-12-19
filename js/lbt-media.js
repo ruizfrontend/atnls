@@ -137,7 +137,7 @@ labTools.media = {
     if(defaults.controls && defaults.controls != 'auto') {
           // generamos los controles
       var $controls = '<div class="bl-video-head">';
-      $controls += '<div class="wk-valign"><div class="wk-valign-cont"><div class="bl-player2"><div class="bl-player-ctrls"><a href="#" class="plyr-pause2">Pausa/Reanuda la reproducción</a><a href="#" class="plyr-mute2">Mute</a><a href="#" class="plyr-list2">close</a></div><div class="bl-timer2"><div class="bl-timer-time"></div></div><span class="bl-time">00:29/00:29</span></div></div></div>';
+      $controls += '<div class="wk-valign"><div class="wk-valign-cont"><div class="bl-player2"><div class="bl-player-ctrls"><a href="#" class="plyr-pause2">Pausa/Reanuda la reproducción</a><a href="#" class="plyr-list2">close</a></div><div class="bl-timer2"><div class="bl-timer-time"></div></div><span class="bl-time">00:29/00:29</span></div></div></div>';
       $controls += '</div>';
 
       $controls = $($controls);
@@ -188,8 +188,10 @@ labTools.media = {
       $controls.find('.plyr-pause2').click(function(){
         if($newVideo[0].paused) {
           $newVideo[0].play();
+          $(this).removeClass('paused');
         } else {
           $newVideo[0].pause();
+          $(this).addClass('paused');
         }
         return false;
       });

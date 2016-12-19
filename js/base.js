@@ -67,7 +67,9 @@ var atnls = {
 
     atnls.initShares();
 
-    if(!atnls.cache.responsive) atnls.initIllus();
+    if(!atnls.cache.responsive) {
+      atnls.initIllus();
+    }
 
     setTimeout(function(){ $('body').addClass('pageReady'); }, 1000);
 
@@ -587,6 +589,7 @@ var atnls = {
       foundGlobal = true;
 
       $('#redes').addClass('act');
+      atnls.handleResize();
         
     } else {
       $('#redes').removeClass('act');
@@ -1030,6 +1033,7 @@ var atnls = {
         }
       });
 
+      $('#redes .col-redes-main').slimScroll({ height: atnls.cache.winHeigth - 150});
 
       var padd = 10;
       var maxWidth = 1500;
