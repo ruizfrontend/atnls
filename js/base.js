@@ -83,10 +83,13 @@ var atnls = {
     labTools.media.init();
 
     $('body').delegate('.video-lnk', 'click', function(){
+
       var $this = $(this);
       var data = $this.data();
 
       if(!data.video) return false;
+
+      labTools.media.videosWipeOut();
 
       atnls.player.pause();
 
@@ -97,11 +100,17 @@ var atnls = {
         controls: data.controls ? data.controls : true,
         muted: data.muted ? data.muted : false,
         autoplay: data.autoplay ? data.autoplay : true,
-        poema: data.poema ? data.poema : null,
         endCallback: function(){
-          $('#player').fadeOut(400, function(){
-            labTools.media.videosWipeOut();
-          });
+
+          if(data.postvideo) {
+            
+            $('#player .wk-valign-cont').html('<div class="vrap"><h4>¿Te ha gustado el poema?<br>El propio Luis te explica su significado.</h4><h4><div><a href="#" data-video="' + data.postvideo + '" class="btn video-lnk">Ver contenido</a><a href="#" title="Volver" class="btn closePlayer2 btn-red">Volver a la Home</a></div></h4></div>')
+
+          } else {
+            $('#player').fadeOut(400, function(){
+              labTools.media.videosWipeOut();
+            });
+          }
         }
       });
 
@@ -482,7 +491,7 @@ var atnls = {
       return false;
     });
 
-    $('.closePlayer, #player .plyr-list').click(function(e) {
+    $('.closePlayer, .closePlayer2, #player .plyr-list').click(function(e) {
       labTools.media.videosWipeOut();
       $('#player').fadeOut(400);
     });

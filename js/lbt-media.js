@@ -107,8 +107,7 @@ labTools.media = {
 
     if(!$wrapper.length || !videoFile || $wrapper.hasClass('video-ready')) return;
 
-    $wrapper.addClass('video-wrapp')
-      .find('.bl-video-head, video').remove();
+    $wrapper.addClass('video-wrapp').html('');
 
         // aumenta las propiedades por defecto
     var defaults = jQuery.extend({}, labTools.media.data.initialSettings);
@@ -198,12 +197,14 @@ labTools.media = {
         return false;
       });
 
-      $controls.find('.bl-player2').click(function(e){
+      $controls.click(function(e){
         if(e.target == this){
           if($newVideo[0].paused) {
             $newVideo[0].play();
+            $(this).find('.plyr-pause2').removeClass('paused');
           } else {
             $newVideo[0].pause();
+            $(this).find('.plyr-pause2').addClass('paused');
           }
         }
       });
