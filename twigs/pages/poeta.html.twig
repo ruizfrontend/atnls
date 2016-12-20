@@ -1,10 +1,13 @@
 <div class="poeta-col-l">
+	<div ><a style="text-decoration: none; color: #333; clear: both; padding: 0.4em 0.4em 0.4em 60px; position: absolute; top: -1em; left: 0.4em; z-index: 1;" href="{{ path('home') }}" class="back url-lib wk-col-r"><h3>Volver</h3></a></div>
+
 	{% if ajax is not defined %}
 		<img src="./img/{{ poetaId | split('-') | first }}-alone.jpg">
 	{% else %}
 		<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" title="Entrevista con {{ poeta }}">
 			<div class="preFoto" data-src="./img/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
 			<div class="preFoto imgTXT" data-src="./img/{{ poetaId | split('-') | first }}-alone-text.png"></div>
+			<div class="big-play"><img src="./img/bigplay.png"></div>
 		</a>
 	{% endif %}
 </div>
@@ -16,7 +19,6 @@
 	{% endif %}
 
 	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
-	
-	<div style="clear: both; padding: 0.4em; position: absolute; top: -1em; right: 0;"><a style="text-decoration: none; color: #333" href="{{ path('home') }}" class="url-lib wk-col-r"><h3>Volver</h3></a></div>
+
 
 </div>

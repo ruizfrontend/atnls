@@ -10,7 +10,9 @@
 	  <li>
 	  	<ul>
 			{% for poeta, name in rawData['poetas'] %}
-				<li><a class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
+				{% if poeta != 'luis-garcia-montero' %}
+					<li><a class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
+				{% endif %}
 			{% endfor %}
 	  	</ul>
 	  </li>

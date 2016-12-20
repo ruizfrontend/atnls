@@ -17,7 +17,7 @@
 }
 
 @mixin oxy { font-family: 'Oxygen', sans-serif; }
-@mixin cutie { font-family: 'rfont', serif; line-height: 1.4em; margin-bottom: 0.2em; letter-spacing: 0.3em; }
+@mixin cutie { font-family: 'rfont', serif; line-height: 1.4em; margin-bottom: 0.2em; letter-spacing: 0.1em; }
 
 @mixin closeWhite { position: absolute; z-index: 1; right: 1em; top: 1em; width: 44px; height: 44px; background: url(./img/atnls-sprite.png) -249px -82px no-repeat; }
 @mixin closeBlack { @include closeWhite; background-position: -251px -49px; }
@@ -238,6 +238,7 @@ iframe { border: none; }
   .col-player, .col-poemas, .col-help { float: left; width: 35%; height: 100%; @include box-sizing(border-box); }
   .col-poemas { width: 40%; position: relative; }
   .col-player { max-width: 500px; }
+  .col-help { position: relative; }
 
   // .col-poemas { overflow: auto; }
   @media (min-width: 800px) {
@@ -266,7 +267,7 @@ iframe { border: none; }
   //   .mTSButtonIconContainer { display: block; position: relative; width: 100%; height: 100%; overflow: hidden; padding: 0; left: 0; top: 0; }
   // }
 
-  .bl-playlist { @include cutie; line-height: 1.6em; font-size: 1.2em;
+  .bl-playlist { @include cutie; line-height: 1.4em; font-size: 1.4em;
     a { text-decoration: none; color: white; display: block; position: relative; margin-bottom: 1.2em;
       &:before { content: ''; display: block; width: 0; height: 20px; position: absolute; bottom: -0.8em; left: 0; @include transition(all 1s);
       background: url(./img/bar-white.png) bottom left no-repeat; }
@@ -283,6 +284,8 @@ iframe { border: none; }
   #helpBottom { position: absolute; bottom: -20px; font-weight: 900; right: 0; font-size: 1.4em; line-height: 1.1em;
     img { width: 100px; height: 100px; position: relative; bottom: 30px; padding-left: 11px; float: right; }
   }
+
+  .col-help .go-back { @include closeWhite; top: 0; }
 }
 
 .bl-player, .bl-controls, .bl-player2 { max-width: 280px; text-align: left; margin: 0 auto; text-align: center;
@@ -334,6 +337,7 @@ iframe { border: none; }
     background: rgba(51, 51, 51, 0.96);
   a { text-decoration: none; color: white; &:hover { color: $green; }}
   .closePlayer { @include closeWhite; }
+  .wk-valign { position: absolute; top: 0; }
 }
 
   // páginas 100%
@@ -401,6 +405,12 @@ iframe { border: none; }
     .imgTXT { position: absolute; top: 0; left: 0; width: 100%; @include transition(all .1s); @include transition(all 1s); @include transform(scale(0.95)); }
   }
   &.act .poeta-col-l img { @include transform(scale(1)); opacity: 1; }
+
+  .big-play{ position: absolute; bottom: 5%; right: 2%;
+    img { width: auto; height: auto; @include transition(all 1s); position: relative; left: 0; top: 0; }
+  }
+  &#page-elvira-sastre .big-play { left: 2%; }
+  &#page-escandar-algeet .big-play { left: 2%; }
   
   .poeta-col-r, .head { position: relative; z-index: 1; }
 
@@ -408,8 +418,10 @@ iframe { border: none; }
 
   .wk-col-50 { padding: 0; max-width: 200px; margin-right: 1em; text-align: center; }
 
-  h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; letter-spacing: 0.3em; padding-bottom: 0.3em; }
+  h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; padding-bottom: 0.3em; }
   p { padding-left: 2.4em; margin-bottom: 0.6em; line-height: 1.2em; }
+  .back:before { content: ''; display: block; position: absolute; bottom: -8px; left: 0;
+      background: url(./img/atnls-sprite.png) -350px -10px; width: 60px; height: 60px; }
 }
 
 #initVid, #initVid iframe { z-index: 100; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black; }
@@ -425,17 +437,19 @@ iframe { border: none; }
     }
   }
 
-  #swipeIcon { width: 60px; height: 60px; position: absolute; left: 0; padding-left: 60px; bottom: 45px; background: url(./img/atnls-sprite.png) -300px -11px no-repeat; 
+  #swipeIcon { width: 45px; height: 60px; position: absolute; left: 0; padding-left: 0; bottom: 45px; background: url(./img/atnls-sprite.png) -300px -11px no-repeat; 
     &.go { left: 100%!important; @include transition(all 3s); }
   }
 }
 .poster { z-index: 200; position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
 
-.video-wrapp { position: absolute; height: 100%; width: 100%; top: 0;
-  video { width: 100%; height: 100%; }
+.video-wrapp { position: relative; height: auto; width: 100%; top: 0;
+  video { width: 100%; height: auto; }
 }
-.bl-video-head { position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+.bl-video-head { position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
   opacity: 0; @include transition(all 0.2s ease-in-out);
+  .bl-player2 { position: absolute; bottom: 0; left: 0; width: 100%;  max-width: 100%; padding-bottom: 2em; }
+  .bl-timer2 { max-width: 280px; margin: 1em auto; }
   &.act { opacity: 1; }
 }
 

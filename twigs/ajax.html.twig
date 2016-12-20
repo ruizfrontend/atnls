@@ -2,7 +2,7 @@
 
 <div id="ajax">
 	<div id="poemas">
-		
+
 		<div class="head clearfix">
 			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
 			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
@@ -19,7 +19,7 @@
 					<a href="#" class="plyr-prev" title="poema anterior"></a>
 					<a href="#" class="plyr-play" title="inicia la reproducción"></a>
 					<a href="#" class="plyr-next" title="Siguiente poema"></a>
-					<a href="{{ path('home') }}" class="plyr-list url-lib" title="Continua navegando"></a>
+					{# <a href="{{ path('home') }}" class="plyr-list url-lib" title="Continua navegando"></a> #}
 
 					<div class="bl-timer">
 						<div class="bl-timer-time"></div>
@@ -54,13 +54,16 @@
 				</div>
 			</div>
 
-			<div class="col-help"><div class="wk-valign"><div class="wk-valign-cont">
-				<p><strong>Comparte el poema completo</strong><br>con tus amigos<br>
-					<a href="#" class="share-poema-twitter" title="compartir en twitter"></a>
-					<a href="#" class="share-poema-facebook" title="compartir en Facebook"></a>
-				</p>
-				<p>o <span class="bg-green">selecciona un verso</span><br>y compártelo</p>
-			</div></div></div>
+			<div class="col-help">
+				<a href="{{ path('home') }}" class="url-lib go-back" title="Ir al inicio"></a>
+				<div class="wk-valign"><div class="wk-valign-cont">
+					<p><strong>Comparte el poema completo</strong><br>con tus amigos<br>
+						<a href="#" class="share-poema-twitter" title="compartir en twitter"></a>
+						<a href="#" class="share-poema-facebook" title="compartir en Facebook"></a>
+					</p>
+					<p>o <span class="bg-green">selecciona un verso</span><br>y compártelo</p>
+				</div></div>
+			</div>
 		</div>
 
 	</div>
@@ -213,7 +216,9 @@
 			<a class="closePlayer" href="#"></a>
 		</div>
 
-		<div class="vrap"></div>
+		<div class="wk-valign">
+			<div class="wk-valign-cont"><div class="vrap"></div></div>
+		</div>
 	</div>
 
 	<div id="pop">

@@ -398,9 +398,10 @@ var atnls = {
             $(this).addClass('end');
 
             setTimeout(function() { $('#initvidLogos').animate({opacity: 1}, 600); }, 1000);
+            setTimeout(function() { $('#in').animate({opacity: 1}, 600); }, 1400);
 
               // click para comenzar
-            $('#initVidMain').click(function() {
+            $('#initVidMain, #in').click(function() {
 
                   // elimina intro
               $('#initVid').fadeOut(400);
@@ -524,7 +525,8 @@ var atnls = {
       '-ms-transform-origin': pleft + '% ' + ptop + '% ',
       '-webkit-transform-origin': pleft + '% ' + ptop + '% ',
       'transform-origin': pleft + '% ' + ptop + '% '
-    });
+    }).end()
+    .find('.big-play img').css({left: (-1 * ptop / 20) + '%', top: (-1 * pleft / 20) + '%'});
   },
 
     // funcion llamada ante cualquier cambio de url
