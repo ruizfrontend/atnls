@@ -6,9 +6,9 @@
 
 	<div itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
 		{% if ajax is defined %}
-			<div class="audio" src="{{ path('poemaAudio', {'poema': poemaId}) }}"></div>
+			<div class="audio" src="http://video.lab.rtve.es/resources/memoria-futuro/audio/{{ poemaId }}.mp3"></div>
 		{% else %}
-			<audio src="{{ path('poemaAudio', {'poema': poemaId}) }}"></audio>
+			<audio src="http://video.lab.rtve.es/resources/memoria-futuro/audio/{{ poemaId }}.mp3"></audio>
 		{% endif %}
 	</div>
 	

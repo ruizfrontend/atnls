@@ -19,7 +19,7 @@
 @mixin oxy { font-family: 'Oxygen', sans-serif; }
 @mixin cutie { font-family: 'rfont', serif; line-height: 1.4em; margin-bottom: 0.2em; letter-spacing: 0.1em; }
 
-@mixin closeWhite { position: absolute; z-index: 1; right: 1em; top: 1em; width: 44px; height: 44px; background: url(./img/atnls-sprite.png) -249px -82px no-repeat; }
+@mixin closeWhite { position: absolute; z-index: 1; right: 1em; top: 1em; width: 44px; height: 44px; background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -249px -82px no-repeat; }
 @mixin closeBlack { @include closeWhite; background-position: -251px -49px; }
 
 // .ft-awesome { @include cutie }
@@ -88,7 +88,7 @@ iframe { border: none; }
 // .url-current { color: red; }
 // .url-active { background: #ccc; }
 
-#webdoc { overflow: hidden; background: url('./img/fondo-low-low.jpg'); height: 100%; position: relative; }
+#webdoc { overflow: hidden; background: url('http://video.lab.rtve.es/resources/memoria-futuro/image/fondo-low-low.jpg'); height: 100%; position: relative; }
 .wrap { width: 100%; max-width: 1500px; margin: 0 auto; }
   // #webdoc:before { content: ''; display: block; position: absolute; z-index: 0; pointer-events: none; width: 100%; height: 100%;
   //   background: -moz-linear-gradient(left, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 89%, rgba(0,0,0,0.18) 99%, rgba(0,0,0,0.05) 100%);
@@ -100,7 +100,7 @@ iframe { border: none; }
 .head { position: relative; top: 0; width: 100%; padding-bottom: 1em; }
   .logo { display: block; margin: 0 auto; width: 40%; padding-top: 1.6em; min-width: 300px; }
   .rtve, .lab, .hamb { display: block; height: 50px; width: 122px; float: left; margin-left: 20px; margin-top: 20px;
-      background: url(./img/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -20px -66px no-repeat; cursor: pointer; }
   .hamb:hover { @include transform(rotate(90deg)); }
   .lab { width: 94px; float: right; background-position: -308px -72px; height: 85px; margin-right: 20px; }
   .hamb { width: 55px; background-position: -291px -247px; height: 55px; margin-left: 11px; clear: left; margin-top: 10px; }
@@ -251,7 +251,7 @@ iframe { border: none; }
 
   .page-poema h2 { padding-left: 0.2em; position: relative;
     &:before { content: ''; display: block; width: 100%; height: 20px; position: absolute; bottom: -0.4em; left: 0; 
-      background: url(./img/bar-white.png) bottom left no-repeat; }
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image//bar-white.png) bottom left no-repeat; }
   }
 
   // .bl-playlist { position: fixed; bottom: 0; width: 100%; left: 0; background: white; z-index: 1; overflow: hidden; height: 55px;
@@ -270,7 +270,7 @@ iframe { border: none; }
   .bl-playlist { @include cutie; line-height: 1.4em; font-size: 1.4em;
     a { text-decoration: none; color: white; display: block; position: relative; margin-bottom: 1.2em;
       &:before { content: ''; display: block; width: 0; height: 20px; position: absolute; bottom: -0.8em; left: 0; @include transition(all 1s);
-      background: url(./img/bar-white.png) bottom left no-repeat; }
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/bar-white.png) bottom left no-repeat; }
       &:hover:before, &.act:before { width: 100%; }
     }
   }
@@ -290,7 +290,7 @@ iframe { border: none; }
 
 .bl-player, .bl-controls, .bl-player2 { max-width: 280px; text-align: left; margin: 0 auto; text-align: center;
   a { display: inline-block; width: 44px; height: 44px; margin-right: 10px; background: #ccc;
-      background: url(./img/atnls-sprite.png) -19px -186px no-repeat; @include transition(none);
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -19px -186px no-repeat; @include transition(none);
       text-indent: -9999px; overflow: hidden; }
   .bl-miniplayer & a { margin: 0; }
 
@@ -302,7 +302,7 @@ iframe { border: none; }
   .plyr-list, .plyr-list2 { background-position: -177px -186px; }
 
   .bl-timer, .bl-timer2 { width: 100%; height: 10px; border: 1px solid white; position: relative; margin: 0.4em 0 2em 0; }
-    .bl-timer-time { background: url(./img/atnls-sprite.png) 0 20px; height: 100%; width: 0; }
+    .bl-timer-time { background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) 0 20px; height: 100%; width: 0; }
 
   .plyr-mute2 { background-position: -66px -186px; }
 }
@@ -310,13 +310,13 @@ iframe { border: none; }
 .verso { display: block; float: left; clear: left; padding: 0 0.4em 0 0; position: relative; cursor: pointer;
   &.monta { display: inline; float: left; clear: none;padding-left: 0; padding-right: 0; }}
   .verso:before { content: ''; position: absolute; left: 102%; width: 0; height: 40px;
-      background: url(./img/atnls-sprite.png) -238px -190px no-repeat;
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -238px -190px no-repeat;
       bottom: -0.5em; @include transition(all 0.6s ease-in-out); }
     .verso:hover:before { width: 50px; }
 .verso.act { font-weight: 900; }
 .verso:hover { background: $green; }
 
-.share-poema-twitter, .share-poema-facebook { display: inline-block; width: 60px; height: 60px; background: url(./img/atnls-sprite.png) -232px -123px no-repeat; }
+.share-poema-twitter, .share-poema-facebook { display: inline-block; width: 60px; height: 60px; background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -232px -123px no-repeat; }
 .share-poema-twitter { background-position: -166px -123px; }
 
   // páginas 100%
@@ -374,7 +374,7 @@ iframe { border: none; }
     z-index: 20; font-size: 1.6em; line-height: 2.4em; @include cutie; line-height: 2.4em;
   a { text-decoration: none; color: white; font-weight: 100; text-transform: uppercase; position: relative;
       &:before { content: ''; display: block; width: 0; height: 20px; position: absolute; bottom: -0.8em; left: 0; @include transition(all 1s);
-      background: url(./img/bar-white.png) bottom left no-repeat; }
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/bar-white.png) bottom left no-repeat; }
       &:hover:before { width: 100%; }
   }
   .hideMenu { @include closeWhite; }
@@ -389,7 +389,7 @@ iframe { border: none; }
 
 
 .page-poeta { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; //@include transition(all 0.6s ease-in-out); 
-    background: url('./img/fondo-low-low.jpg'); color: #333;
+    background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/fondo-low-low.jpg); color: #333;
   .wrap { height: 100%; }
   .poeta-col-l, .poeta-col-r { width: 34%; float: left; @include box-sizing(border-box);
     strong { @include cutie; }
@@ -399,7 +399,7 @@ iframe { border: none; }
   .poeta-col-l { padding-right: 1em; width: 66%; position: relative;
     a { display: block; }
     img { position: relative; z-index: 0; @include transform(scale(5)); @include transition(opacity 0.3s, all 0.6s ease-in-out); opacity: 0; }
-    &:before { content: ''; display: block; position: absolute; bottom: 1.2em; right: 1.6em; background: url(./img/play-button-big.png); width: 80px; height: 80px; opacity: 0.5; @include transition(all 1s); }
+    &:before { content: ''; display: block; position: absolute; bottom: 1.2em; right: 1.6em; background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/play-button-big.png); width: 80px; height: 80px; opacity: 0.5; @include transition(all 1s); }
     &:hover:before { opacity: 1; }
 
     .imgTXT { position: absolute; top: 0; left: 0; width: 100%; @include transition(all .1s); @include transition(all 1s); @include transform(scale(0.95)); }
@@ -421,23 +421,23 @@ iframe { border: none; }
   h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; padding-bottom: 0.3em; }
   p { padding-left: 2.4em; margin-bottom: 0.6em; line-height: 1.2em; }
   .back:before { content: ''; display: block; position: absolute; bottom: -8px; left: 0;
-      background: url(./img/atnls-sprite.png) -350px -10px; width: 60px; height: 60px; }
+      background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -350px -10px; width: 60px; height: 60px; }
 }
 
 #initVid, #initVid iframe { z-index: 100; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black; }
 #jumpInitVid { z-index: 1000; position: absolute; right: 1em; top: 1em; color: white; font-size: 2em; text-decoration: none; display: none; }
-#initVid { display: none; background: url(./img/fondo-low-low.jpg);
+#initVid { display: none; background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/fondo-low-low.jpg);
   .homewrap { width: 100%; @include box-sizing(border-box); max-width: 740px; margin: 0 auto; overflow: hidden; position: relative;
     video { width: 102%; position: relative; left: -1px; height: auto; }
     #initVidMain { position: relative; }
     #initvidsub { width: 100%; height: auto; opacity: 0; position: relative;
       &:before { content: ''; display: inline-block; height: 20px; width: 100%; opacity: 0; @include transition(all 0.4s ease-in-out);
-          background: url(./img/bar2.png?dadd) center center no-repeat; background-size: contain; position: absolute; top: -50%; }
+          background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/bar2.png?dadd) center center no-repeat; background-size: contain; position: absolute; top: -50%; }
       &.end:before { opacity: 1; }
     }
   }
 
-  #swipeIcon { width: 45px; height: 60px; position: absolute; left: 0; padding-left: 0; bottom: 45px; background: url(./img/atnls-sprite.png) -300px -11px no-repeat; 
+  #swipeIcon { width: 45px; height: 60px; position: absolute; left: 0; padding-left: 0; bottom: 45px; background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -300px -11px no-repeat; 
     &.go { left: 100%!important; @include transition(all 3s); }
   }
 }
@@ -466,7 +466,7 @@ iframe { border: none; }
   .bl-player-current { position: absolute; height: 50px; width: 100%; padding-right: 251px; padding-left: 188px; z-index: 0;
       bottom: 0; line-height: 1.4em; @include box-sizing(border-box);  }
   #openPoemas { position: absolute; right: 0; bottom: 0; line-height: 3em; text-decoration: none; background: #333; color: white; padding: 0 1em; z-index: 1;
-    &:before { content: ''; display: inline-block; height: 20px; width: 50px;background: url(./img/atnls-sprite.png) -200px -32px no-repeat; }}
+    &:before { content: ''; display: inline-block; height: 20px; width: 50px;background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -200px -32px no-repeat; }}
   .bl-nav { position: absolute; z-index: 2; right: 0; height: 100%;bottom: 0; line-height: 2.4em; font-size: 1.4em; padding: 0 0.4em 0 0.8em; border-left: 5px solid white; box-shadow: 0 0 30px #333;}
   .player-nav { position: absolute; z-index: 2; left: 0; height: 100%; bottom: 0; line-height: 2.4em; font-size: 1.4em; padding: 0 0.6em 0 0.6em; border-right: 5px solid white; box-shadow: 0 0 30px #333; }
 
