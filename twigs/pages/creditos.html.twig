@@ -3,11 +3,37 @@
 
   <div class="wk-valign">
   	<ul class="wk-valign-cont">
-
-  		<h2>Créditos</h2>
-  		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus turpis eget erat tincidunt venenatis. Vestibulum convallis eleifend elit eu gravida. Nulla at dapibus ante. Maecenas nec egestas quam, a porttitor lacus. Donec ligula urna, scelerisque id nibh vitae, vehicula suscipit augue. Suspendisse luctus tempus urna at eleifend. Sed imperdiet facilisis ipsum, ac lobortis eros lacinia nec.</p>
-
-		<p>Quisque ac sodales lorem. Etiam metus erat, aliquam id luctus in, rhoncus eget justo. Donec a massa vitae enim sodales elementum. Integer justo diam, egestas vitae pretium sit amet, facilisis ac nulla. Praesent molestie nulla nec odio sagittis, at tempor risus semper. Donec lobortis vitae quam placerat ornare. In eget venenatis lectus. Ut euismod maximus enim, quis fermentum augue gravida sit amet. Pellentesque luctus velit in nisl consequat, quis tempor risus rutrum. Cras ac libero quam. Aliquam erat volutpat.</p>
+  	  <li><a class="url-lib" href="{{ path('home') }}"><img style="display: block; width: 100%; margin: 0 auto; max-width: 600px; padding: 0 1em; box-sizing: border-box;" src="http://video.lab.rtve.es/resources/memoria-futuro/image/logo-menu.png" alt="Memorias de futuro"></a></li>
+  	  <li><p>Una producción de <a href="http://www.poramoralarteproducciones.com/">POR AMOR AL ARTE PRODUCCIONES S.L.</a><br>para <a href="http://www.rtve.es/">RTVE.ES</a></p></li>
+  	  <li>Con la participación de:</li>
+	  <li>
+	  	<ul>
+			{% for poeta, name in rawData['poetas'] %}
+				<li>{{ name }}</li>
+			{% endfor %}
+	  	</ul>
+	  </li>
+	  <li><h2>Idea original, dirección y guión:</h2> Charlie Arnaiz y Alberto Ortega</li>
+	  <li><h2>Realizador:</h2> Alberto Ortega.</li>
+	  <li><h2>Director de producción:</h2> Charlie Arnaiz.</li>
+	  <li><h2>Producción ejecutiva RTVE:</h2> Miriam Hernández y Alberto Fernández.</li>
+	  <li><h2>Edición:</h2> Emilio González.</li>
+	  <li><h2>Cámaras:</h2> Javier Ordoñez, Bienve Valdivia, Tomás Esteras y Alberto Ortega.</li>
+	  <li><h2>Dirección de fotografía:</h2> Bienve Valdivia.</li>
+	  <li><h2>Sonido:</h2> Crislama y Codaestudio.</li>
+	  <li><h2>Sonidistas:</h2> Rares D. Varga, Ignacio Román Muñoz, Luis J. de las Heras, Fernando Pocostales.</li>
+	  <li><h2>Grafismo:</h2> Alberto Ortega.</li>
+	  <li><h2>Etalonaje:</h2> Dada Project.</li>
+	  <li><h2>Fotografías:</h2> Casilda Saldaña y José Oliva.</li>
+	  <li><h2>Programación Web:</h2> <a href="http://davidruizlopez.es/" title="Desarrollo de proyectos web">David Ruiz</a>.</li>
+	  <li><h2>Diseño web:</h2> Belén Picazo.</li>
+	  <li><h2>Ilustraciones:</h2> Nuño Benito.</li>
+	  <li><h2>Maquillaje:</h2> Paula Serrano.</li>
+	  <li><h2>Música:</h2> Audionetwork, Vetusta Morla.</li>
+	  <li><p>Agradecimientos:</p></li>
+	  <li>
+	  	<ul><li>Warner Music Spain</li><li>David Bonilla</li><li>Marina Tordera</li><li>Cooltural Plans</li><li>Bar Café La Manuela</li><li>Vetusta Morla</li><li>Kike Keller</li><li>Ediciones Visor</li><li>Valparaiso</li><li>Bar Aleatorio</li><li>Libreria (Guille Galván)</li><li>Impossible Tellers</li><li>Casilda Saldaña</li><li>José Oliva</li></ul>
+	  </li>
   	</ul>
   </div>
 </nav>

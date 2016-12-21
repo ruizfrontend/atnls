@@ -101,10 +101,13 @@ var atnls = {
         muted: data.muted ? data.muted : false,
         autoplay: data.autoplay ? data.autoplay : true,
         endCallback: function(){
-
-          if(data.postvideo) {
+          if(data.postluis) {
             
-            $('#player .wk-valign-cont').html('<div class="vrap"><h4>¿Te ha gustado el poema?<br>El propio Luis te explica su significado.</h4><h4><div><a href="#" data-video="' + data.postvideo + '" class="btn video-lnk">Ver contenido</a><a href="#" title="Volver" class="btn closePlayer2 btn-red">Volver a la Home</a></div></h4></div>')
+            $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Rellena el siguiente formulario y recibirás un libro electrónico con una selección de poemas de Luis García Montero y el resto de autores que han participado en este documental.</p><div><label for="mail">Correo:</label><input id="mail" type="text" placeholder/><input id="submit" type="submit" class="btn btn-red" value="enviar" /></div></div>');
+
+          } else if(data.postvideo) {
+            
+            $('#player .wk-valign-cont').html('<div class="vrap"><h4>¿Te ha gustado el poema?<br>El propio Luis te explica su significado.</h4><h4><div><a href="#" data-video="' + data.postvideo + '" class="btn video-lnk">Ver contenido</a><a href="#" title="Volver" class="btn closePlayer2 btn-red">Volver a la Home</a></div></h4></div>');
 
           } else {
             $('#player').fadeOut(400, function(){
@@ -143,6 +146,8 @@ var atnls = {
         } else {
           labTools.url.setUrl(projRoot);
         }
+
+        atnls.handleResize();
 
         break;
       case 32: // space
@@ -358,10 +363,7 @@ var atnls = {
 
       Cookies.set('initVid', 1);
 
-      $('#initVid').show()
-      // .click(function(){
-      //   atnls.video.playVideo($(this));
-      // });
+      $('#initVid').show();
 
       var $vid = $('#initVid video');
       
@@ -457,6 +459,8 @@ var atnls = {
       
       $('#menu').fadeOut(400);
       $('#credits').fadeToggle(400);
+
+      atnls.handleResize();
     
       return false;
     });
@@ -465,6 +469,13 @@ var atnls = {
       
       $('#credits').fadeOut(400);
 
+      return false;
+    });
+
+    $('body').delegate('#submit', 'click', function(){
+      
+      console.log($('#mail').val());
+      $(this).parent().parent().html('<p>Enhorabuena. Pronto recibirás tu poemario en tu correo.</p>');
       return false;
     });
 
@@ -619,13 +630,35 @@ var atnls = {
           // checkea la url con la de cada páginas de poemas
         if(target.indexOf($this.data('poeta')) != -1) {
 
-            // si es la página de Luis, pero aún está bloqueado
-          if(target.indexOf('luis-garcia-montero') != -1 && $('#luis').data('luis') < 6) {
+            // si es la página de Luis
+          if(target.indexOf('luis-garcia-montero') != -1) {
             
-            $('#pop').find('.wk-valign-cont-inn')
-              .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk">Ir a la tertulia</a></div>')
-              .end()
-              .fadeIn(400);
+            if($('#luis').data('luis') < 6) {
+
+                // pero aún está bloqueado
+              $('#pop').find('.wk-valign-cont-inn')
+                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-postluis="1" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk">Ir a la tertulia</a></div>')
+                .end()
+                .fadeIn(400);
+
+                // unbloqued
+              } else {
+
+                labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
+                  title: 'Tertulia de la nueva poesía',
+                  controls: true,
+                  muted: false,
+                  autoplay: true,
+                  endCallback: function(){
+
+                    $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Rellena el siguiente formulario y recibirás un libro electrónico con una selección de poemas de Luis García Montero y el resto de autores que han participado en este documental.</p><div><label for="mail">Correo:</label><input id="mail" type="text" placeholder/><input id="submit" type="submit" class="btn btn-red" value="enviar" /></div></div>');
+
+                  }
+                });
+                
+                $('#player').fadeIn(400);
+
+              }
 
             // resto de casos
           } else {
@@ -1041,6 +1074,18 @@ var atnls = {
           $this.find('.scrool-wrap').slimScroll({ height: pHeight });
         } else {
           $this.find('.scrool-wrap').css('height', pHeight).slimScroll({destroy: true});
+        }
+      });
+
+      $('#credits').each(function(){
+        var $this = $(this);
+
+        var height = $this.find('.wk-valign-cont').height();
+
+        if(height > atnls.cache.winHeigth) {
+          $this.addClass('of').find('.wk-valign').slimScroll({ height: atnls.cache.winHeigth });
+        } else {
+          $this.removeClass('of').find('.wk-valign').css('height', atnls.cache.winHeigth).slimScroll({destroy: true});
         }
       });
 
