@@ -251,11 +251,11 @@ $sspa->register(new Silex\Provider\UrlGeneratorServiceProvider());
       $twigData['seoData'] = array(
         'name' => 'poeta',
         'url' => '',
-        'title' => 'title',
-        'description' => '',
-        'keywords' => '',
-        'seoImg'=> '',
-        'ShareText'=> '',
+        'title' => $sspa['twigData']['rawData']['poetas'][$poeta] . ', Luis García Montero y la nueva poesía',
+        'description' => 'El poeta nos cuenta de la influencia de Luis y lo que ha supuesto en su obra',
+        'keywords' => 'webdoc, video, poesia, música, narrativa, garcía montero',
+        'seoImg'=> './img/seo-' . $twigData['poeta'] . '.png',
+        'ShareText'=> $sspa['twigData']['rawData']['poetas'][$poeta] . ', Luis García Montero y la nueva poesía',
         'shortTitle'=> '',
       );
 
@@ -282,11 +282,11 @@ $sspa->register(new Silex\Provider\UrlGeneratorServiceProvider());
       $twigData['seoData'] = array(
         'name' => 'poema',
         'url' => '',
-        'title' => 'title',
-        'description' => '',
-        'keywords' => '',
-        'seoImg'=> '',
-        'ShareText'=> '',
+        'title' => $twigData['poema'] . ': La voz de Luis García Montero',
+        'description' => 'Escucha el poema leído por el autor',
+        'keywords' => 'webdoc, video, poesia, música, narrativa, garcía montero',
+        'seoImg'=> './img/' . $twigData['poema'] . '.png',
+        'ShareText'=> 'La voz de Luis García Montero: ' . $twigData['poema'],
         'shortTitle'=> '',
       );
       
