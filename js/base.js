@@ -103,7 +103,7 @@ var atnls = {
         endCallback: function(){
           if(data.postluis) {
             
-            $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Rellena el siguiente formulario y recibirás un libro electrónico con una selección de poemas de Luis García Montero y el resto de autores que han participado en este documental.</p><div><label for="mail">Correo:</label><input id="mail" type="text" placeholder/><input id="submit" type="submit" class="btn btn-red" value="enviar" /></div></div>');
+            $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div></div>');
 
           } else if(data.postvideo) {
             
@@ -146,8 +146,6 @@ var atnls = {
         } else {
           labTools.url.setUrl(projRoot);
         }
-
-        atnls.handleResize();
 
         break;
       case 32: // space
@@ -409,7 +407,6 @@ var atnls = {
             $(this).addClass('end');
 
             setTimeout(function() { $('#initvidLogos').animate({opacity: 1}, 600); }, 1000);
-            setTimeout(function() { $('#in').animate({opacity: 1}, 600); }, 1400);
 
               // click para comenzar
             $('#initVidMain, #in').click(function() {
@@ -423,7 +420,6 @@ var atnls = {
               $('#player').fadeIn(400);
             
               labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
-                title: 'Presentación de Luis García Montero',
                 controls: true,
                 muted: false,
                 autoplay: true,
@@ -434,7 +430,7 @@ var atnls = {
                   labTools.media.videosWipeOut();
 
                   $('#pop').find('.wk-valign-cont-inn')
-                    .html('<h4>Para acceder a la tertulia final desbloquea a los 5 poetas jóvenes accediendo a sus fichas. <br />Al finalizar el webdoc obtendrás una selección de poemas de los autores como obsequio.<h4><div><a href="#" class="btn closePop2 btn-red">Comenzar</a></div>')
+                    .html('<h4 style="text-align: justify;">Luis García Montero (Granada, 1958) es uno de los principales poetas españoles en la actualidad. <br><br>Desde la década de los 80 ha defendido la utilidad de la poesía y la conexión con el lector a través de una poesía cómplice. <br><br>La poesía de la experiencia o la otra sentimentalidad, son sólo algunas de las etiquetas en las que se le engloba.<br><br>Para algunas de las nuevas voces de la poesía, García Montero es considerado uno de sus principales referentes. <br><br>Conoce a estos cinco poetas y podrás asistir a su encuentro con Luis.</h4><div><a href="#" class="btn closePop2 btn-red">Comenzar</a></div>')
                     .end()
                     .fadeIn(400);
 
@@ -523,6 +519,10 @@ var atnls = {
     });
 
     $('.poeta-col-l a').on('mousemove', atnls.thrtleMove);
+
+    $('body').delegate('.mail', 'input', function(){
+      $('.sendMail').attr('href', encodeURI('mailto:' + $(this).val() + '?subject=Mira esta selección de poemas de la Nueva Poesía&body=El webdoc Memoria de futuro te ofrece esta selección exclusiva de poemas. Descárgalo aquí: http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf, y no dudes en visitarlo en http://lab.rtve.es/webdocs/memoria-futuro/.'));
+    });
 
   },
   thrtleMoveSemaforo: null,
@@ -637,7 +637,7 @@ var atnls = {
 
                 // pero aún está bloqueado
               $('#pop').find('.wk-valign-cont-inn')
-                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-postluis="1" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk">Ir a la tertulia</a></div>')
+                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-postluis="1" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" class="btn video-lnk closePop2">Ir a la tertulia</a></div>')
                 .end()
                 .fadeIn(400);
 
@@ -645,13 +645,13 @@ var atnls = {
               } else {
 
                 labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy', {
-                  title: 'Tertulia de la nueva poesía',
+                  // title: 'Tertulia de la nueva poesía',
                   controls: true,
                   muted: false,
                   autoplay: true,
                   endCallback: function(){
 
-                    $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Rellena el siguiente formulario y recibirás un libro electrónico con una selección de poemas de Luis García Montero y el resto de autores que han participado en este documental.</p><div><label for="mail">Correo:</label><input id="mail" type="text" placeholder/><input id="submit" type="submit" class="btn btn-red" value="enviar" /></div></div>');
+                    $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div></div>');
 
                   }
                 });

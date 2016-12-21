@@ -4,7 +4,7 @@
 	{% if ajax is not defined %}
 		<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone.jpg">
 	{% else %}
-		<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy" title="Entrevista con {{ poeta }}">
+		<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/TE_NGVA/mp4/2013/jfk/intro-Kennedy">
 			<div class="preFoto" data-src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
 			<div class="preFoto imgTXT" data-src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-text.png"></div>
 			<div class="big-play"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bigplay.png"></div>

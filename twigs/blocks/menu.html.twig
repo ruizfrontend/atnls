@@ -12,6 +12,8 @@
 			{% for poeta, name in rawData['poetas'] %}
 				{% if poeta != 'luis-garcia-montero' %}
 					<li><a class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
+				{% else %}
+					<li><a style="padding-top: 0.6em; display: block; font-weight: 900;" class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">Tertulia con Luis García Montero</a></li>
 				{% endif %}
 			{% endfor %}
 	  	</ul>

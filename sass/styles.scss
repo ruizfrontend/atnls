@@ -405,7 +405,7 @@ iframe { border: none; }
     strong { @include cutie; }
     img { width: 100%; height: auto; }
   }
-  .poeta-col-r { padding-top: 1em; }
+  .poeta-col-r { padding-top: 1em; padding-right: 1.4em; }
   .poeta-col-l { padding-right: 1em; width: 66%; position: relative;
     a { display: block; }
     img { position: relative; z-index: 0; @include transform(scale(5)); @include transition(opacity 0.3s, all 0.6s ease-in-out); opacity: 0; }
@@ -416,11 +416,11 @@ iframe { border: none; }
   }
   &.act .poeta-col-l img { @include transform(scale(1)); opacity: 1; }
 
-  .big-play{ position: absolute; bottom: 5%; right: 2%;
-    img { width: auto; height: auto; @include transition(all 1s); position: relative; left: 0; top: 0; }
+  .big-play{ position: absolute; bottom: 6%; right: 5%; background: url(./img/spriteplayer.png) -2px -243px no-repeat; width: 118px; height: 116px;
+    img { display: none; }
   }
-  &#page-elvira-sastre .big-play { left: 2%; }
-  &#page-escandar-algeet .big-play { left: 2%; }
+  &#page-elvira-sastre .big-play { right: 15%; }
+  &#page-escandar-algeet .big-play { bottom: 0; }
   
   .poeta-col-r, .head { position: relative; z-index: 1; }
 
@@ -428,10 +428,26 @@ iframe { border: none; }
 
   .wk-col-50 { padding: 0; max-width: 200px; margin-right: 1em; text-align: center; }
 
-  h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; padding-bottom: 0.3em; }
-  p { padding-left: 2.4em; margin-bottom: 0.6em; line-height: 1.2em; }
+  h3 { @include cutie; line-height: 1.4em; margin-bottom: 0em; padding-bottom: 0.1em; }
+  p { margin-bottom: 0.4em; text-align: justify; line-height: 1.4em; font-size: 1.1em; }
   .back:before { content: ''; display: block; position: absolute; bottom: -8px; left: 0;
       background: url(http://video.lab.rtve.es/resources/memoria-futuro/image/atnls-sprite.png) -350px -10px; width: 60px; height: 60px; }
+
+  @media (max-width: 1300px) {
+    .poeta-col-r { width: 50%; font-size: 0.9em; padding-top: 0; }
+    .poeta-col-l { width: 50%; }
+    .head { padding: 0; }
+    p { line-height: 1.2em; }
+  }
+  @media (max-width: 1000px) {
+    .poeta-col-r { font-size: 0.8em; }
+  }
+
+  .thumb { position: relative; text-decoration: none; line-height: 2em; padding-top: 0.4em; display: inline-block;
+    img { width: 200px; display: block; box-shadow: 0 7px 24px -7px black; }
+    &:before { content: ''; display: block; position: absolute; left: 50%; top: 50%; width: 55px; height: 55px; margin-top: -28px; margin-left: -28px; opacity: 0.5;
+        background: url(./img/spriteplayer.png) -128px -274px no-repeat; @include transition(all 1s); }
+  }
 }
 
 #initVid, #initVid iframe { z-index: 100; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: black; }
@@ -580,7 +596,7 @@ iframe { border: none; }
 .ico-tw { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
     background: url(./img/sprite-social-handwritten.png) -12px -8px no-repeat; }
 .ico-fb { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
-    background: url(./img/sprite-social-handwritten.png) -47px -8px no-repeat; }
+    background: url(./img/sprite-social-handwritten.png) -49px -8px no-repeat; }
 .ico-web { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
     background: url(./img/sprite-social-handwritten.png) -86px -8px no-repeat; }
 .ico-ig { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
