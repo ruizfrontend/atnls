@@ -416,7 +416,7 @@ iframe { border: none; }
   }
   &.act .poeta-col-l img { @include transform(scale(1)); opacity: 1; }
 
-  .big-play{ position: absolute; bottom: 6%; right: 5%; background: url(./img/spriteplayer.png) -2px -243px no-repeat; width: 118px; height: 116px;
+  .big-play{ position: absolute; bottom: 6%; right: 5%; background: url(http://lab.rtve.es/webdocs/memoria-futuro/img/spriteplayer.png) -2px -243px no-repeat; width: 118px; height: 116px;
     img { display: none; }
   }
   &#page-elvira-sastre .big-play { right: 15%; }
@@ -446,7 +446,7 @@ iframe { border: none; }
   .thumb { position: relative; text-decoration: none; line-height: 2em; padding-top: 0.4em; display: inline-block;
     img { width: 200px; display: block; box-shadow: 0 7px 24px -7px black; }
     &:before { content: ''; display: block; position: absolute; left: 50%; top: 50%; width: 55px; height: 55px; margin-top: -28px; margin-left: -28px; opacity: 0.5;
-        background: url(./img/spriteplayer.png) -128px -274px no-repeat; @include transition(all 1s); }
+        background: url(http://lab.rtve.es/webdocs/memoria-futuro/img/spriteplayer.png) -128px -274px no-repeat; @include transition(all 1s); }
   }
 }
 
@@ -594,13 +594,13 @@ iframe { border: none; }
 }
 
 .ico-tw { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
-    background: url(./img/sprite-social-handwritten.png) -12px -8px no-repeat; }
+    background: url(http://lab.rtve.es/webdocs/memoria-futuro/img/sprite-social-handwritten.png) -12px -8px no-repeat; }
 .ico-fb { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
-    background: url(./img/sprite-social-handwritten.png) -49px -8px no-repeat; }
+    background: url(http://lab.rtve.es/webdocs/memoria-futuro/img/sprite-social-handwritten.png) -49px -8px no-repeat; }
 .ico-web { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
-    background: url(./img/sprite-social-handwritten.png) -86px -8px no-repeat; }
+    background: url(http://lab.rtve.es/webdocs/memoria-futuro/img/sprite-social-handwritten.png) -86px -8px no-repeat; }
 .ico-ig { display: inline-block; vertical-align: bottom; height: 28px; width: 31px; margin-left: 6px;
-    background: url(./img/sprite-social-handwritten.png) -49px -49px no-repeat }
+    background: url(http://lab.rtve.es/webdocs/memoria-futuro/img/sprite-social-handwritten.png) -49px -49px no-repeat }
 
 label, input { display: block; margin: 0.8em auto; font-size: 1.2em; font-weight: 900; background: none;
     border: 3px solid white; line-height: 1.2em; padding: 0.4em; width: 100%; max-width: 180px; color: white; }

@@ -36,7 +36,7 @@ dataImports:
 rawData: # plain data imported in the templates
   audioPath: 'img/'
   poemasUrl: 'poemas/'
-  poetasUrl: '/'
+  poetasUrl: 'poetas/'
   ajaxUrl: 'ajax/'
   ajaxRedes: 'dataOK/redes.json'
   hash: 'memoriadefuturo'

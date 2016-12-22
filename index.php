@@ -234,37 +234,6 @@ $sspa->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 
 /* - ATNLS código exclusivo - */
-  
-  $sspa->get($dataTwig['rawData']['poetasUrl'] . '{poeta}',
-
-    function(Request $request, Application $sspa, $poeta) {
-
-      if(!isset($sspa['twigData']['rawData']['poetas'][$poeta])) $sspa->abort(404, "No routing file found. Aborting");
-
-      $twigData = $sspa['twigData'];
-      $url = $request->getBasePath() . $request->getPathInfo();
-      $twigData['url'] = $url;
-      
-      $twigData['poeta'] = $sspa['twigData']['rawData']['poetas'][$poeta];
-      $twigData['poetaId'] = $poeta;
-
-      $twigData['seoData'] = array(
-        'name' => 'poeta',
-        'url' => '',
-        'title' => $sspa['twigData']['rawData']['poetas'][$poeta] . ', Luis García Montero y la nueva poesía',
-        'description' => 'El poeta nos cuenta de la influencia de Luis y lo que ha supuesto en su obra',
-        'keywords' => 'webdoc, video, poesia, música, narrativa, garcía montero',
-        'seoImg'=> './img/seo-' . $twigData['poeta'] . '.png',
-        'ShareText'=> $sspa['twigData']['rawData']['poetas'][$poeta] . ', Luis García Montero y la nueva poesía',
-        'shortTitle'=> '',
-      );
-
-      $tpl = $sspa['config']['twigs'] . '/main.html.twig';
-
-      return new Response($sspa['twig']->render($tpl, $twigData), 200, array('Cache-Control' => 's-maxage=3600, public'));
-    }
-  )->bind('poeta');
-  
  
   $sspa->get($dataTwig['rawData']['poemasUrl'] . '{poema}',
 
@@ -355,6 +324,37 @@ foreach ($sspa['routing'] as $title => $url) {
   )->bind($url['name']);
 }
 
+
+$sspa->get($dataTwig['rawData']['poetasUrl'] . '{poeta}',
+
+  function(Request $request, Application $sspa, $poeta) {
+
+    if(!isset($sspa['twigData']['rawData']['poetas'][$poeta])) $sspa->abort(404, "No routing file found. Aborting");
+
+    $twigData = $sspa['twigData'];
+    $url = $request->getBasePath() . $request->getPathInfo();
+    $twigData['url'] = $url;
+    
+    $twigData['poeta'] = $sspa['twigData']['rawData']['poetas'][$poeta];
+    $twigData['poetaId'] = $poeta;
+
+    $twigData['seoData'] = array(
+      'name' => 'poeta',
+      'url' => '',
+      'title' => $sspa['twigData']['rawData']['poetas'][$poeta] . ', Luis García Montero y la nueva poesía',
+      'description' => 'El poeta nos cuenta de la influencia de Luis y lo que ha supuesto en su obra',
+      'keywords' => 'webdoc, video, poesia, música, narrativa, garcía montero',
+      'seoImg'=> './img/seo-' . $twigData['poeta'] . '.png',
+      'ShareText'=> $sspa['twigData']['rawData']['poetas'][$poeta] . ', Luis García Montero y la nueva poesía',
+      'shortTitle'=> '',
+    );
+
+    $tpl = $sspa['config']['twigs'] . '/main.html.twig';
+
+    return new Response($sspa['twig']->render($tpl, $twigData), 200, array('Cache-Control' => 's-maxage=3600, public'));
+  }
+)->bind('poeta');
+  
 
   // ERROR PAGE -> not found
 $sspa->error(function (\Exception $e, $code) use($sspa) {
