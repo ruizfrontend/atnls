@@ -402,23 +402,18 @@ var atnls = {
             // termina el video inicial
         $vid.on('ended', function(){
 
+
           $('#initvidsub').animate({opacity: 1}, 400, function(){
 
-            $(this).addClass('end');
+            var $this = $(this);
+            
+            $this.addClass('end');
 
-            setTimeout(function() { $('#initvidLogos').animate({opacity: 1}, 600); }, 1000);
-
-              // click para comenzar
-            $('#initVidMain, #in').click(function() {
-
-                  // elimina intro
-              $('#initVid').fadeOut(400);
-
-              atnls.cache.presentacion = false; // damos por terminada la presentación
+            setTimeout(function(){
 
                   // carga video
               $('#player').fadeIn(400);
-            
+
               labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_LOW', {
                 controls: true,
                 muted: false,
@@ -429,16 +424,27 @@ var atnls = {
 
                   labTools.media.videosWipeOut();
 
-                  $('#pop').find('.wk-valign-cont-inn')
-                    .html('<h4 style="text-align: justify;">Luis García Montero (Granada, 1958) es uno de los principales poetas españoles en la actualidad. <br><br>Desde la década de los 80 ha defendido la utilidad de la poesía y la conexión con el lector a través de una poesía cómplice. <br><br>La poesía de la experiencia o la otra sentimentalidad, son sólo algunas de las etiquetas en las que se le engloba.<br><br>Para algunas de las nuevas voces de la poesía, García Montero es considerado uno de sus principales referentes. <br><br>Conoce a estos cinco poetas y podrás asistir a su encuentro con Luis.</h4><div><a href="#" class="btn closePop2 btn-red">Comenzar</a></div>')
-                    .end()
-                    .fadeIn(400);
+                  setTimeout(function() {
+                    $('#initvidInit').animate({opacity: 1}, 1000);
+                    $('#initvidLogos').animate({opacity: 1}, 600);
+                  }, 1000);
 
+                    // click para comenzar
+                  $('#initVidMain, #in, #initvidInit').click(function() {
+
+                        // elimina intro
+                    $('#initVid').fadeOut(400);
+
+                    atnls.cache.presentacion = false; // damos por terminada la presentación
+
+                  });
                 }
               });
 
-            });
+            }, 1500);
+
           });
+
         });
 
       });
@@ -481,6 +487,10 @@ var atnls = {
 
       $('#credits').fadeOut(400);
       $('#menu').fadeToggle(400);
+
+          // elimina intro
+      $('#initVid').fadeOut(400);
+      atnls.cache.presentacion = false; // damos por terminada la presentación
     
       return false;
     });
@@ -492,16 +502,26 @@ var atnls = {
       return false;
     });
 
-    $('body').delegate('.closePop, .closePop2', 'click', function(){
-      $('#pop').fadeOut(400);
+    $('body')
 
-      return false;
-    });
+        // close popups
+      .delegate('.closePop, .closePop2', 'click', function(){
+        $('#pop').fadeOut(400);
 
-    $('.closePlayer, .closePlayer2, #player .plyr-list').click(function(e) {
-      labTools.media.videosWipeOut();
-      $('#player').fadeOut(400);
-    });
+        return false;
+      })
+
+        // close reproductor
+      .delegate('.closePlayer, .closePlayer2, #player .plyr-list, #player .plyr-list2', 'click' ,function(e) {
+
+            // elimina intro
+        $('#initVid').fadeOut(400);
+        atnls.cache.presentacion = false; // damos por terminada la presentación
+
+        labTools.media.videosWipeOut();
+        $('#player').fadeOut(400);
+      });
+
 
     $('.showPresentacion').click(function(){
 
