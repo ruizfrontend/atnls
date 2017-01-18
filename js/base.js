@@ -414,7 +414,7 @@ var atnls = {
                   // carga video
               $('#player').fadeIn(400);
 
-              labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_LOW', {
+              labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_DEF_OK', {
                 controls: true,
                 muted: false,
                 autoplay: true,
@@ -528,7 +528,7 @@ var atnls = {
       $('#credits, #menu').fadeOut(400);
       $('#player').fadeIn(400);
     
-      labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_LOW', {
+      labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_DEF_OK', {
         title: 'Presentación de Luis García Montero',
         controls: true,
         muted: false,
@@ -657,14 +657,14 @@ var atnls = {
 
                 // pero aún está bloqueado
               $('#pop').find('.wk-valign-cont-inn')
-                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-postluis="1" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_v02_2016-12-21_LOW" class="btn video-lnk closePop2">Ir a la tertulia</a></div>')
+                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-postluis="1" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_004_DEF_OK" class="btn video-lnk closePop2">Ir a la tertulia</a></div>')
                 .end()
                 .fadeIn(400);
 
                 // unbloqued
               } else {
 
-                labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_v02_2016-12-21_LOW', {
+                labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_004_DEF_OK', {
                   // title: 'Tertulia de la nueva poesía',
                   controls: true,
                   muted: false,
