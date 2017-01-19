@@ -53,7 +53,14 @@ var atnls = {
       // redimensionados____________________________________________________________
     $(window).resize();
 
-    atnls.initUrls();
+
+    if(!atnls.cache.responsive) {
+      atnls.initUrls();
+      atnls.initIllus();
+    } else {
+      atnls.updatePage();
+    }
+
     atnls.initRedes();
 
     atnls.initPlayer();
@@ -66,10 +73,6 @@ var atnls = {
     atnls.initKeys();
 
     atnls.initShares();
-
-    if(!atnls.cache.responsive) {
-      atnls.initIllus();
-    }
 
     setTimeout(function(){ $('body').addClass('pageReady'); }, 1000);
 
@@ -130,6 +133,8 @@ var atnls = {
       case 27: // scape
 
         if($('#jumpInitVid:visible').length) return;
+
+        $('#initVid').fadeOut();
 
         if($('#menu:visible').length) {
           $('#menu').fadeOut(400);
@@ -211,7 +216,7 @@ var atnls = {
   parseRedesElm: function(elm) {
     
     var $elm = $('<div class="socialElm">');
-console.log(elm)
+
     if(elm.link) {
 
       var url = 'https://twitter.com/Digiday/status/' + elm.tweetId;
@@ -476,7 +481,6 @@ console.log(elm)
 
     $('body').delegate('#submit', 'click', function(){
       
-      console.log($('#mail').val());
       $(this).parent().parent().html('<p>Enhorabuena. Pronto recibirás tu poemario en tu correo.</p>');
       return false;
     });
@@ -657,7 +661,7 @@ console.log(elm)
 
                 // pero aún está bloqueado
               $('#pop').find('.wk-valign-cont-inn')
-                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="Tertulia de la nueva poesía" data-postluis="1" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_004_DEF_OK" class="btn video-lnk closePop2">Ir a la tertulia</a></div>')
+                .html('<h4>Aún no has conocido a los poetas que integran la tertulia. Te animamos a seguir conociéndolos.<h4><div><a href="#" class="btn closePop2 btn-red">Seguir conociéndolos</a><a href="#" title="La tertulia" data-postluis="1" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_004_DEF_OK" class="btn video-lnk closePop2">Ir a la tertulia</a></div>')
                 .end()
                 .fadeIn(400);
 
@@ -1118,7 +1122,7 @@ console.log(elm)
 
       w = (atnls.cache.winWidth > maxWidth) ? maxWidth : atnls.cache.winWidth;
 
-      if(atnls.cache.winHeigth < (w * proportion)) {
+      if(atnls.cache.winHeigth - 40 < (w * proportion)) {
         h = atnls.cache.winHeigth;
         w = h / proportion;
       } else {
