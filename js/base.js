@@ -199,9 +199,9 @@ var atnls = {
       var cols = $('.col-redes-col').length;
       $wrap.addClass('col-redes-' + cols);
 
-      for (var i = e.length - 1; i >= 0; i--) {
+      for (var i = e.tweets.length - 1; i >= 0; i--) {
         var target = i % cols;
-        $('.col-redes-col:eq(' + target + ')').append(atnls.parseRedesElm(e[i]));
+        $('.col-redes-col:eq(' + target + ')').append(atnls.parseRedesElm(e.tweets[i]));
       }
 
     });
@@ -211,16 +211,16 @@ var atnls = {
   parseRedesElm: function(elm) {
     
     var $elm = $('<div class="socialElm">');
-
-    if(elm.tweetId) {
+console.log(elm)
+    if(elm.link) {
 
       var url = 'https://twitter.com/Digiday/status/' + elm.tweetId;
 
-      if(elm.img) $elm.append('<a target="_blank" href="' + url + '"><img src="' + elm.img + '"></a>');
+      if(elm.media) $elm.append('<a target="_blank" href="' + elm.link + '"><img src="' + elm.media[0] + '"></a>');
 
-      var usr = '<a href="https://twitter.com/' + elm.usrName + '" title="visita el perfil del usuario" target="_blank">@' + elm.usr + ':</a> ';
+      var usr = '<a href="https://twitter.com/' + elm.screen_name + '" title="visita el perfil del usuario" target="_blank">@' + elm.screen_name + ':</a> ';
 
-      var text = elm.texto.replace(/#(\S*)/g,'<a href="http://twitter.com/#!/search/$1" title="Ver todos los tweets con el hashtag" target="_blank">#$1</a>');
+      var text = elm.text.replace(/#(\S*)/g,'<a href="http://twitter.com/#!/search/$1" title="Ver todos loºs tweets con el hashtag" target="_blank">#$1</a>');
 
       var $text = $('<div class="socialEBody">').append(usr).append(text);
 
