@@ -17,14 +17,14 @@
 
 {% block seo %}
 
-  {% include twigFolder ~ '/blocks/head.html.twig' with {'seo': true} %}
+  {# {% include twigFolder ~ '/blocks/head.html.twig' with {'seo': true} %} #}
 
 {% endblock %}
 
 
 {% block content %}
 
-  {% include twigFolder ~ '/blocks/head.html.twig'%}
+  {# {% include twigFolder ~ '/blocks/head.html.twig'%} #}
 
   <div id="content">
     {% include twigFolder ~ '/pages/' ~ seoData['name'] ~ '.html.twig'%}
@@ -34,6 +34,10 @@
 
   {% include twigFolder ~ '/pages/initVid.html.twig'%}
   
-  {% include twigFolder ~ '/pages/creditos.html.twig'%}
+  {% include twigFolder ~ '/blocks/player.html.twig'%}
+
+  {% include twigFolder ~ '/blocks/pop.html.twig'%}
+
+  {% include twigFolder ~ '/blocks/creditos.html.twig'%}
 
 {% endblock %}

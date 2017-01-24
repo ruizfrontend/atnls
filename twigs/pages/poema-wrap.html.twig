@@ -1,0 +1,15 @@
+<div itemscope itemtype="http://schema.org/CreativeWork">
+
+	<div itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
+		{% if ajax is defined %}
+			<div class="audio" src="http://video.lab.rtve.es/resources/memoria-futuro/audio/{{ poemaId }}.mp3"></div>
+		{% else %}
+			<audio style="margin-bottom: 0.8em;" autoplay controls src="http://video.lab.rtve.es/resources/memoria-futuro/audio/{{ poemaId }}.mp3"></audio>
+		{% endif %}
+	</div>
+	
+	<meta itemprop="author" content="Luis García Montero">
+	<meta itemprop="genre" content="poem">
+
+	{% include twigFolder ~ '/poemas/' ~ poemaId ~ '.html.twig'%}
+</div>

@@ -1,33 +1,14 @@
-<div class="poeta-col-l">
-	<div ><a style="text-decoration: none; color: #333; clear: both; padding: 0.4em 0.4em 0.4em 60px; position: absolute; bottom: -3em; left: 0.4em; z-index: 1;" href="{{ path('home') }}" class="back url-lib wk-col-r"><h3>Volver</h3></a></div>
+<div id="poeta">
 
-	{% if ajax is not defined %}
-		<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone.jpg">
-	{% else %}
-		{% if poetaId == 'elvira-sastre' %}
-			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/ElviraSastre_004_DEF_OK">
-		{% elseif poetaId == 'carlos-prado' %}
-			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/CarlosPardo_004_DEF_OK">
-		{% elseif poetaId == 'guille-galvan' %}
-			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/GuilleGalvan_v004_DEF_OK">
-		{% elseif poetaId == 'escandar-algeet' %}
-			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Escandar_004_DEF_OK">
-		{% elseif poetaId == 'marwan' %}
-			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Marwan_004_DEF_OK">
-		{% endif %}
-			<div class="preFoto" data-src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
-			<div class="preFoto imgTXT" data-src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-text.png"></div>
-			<div class="big-play"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bigplay.png"></div>
-		</a>
-	{% endif %}
-</div>
-
-<div class="poeta-col-r">
-
-	{% if ajax is not defined %}
-		<h2>Presentación de {{ poeta }}</h2>
-	{% endif %}
-
-	{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
+	<div class="head clearfix">
+		<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
+		<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
+		<a class="hamb showMenu" href="#menu"></a>
+		<a href="{{ path('home') }}" class="url-lib titleHome ft-cutie"><strong>Memoria de futuro:</strong></a>
+	</div>
+	
+	<div class="page-poeta">
+		{% include twigFolder ~ '/pages/poeta-inn.html.twig' with {'poeta': poeta, 'poeta': poeta, 'list': true} %}
+	</div>
 
 </div>

@@ -1,0 +1,40 @@
+<div>
+	<div class="poeta-col-l">
+		<div ><a style="text-decoration: none; color: #333; clear: both; padding: 0.4em 0.4em 0.4em 60px; position: absolute; bottom: -3em; left: 0.4em; z-index: 1;" href="{{ path('home') }}" class="back url-lib wk-col-r"><h3>Volver</h3></a></div>
+
+		{% if poetaId == 'elvira-sastre' %}
+			<a href="#" class="video-lnk" autoplay data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/ElviraSastre_004_DEF_OK">
+		{% elseif poetaId == 'carlos-prado' %}
+			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/CarlosPardo_004_DEF_OK">
+		{% elseif poetaId == 'guille-galvan' %}
+			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/GuilleGalvan_v004_DEF_OK">
+		{% elseif poetaId == 'escandar-algeet' %}
+			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Escandar_004_DEF_OK">
+		{% elseif poetaId == 'marwan' %}
+			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Marwan_004_DEF_OK">
+		{% elseif poetaId == 'luis-garcia-montero' %}
+			<a href="#" class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Tertulia_004_DEF_OK">
+		{% endif %}
+
+
+		{% if ajax is not defined %}
+				<img class="preFoto" src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-half.jpg">
+				{% if poetaId != 'luis-garcia-montero' %}
+				<img class="preFoto imgTXT" src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-text.png">
+				{% endif %}
+				<div class="big-play"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bigplay.png"></div>
+		{% else %}
+				<div class="preFoto" data-src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-half.jpg"></div>
+				<div class="preFoto imgTXT" data-src="http://video.lab.rtve.es/resources/memoria-futuro/image/{{ poetaId | split('-') | first }}-alone-text.png"></div>
+				<div class="big-play"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bigplay.png"></div>
+		{% endif %}
+			</a>
+
+	</div>
+
+	<div class="poeta-col-r">
+
+		{% include twigFolder ~ '/poetas/' ~ poetaId ~ '.html.twig' %}
+
+	</div>
+</div>

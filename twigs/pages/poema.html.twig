@@ -1,19 +1,21 @@
-{% if list is defined and list != false %}
-	{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
-{% endif %}
+<div id="poemas">
 
-<div itemscope itemtype="http://schema.org/CreativeWork">
-
-	<div itemprop="audio" itemscope itemtype="http://schema.org/AudioObject">
-		{% if ajax is defined %}
-			<div class="audio" src="http://video.lab.rtve.es/resources/memoria-futuro/audio/{{ poemaId }}.mp3"></div>
-		{% else %}
-			<audio src="http://video.lab.rtve.es/resources/memoria-futuro/audio/{{ poemaId }}.mp3"></audio>
-		{% endif %}
+	<div class="head clearfix">
+		<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
+		<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
+		<a class="hamb showMenu" href="#menu"></a>
+		<a href="{{ path('home') }}" class="url-lib titleHome ft-cutie"><strong>Memoria de futuro:</strong></a>
+		<span class="ft-cutie titleThis"><strong>La voz de Luis García Montero</strong></span>
 	</div>
 	
-	<meta itemprop="author" content="Luis García Montero">
-	<meta itemprop="genre" content="poem">
+	<div class="poema-wrap">
+		{% include twigFolder ~ '/pages/poema-wrap.html.twig' with {'poema': poema} %}
 
-	{% include twigFolder ~ '/poemas/' ~ poemaId ~ '.html.twig'%}
+		<p style="margin-bottom: 0.4em; font-weight: 900">Escucha otro poema:</p>
+		<ul class="ft-cutie" style="margin-bottom: 2em;">
+			{% for poema, name in rawData['poemas'] %}
+				<li><a class="url-lib" href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
 </div>

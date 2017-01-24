@@ -28,7 +28,11 @@
 
 
 				<div class="bl-playlist">
-					{% include twigFolder ~ '/blocks/poemas_list.html.twig'%}
+					<ul>
+						{% for poema, name in rawData['poemas'] %}
+							<li><a class="url-lib {% if path('poema', {'poema': poema}) == url %}url-current{% endif %}" href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
+						{% endfor %}
+					</ul>
 				</div>
 
 			</div>
@@ -37,7 +41,7 @@
 				<div>
 					{% for poema, name in rawData['poemas'] %}
 						<div class="page-poema" style="display: none;" data-poema="{{ poema }}"><div class="scrool-wrap">
-							{% include twigFolder ~ '/pages/poema.html.twig' with {'poemaId': poema} %}
+							{% include twigFolder ~ '/pages/poema-wrap.html.twig' with {'poemaId': poema } %}
 						</div></div>
 					{% endfor %}
 				</div>
@@ -67,83 +71,16 @@
 	</div>
 
 	<div id="poetas">
-		<div id="compoMobile">
-			<a href="{{ path('poeta', {'poeta': 'guille-galvan'}) }}" class="url-lib"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-full.png" alt=""></a>
-			<a href="{{ path('poeta', {'poeta': 'marwan'}) }}" class="url-lib"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-full.png" alt=""></a>
-			<a href="{{ path('poeta', {'poeta': 'elvira-sanchez'}) }}" class="url-lib"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-full.png" alt=""></a>
-			<a href="{{ path('poeta', {'poeta': 'carlos-prado'}) }}" class="url-lib"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/carlos-full.png" alt=""></a>
-			<a href="{{ path('poeta', {'poeta': 'escandar-algeet'}) }}" class="url-lib"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-full.png" alt=""></a>
-			<a href="{{ path('poeta', {'poeta': 'luis-garcia-montero'}) }}" class="url-lib"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-full.png" alt=""></a>
+		<div class="head">
+			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
+			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
+			<a class="hamb showMenu" href="#menu"></a>
+			<a href="{{ path('home') }}" class="url-lib" title="Ir al inicio"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/logo.png" alt="" class="logo" alt="Memoria de futuro"></a>
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bar.png" class="headbar">
 		</div>
 
-		<div id="compo">
+		{% include twigFolder ~ '/blocks/compo.html.twig' %}
 
-			<a href="{{ path('poeta', {'poeta': 'guille-galvan'}) }}" class="url-lib" id="guille">
-				<img id="guille-end" src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-end.png">
-				<img id="guille-fill1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-fill1.png">
-				<img id="guille-fill1bis" src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-fill1bis.png">
-				<div id="guille-fill2"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-fill2.png">
-				</div></div>
-				<div id="guille-text"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-text.png">
-				</div></div>
-			</a>
-
-			<a href="{{ path('poeta', {'poeta': 'marwan'}) }}" class="url-lib" id="marwan">
-				<img id="marwan-dust" src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-dust.png">
-				<img id="marwan-end" src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-end.png">
-				<img id="marwan-fill1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-fill1.png">
-				<img id="marwan-fill2" src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-fill2.png">
-				<div id="marwan-text"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-text2.png">
-				</div></div>
-			</a>
-
-			<a href="{{ path('poeta', {'poeta': 'elvira-sastre'}) }}" class="url-lib" id="elvira">
-				<img id="elvira-end" src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-end.png">
-				<img id="elvira-fill1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-fill1.png">
-				<img id="elvira-fill2" src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-fill2.png">
-				<div id="elvira-text"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-texto.png">
-				</div></div>
-				<div id="elvira-reloj"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-reloj.png">
-				</div></div>
-			</a>
-
-			<a href="{{ path('poeta', {'poeta': 'carlos-prado'}) }}" class="url-lib" id="carlos">
-				<img id="carlos-end" src="http://video.lab.rtve.es/resources/memoria-futuro/image/carlos-end.png">
-				<img id="carlos-fill1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/carlos-fill1.png">
-				<div id="carlos-fill2"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/carlos-fill2.png">
-				</div></div>
-			</a>
-
-			<a href="{{ path('poeta', {'poeta': 'escandar-algeet'}) }}" class="url-lib" id="escandar">
-				<img id="escandar-end" src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-end.png">
-				<img id="escandar-fill1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-fill1.png">
-				<div id="escandar-fill2"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-fill2.png">
-				</div></div>
-				<div id="escandar-text"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-text.png">
-				</div></div>
-			</a>
-
-			<a href="{{ path('poeta', {'poeta': 'luis-garcia-montero'}) }}" data-luis="1" class="url-lib" id="luis">
-				<img id="luis-fill1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-fill1.png">
-				<img id="luis-end1" src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-2.png">
-				<img id="luis-end2" src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-3.png">
-				<img id="luis-end3" src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-4.png">
-				<img id="luis-end4" src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-5.png">
-				<div id="luis-fill2"><div class="wrp">
-					<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-fill2.png">
-				</div></div>
-			</a>
-
-			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bg1.jpg" style="width: 100%; height: auto;">
-		</div>
 
 		{% for poeta, name in rawData['poetas'] %}
 			{% if poeta != 'luis-garcia-montero' %}
@@ -156,7 +93,7 @@
 							<a href="{{ path('home') }}" class="url-lib titleHome ft-cutie"><strong>Memoria de futuro</strong></a>
 						</div>
 
-						{% include twigFolder ~ '/pages/poeta.html.twig' with {'poeta': name, 'poetaId': poeta, 'list': false} %}
+						{% include twigFolder ~ '/pages/poeta-inn.html.twig' with {'poeta': name, 'poetaId': poeta, 'list': false} %}
 					</div>
 				</div>
 			{% else %}
@@ -166,18 +103,7 @@
 		{% endfor %}
 	</div>
 	
-	<div id="redes">
-
-		<div class="head clearfix">
-			<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
-			<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
-			<a class="hamb showMenu" href="#menu"></a>
-			<a href="{{ path('home') }}" class="url-lib titleHome ft-cutie"><strong>Memoria de futuro:</strong></a>
-			<span class="ft-cutie titleThis"><strong>El muro de la poesía</strong></span>
-		</div>
-
-		{% include twigFolder ~ '/pages/redes.html.twig' %}
-	</div>
+	{% include twigFolder ~ '/pages/redes.html.twig' %}
 
 	<div id="presentacion">
 
@@ -209,29 +135,4 @@
 		<div class="bl-nav"><a style="font-size: 0.9em;" href="{{ path('redes') }}" class="url-lib ft-cutie">El muro de la poesía</a></div>
 	</div>
 
-	<div id="player">
-		
-		<div class="head clearfix">
-			<a class="hamb showMenu" href="#menu"></a>
-			<a href="{{ path('home') }}" class="url-lib titleHome ft-cutie"><strong>Memoria de futuro</strong></a>
-			{# <span class="titleThis ft-cutie"><strong>La voz de Luis García Montero</strong></span> #}
-			<a class="closePlayer" href="#"></a>
-		</div>
-
-		<div class="wk-valign">
-			<div class="wk-valign-cont"><div class="vrap"></div></div>
-		</div>
-	</div>
-
-	<div id="pop">
-		<div class="wk-valign">
-			<div class="wk-valign-cont">
-				<div class="wk-valign-cont-inn">
-					<h2></h2>
-				</div>
-			</div>
-		</div>
-		
-		<a class="closePop" href="#"></a>
-	</div>
 </div>

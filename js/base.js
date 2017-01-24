@@ -26,40 +26,40 @@ var atnls = {
       // check required libraries
     if(!labTools || !labTools.url || !labTools.media) { console.log('ERROR INICIANDO LABTOOLS'); return; }
 
-    $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200)).resize();
+    $(window).bind('orientationchange resize', throttle(atnls.handleResize, 200));
 
-    $(window).scrollTop(0);
+    atnls.handleResize();
+    
+    if(!atnls.cache.responsive) {
 
-      // carga y pinta el html real
-    $.get(projRoot + rawData.ajaxUrl, function(e){
-      var $body = $(e);
+      $.get(projRoot + rawData.ajaxUrl, function(e){
+        
+        var $body = $(e);
+        
+        $('#content').replaceWith($body);
+
+        atnls.initUrls();
+        atnls.initIllus();
+
+        atnls.ready();
+
+      }, 'html');
+
+    } else {
+
+      $(function(){
+        $('body').addClass('responsive');
+
+        atnls.updatePage();
+
+        atnls.ready();
+      });
+
+    };
       
-      if(atnls.cache.responsive) {
-        $body.find('#compo').remove();
-      } else {
-        $body.find('#compoMobile').remove();
-      }
-
-      $('#content').replaceWith($body);
-
-      atnls.ready();
-
-    }, 'html');
-
   },
 
   ready: function() {
-
-      // redimensionados____________________________________________________________
-    $(window).resize();
-
-
-    if(!atnls.cache.responsive) {
-      atnls.initUrls();
-      atnls.initIllus();
-    } else {
-      atnls.updatePage();
-    }
 
     atnls.initRedes();
 
@@ -360,7 +360,7 @@ var atnls = {
 
     var player = parseInt(Cookies.get('initVid'));
 
-    if(window.location.pathname == projRoot || !player || window.location.hash.indexOf('noJump') != -1) {
+    if(!(atnls.cache.responsive && player)) {
 
       atnls.cache.presentacion = true;
 
@@ -369,6 +369,7 @@ var atnls = {
       $('#initVid').show();
 
       var $vid = $('#initVid video');
+      $vid[0].load();
       
       $vid.ready(function(){
 
@@ -378,7 +379,8 @@ var atnls = {
         var wrapLeft = $('#initVidMain').offset().left;
         
         var swipe = false;
-        
+
+
         var hammertime = new Hammer($('#initVid')[0]);
         hammertime.on('swipe', function(ev) {
           if(swipe) return;
@@ -400,6 +402,7 @@ var atnls = {
             $('#swipeIcon').addClass('go').fadeOut(400);
             return;
           }
+
           $vid[0].currentTime = time * avance;
           $('#swipeIcon').css('left', (100 * avance) + '%');
         });
@@ -455,6 +458,11 @@ var atnls = {
       });
 
     } else {
+
+            // elimina intro
+        $('#initVid').fadeOut(400);
+
+        atnls.cache.presentacion = false; // damos por terminada la presentación
 
     }
   },
@@ -1083,7 +1091,7 @@ var atnls = {
     atnls.cache.winWidth = atnls.cache.$window.width();
     atnls.cache.winHeigth = atnls.cache.$window.height();
 
-    atnls.cache.responsive = atnls.cache.winWidth < 800 ? true : false;
+    atnls.cache.responsive = atnls.cache.winWidth < 600 ? true : false;
     atnls.cache.mini = atnls.cache.winWidth < 500 ? true : false;
 
     if(!atnls.cache.responsive) {
@@ -1117,7 +1125,7 @@ var atnls = {
 
       var padd = 10;
       var maxWidth = 1500;
-      var proportion = 0.64;// 1500 / 933  // 9 / 16; // 3 / 4; 
+      var proportion = 0.68;// 1500 / 933  // 9 / 16; // 3 / 4; 
       var w, h, top;
 
       w = (atnls.cache.winWidth > maxWidth) ? maxWidth : atnls.cache.winWidth;

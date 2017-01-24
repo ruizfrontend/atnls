@@ -1,8 +1,0 @@
-{# <p style="margin-bottom: 0.4em; text-align: left;">Selecciona un poema:</p> #}
-<ul>
-	{% for poema, name in rawData['poemas'] %}
-
-		<li><a class="url-lib {% if path('poema', {'poema': poema}) == url %}url-current{% endif %}" href="{{ path('poema', {'poema': poema}) }}">{{ name }}</a></li>
-
-	{% endfor %}
-</ul>

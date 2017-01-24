@@ -1,6 +1,36 @@
-<h2>La nueva poesía</h2>
+
+<div class="head">
+	<a class="rtve" href="http://www.rtve.es/" title="Proyecto en colaboración con rtve.es"></a>
+	<a class="lab" href="http://www.rtve.es/lab/" title="Proyecto en colaboración con el lab de rtve.es"></a>
+	<a class="hamb showMenu" href="#menu"></a>
+	<a href="{{ path('home') }}" class="url-lib" title="Ir al inicio"><img src="http://video.lab.rtve.es/resources/memoria-futuro/image/logo.png" alt="" class="logo" alt="Memoria de futuro"></a>
+	<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/bar.png" class="headbar">
+</div>
+
 <ul>
-	{% for poeta, name in rawData['poetas'] %}
-		<li><a href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
-	{% endfor %}
+	<div id="compoMobile">
+		<a href="{{ path('poeta', {'poeta': 'guille-galvan'}) }}" class="url-lib">
+			<img class="text" src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-alone-text.png" alt="">
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/guille-alone-half.jpg" alt="">
+		</a>
+		<a href="{{ path('poeta', {'poeta': 'marwan'}) }}" class="url-lib">
+			<img class="text" src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-alone-text.png" alt="">
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/marwan-alone-half.jpg" alt="">
+		</a>
+		<a href="{{ path('poeta', {'poeta': 'elvira-sastre'}) }}" class="url-lib">
+			<img class="text" src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-alone-text.png" alt="">
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/elvira-alone-half.jpg" alt="">
+		</a>
+		<a href="{{ path('poeta', {'poeta': 'carlos-prado'}) }}" class="url-lib">
+			<img class="text" src="http://video.lab.rtve.es/resources/memoria-futuro/image/carlos-alone-text.png" alt="">
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/carlos-alone-half.jpg" alt="">
+		</a>
+		<a href="{{ path('poeta', {'poeta': 'escandar-algeet'}) }}" class="url-lib">
+			<img class="text" src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-alone-text.png" alt="Ilustración de Escandar Algeet">
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/escandar-alone-half.jpg" alt="Ilustración de Escandar Algeet">
+		</a>
+		<a href="{{ path('poeta', {'poeta': 'luis-garcia-montero'}) }}" class="url-lib">
+			<img src="http://video.lab.rtve.es/resources/memoria-futuro/image/luis-alone-half.jpg" alt="">
+		</a>
+	</div>
 </ul>
