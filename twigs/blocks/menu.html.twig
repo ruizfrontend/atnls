@@ -5,7 +5,7 @@
   <div class="wk-valign">
   	<ul class="wk-valign-cont">
   	  <li><a class="url-lib" href="{{ path('home') }}"><img style="display: block; width: 100%; margin: 0 auto; max-width: 600px; padding: 0 1em; box-sizing: border-box;" src="http://video.lab.rtve.es/resources/memoria-futuro/image/logo-menu.png" alt="Memorias de futuro"></a></li>
-	  <li><a class="showPresentacion" href="#">Memoria de futuro</a></li>
+	  <li><a class="video-lnk" data-video="http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_DEF_OK" title="Presentación de Luis García Montero" href="#">Memoria de futuro</a></li>
 	  <li><a class="url-lib url-poly {% if path('home') == url %}url-current{% endif %} {% if path('home') == url or path('home') in url %}url-active{% endif %}" href="{{ path('home') }}">La nueva poesía</a></li>
 	  <li>
 	  	<ul>
@@ -13,12 +13,12 @@
 				{% if poeta != 'luis-garcia-montero' %}
 					<li><a class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">{{ name }}</a></li>
 				{% else %}
-					<li><a style="padding-top: 0.6em; display: block; font-weight: 900;" class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">Tertulia con Luis García Montero</a></li>
+					<li><a class="url-lib {% if path('poeta', {'poeta': poeta}) == url %}url-current{% endif %}" href="{{ path('poeta', {'poeta': poeta}) }}">Tertulia con Luis García Montero</a></li>
 				{% endif %}
 			{% endfor %}
 	  	</ul>
 	  </li>
-	  <li><a class="url-lib url-poly {% if path('poemas') == url %}url-current{% endif %} {% if path('poemas') == url or path('poemas') in url %}url-active{% endif %}" href="{{ path('poemas') }}">La voz de Luis García Montero</a></li>
+	  <li><a class="url-lib url-poly {% if path('poemas') == url %}url-current{% endif %} {% if path('poemas') == url or path('poemas') in url %}url-active{% endif %}" href="{{ path('poemas') }}">Escucha la poesía de Luis</a></li>
 	  <li><a class="url-lib {% if path('redes') == url %}url-current{% endif %}" href="{{ path('redes') }}">El muro de la poesía</a></li>
 	  <li><a class="toggleCredits" href="#creditos">Créditos</a></li>
   	</ul>

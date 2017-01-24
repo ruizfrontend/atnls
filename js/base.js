@@ -106,7 +106,14 @@ var atnls = {
         endCallback: function(){
           if(data.postluis) {
             
-            $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div></div>');
+              $('#pop').find('.wk-valign-cont-inn')
+                .html('<p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div>')
+                .end()
+                .fadeIn(400);
+
+              $('#player').fadeOut(400, function(){
+                labTools.media.videosWipeOut();
+              });
 
           } else if(data.postvideo) {
             
@@ -355,116 +362,127 @@ var atnls = {
     });
   },
 
-    // video inicial de lgm
-  initVid: function() {
+  launchInit: function() {
 
-    var player = parseInt(Cookies.get('initVid'));
+    atnls.cache.presentacion = true;
 
-    if(!(atnls.cache.responsive && player)) {
+    Cookies.set('initVid', 1);
 
-      atnls.cache.presentacion = true;
+    $('#initVid').show();
 
-      Cookies.set('initVid', 1);
+    var $vid = $('#initVid video');
+    $vid[0].load();
+    
+    $vid.ready(function(){
 
-      $('#initVid').show();
-
-      var $vid = $('#initVid video');
-      $vid[0].load();
+      var vidWidth = $vid.width();
+      var time = $vid[0].duration;
+      var initLeft = 0;
+      var wrapLeft = $('#initVidMain').offset().left;
       
-      $vid.ready(function(){
-
-        var vidWidth = $vid.width();
-        var time = $vid[0].duration;
-        var initLeft = 0;
-        var wrapLeft = $('#initVidMain').offset().left;
-        
-        var swipe = false;
+      var swipe = false;
 
 
-        var hammertime = new Hammer($('#initVid')[0]);
-        hammertime.on('swipe', function(ev) {
-          if(swipe) return;
+      var hammertime = new Hammer($('#initVid')[0]);
+      hammertime.on('swipe', function(ev) {
+        if(swipe) return;
 
-          $vid[0].play();
+        $vid[0].play();
+        swipe = true;
+        $('#arrastra, #swipeIcon').addClass('go').fadeOut(400);
+      });
+
+      hammertime.on('pan', function(ev) {
+        if(swipe) return;
+        var avance = (ev.srcEvent.clientX - wrapLeft) / vidWidth; // ev.deltaX / vidWidth;
+        if(avance > 0.14) {
+          $('#arrastra').fadeOut(400);
+        }
+        if(avance > 0.5) {
           swipe = true;
-          $('#arrastra, #swipeIcon').addClass('go').fadeOut(400);
-        });
+          $vid[0].play();
+          $('#swipeIcon').addClass('go').fadeOut(400);
+          return;
+        }
 
-        hammertime.on('pan', function(ev) {
-          if(swipe) return;
-          var avance = (ev.srcEvent.clientX - wrapLeft) / vidWidth; // ev.deltaX / vidWidth;
-          if(avance > 0.14) {
-            $('#arrastra').fadeOut(400);
-          }
-          if(avance > 0.5) {
-            swipe = true;
-            $vid[0].play();
-            $('#swipeIcon').addClass('go').fadeOut(400);
-            return;
-          }
+        $vid[0].currentTime = time * avance;
+        $('#swipeIcon').css('left', (100 * avance) + '%');
+      });
 
-          $vid[0].currentTime = time * avance;
-          $('#swipeIcon').css('left', (100 * avance) + '%');
-        });
-
-            // termina el video inicial
-        $vid.on('ended', function(){
+          // termina el video inicial
+      $vid.on('ended', function(){
 
 
-          $('#initvidsub').animate({opacity: 1}, 400, function(){
+        $('#initvidsub').animate({opacity: 1}, 400, function(){
 
-            var $this = $(this);
-            
-            $this.addClass('end');
+          var $this = $(this);
+          
+          $this.addClass('end');
 
-            setTimeout(function(){
+          setTimeout(function(){
 
-                  // carga video
-              $('#player').fadeIn(400);
+                // carga video
+            $('#player').fadeIn(400);
 
-              labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_DEF_OK', {
-                controls: true,
-                muted: false,
-                autoplay: true,
-                endCallback: function(){
+            labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_DEF_OK', {
+              controls: true,
+              muted: false,
+              autoplay: true,
+              endCallback: function(){
 
-                  $('#player').fadeOut(400);
+                $('#player').fadeOut(400);
 
-                  labTools.media.videosWipeOut();
+                labTools.media.videosWipeOut();
 
-                  setTimeout(function() {
-                    $('#initvidInit').animate({opacity: 1}, 1000);
-                    $('#initvidLogos').animate({opacity: 1}, 600);
-                  }, 1000);
+                setTimeout(function() {
+                  $('#initvidInit').animate({opacity: 1}, 1000);
+                  $('#initvidLogos').animate({opacity: 1}, 600);
+                }, 1000);
 
-                    // click para comenzar
-                  $('#initVidMain, #in, #initvidInit').click(function() {
+                  // click para comenzar
+                $('#initVidMain, #in, #initvidInit').click(function() {
 
-                        // elimina intro
-                    $('#initVid').fadeOut(400);
+                      // elimina intro
+                  $('#initVid').fadeOut(400);
 
-                    atnls.cache.presentacion = false; // damos por terminada la presentación
+                  atnls.cache.presentacion = false; // damos por terminada la presentación
 
-                  });
-                }
-              });
+                });
+              }
+            });
 
-            }, 1500);
-
-          });
+          }, 1500);
 
         });
 
       });
 
-    } else {
+    });
+  },
 
+    // video inicial de lgm
+  initVid: function() {
+
+    var player = parseInt(Cookies.get('initVid'));
+      
+    if(atnls.cache.responsive) {
+      if(!player) {
+        atnls.launchInit();
+      } else {
             // elimina intro
         $('#initVid').fadeOut(400);
-
         atnls.cache.presentacion = false; // damos por terminada la presentación
-
+      }
+    } else {
+      if(window.location.pathname == projRoot) {
+        atnls.launchInit();
+      } else {
+            // elimina intro
+        $('#initVid').fadeOut(400);
+        atnls.cache.presentacion = false; // damos por terminada la presentación
+      }
     }
+
   },
 
   initNav: function() {
@@ -534,27 +552,17 @@ var atnls = {
         $('#player').fadeOut(400);
       });
 
-
-    $('.showPresentacion').click(function(){
-
-      $('#credits, #menu').fadeOut(400);
-      $('#player').fadeIn(400);
-    
-      labTools.media.generaVideo($('#player .vrap'), 'http://video.lab.rtve.es/resources/memoria-futuro/video/Intro_002_DEF_OK', {
-        title: 'Presentación de Luis García Montero',
-        controls: true,
-        muted: false,
-        autoplay: true
-      });
-
-      return false;
-    });
-
     $('.poeta-col-l a').on('mousemove', atnls.thrtleMove);
 
-    $('body').delegate('.mail', 'input', function(){
+    $('body')
+    .delegate('.mail', 'input', function(){
       $('.sendMail').attr('href', encodeURI('mailto:' + $(this).val() + '?subject=Mira esta selección de poemas de la Nueva Poesía&body=El webdoc Memoria de futuro te ofrece esta selección exclusiva de poemas. Descárgalo aquí: http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf, y no dudes en visitarlo en http://lab.rtve.es/webdocs/memoria-futuro/.'));
+    })
+    .delegate('.sendMail', 'click', function(){
+      labTools.url.setUrl(projRoot);
+      $('#menu, #pop').fadeOut(400);
     });
+
 
   },
   thrtleMoveSemaforo: null,
@@ -585,7 +593,7 @@ var atnls = {
   updatePage: function(target) {
     
     target = target ? target : '';
-    console.log('nueva url: ', target);
+    // console.log('nueva url: ', target);
 
       // elimina otras cosis
     $('#credits, #menu, #player').fadeOut(400);
@@ -683,7 +691,16 @@ var atnls = {
                   autoplay: true,
                   endCallback: function(){
 
-                    $('#player .wk-valign-cont').html('<div class="vrap"><p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div></div>');
+                    $('#pop').find('.wk-valign-cont-inn')
+                      .html('<p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/seleccion-poemas-nueva-poesia.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div>')
+                      .end()
+                      .fadeIn(400);
+
+                    $('#player').fadeOut(400, function(){
+                      labTools.media.videosWipeOut();
+                    });
+
+                    // $('#player .wk-valign-cont').html('<div class="vrap"></div></div>');
 
                   }
                 });
