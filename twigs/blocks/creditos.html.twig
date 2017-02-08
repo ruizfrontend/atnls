@@ -5,34 +5,56 @@
   	<ul class="wk-valign-cont">
   	  <li><a class="url-lib" href="{{ path('home') }}"><img style="display: block; width: 100%; margin: 0 auto; max-width: 600px; padding: 0 1em; box-sizing: border-box;" src="http://video.lab.rtve.es/resources/memoria-futuro/image/logo-menu.png" alt="Memorias de futuro"></a></li>
   	  <li><p>Una producción de <a href="http://www.poramoralarteproducciones.com/">POR AMOR AL ARTE PRODUCCIONES S.L.</a><br>para <a href="http://www.rtve.es/">RTVE.ES</a></p></li>
-  	  <li>Con la participación de:</li>
+  	  <div style="width: 44%; padding: 0 3%; margin: 0 auto; margin-bottom: 0.4em; margin-top: 0.2em;"><img style="width: 100%; height: auto;" src="./img/logo_paaa.jpg" alt="Logo Por amor al arte producciones S.L."></div>
+  	  <li><p>Con la participación de:</p></li>
 	  <li>
-	  	<ul>
+	  	<ul style="font-size: 0.9em;">
 			{% for poeta, name in rawData['poetas'] %}
 				<li>{{ name }}</li>
 			{% endfor %}
 	  	</ul>
 	  </li>
-	  <li><p>Idea original, dirección y guión:</h2> Charlie Arnaiz y Alberto Ortega</li>
-	  <li><p>Realizador:</h2> Alberto Ortega.</li>
-	  <li><p>Director de producción:</h2> Charlie Arnaiz.</li>
-	  <li><p>Producción ejecutiva RTVE:</h2> Miriam Hernández y Alberto Fernández.</li>
-	  <li><p>Edición:</h2> Emilio González.</li>
-	  <li><p>Cámaras:</h2> Javier Ordoñez, Bienve Valdivia, Tomás Esteras y Alberto Ortega.</li>
-	  <li><p>Dirección de fotografía:</h2> Bienve Valdivia.</li>
-	  <li><p>Sonido:</h2> Crislama y Codaestudio.</li>
-	  <li><p>Sonidistas:</h2> Rares D. Varga, Ignacio Román Muñoz, Luis J. de las Heras, Fernando Pocostales.</li>
-	  <li><p>Grafismo:</h2> Alberto Ortega.</li>
-	  <li><p>Etalonaje:</h2> Dada Project.</li>
-	  <li><p>Fotografías:</h2> Casilda Saldaña y José Oliva.</li>
-	  <li><p>Programación Web:</h2> <a href="http://davidruizlopez.es/" title="Desarrollo de proyectos web">David Ruiz</a>.</li>
-	  <li><p>Diseño web:</h2> Belén Picazo.</li>
-	  <li><p>Ilustraciones:</h2> Nuño Benito.</li>
-	  <li><p>Maquillaje:</h2> Paula Serrano.</li>
-	  <li><p>Música:</h2> Audionetwork, Vetusta Morla.</li>
+	  <li><p>Idea original, dirección y guión:</p> Charlie Arnaiz y Alberto Ortega</li>
+	  <li><p>Realizador:</p> Alberto Ortega.</li>
+	  <li><p>Director de producción:</p> Charlie Arnaiz.</li>
+	  <li><p>Producción ejecutiva RTVE:</p> Miriam Hernández y Alberto Fernández.</li>
+	  <li><p>Edición:</p> Emilio González.</li>
+	  <li><p>Cámaras:</p> Javier Ordoñez, Bienve Valdivia, Tomás Esteras y Alberto Ortega.</li>
+	  <li><p>Dirección de fotografía:</p> Bienve Valdivia.</li>
+	  <li><p>Sonido:</p> Crislama y Codaestudio.</li>
+	  <li><p>Sonidistas:</p> Rares D. Varga, Ignacio Román Muñoz, Luis J. de las Heras, Fernando Pocostales.</li>
+	  <li><p>Grafismo:</p> Alberto Ortega.</li>
+	  <li><p>Etalonaje:</p> Dada Project.</li>
+	  <li><p>Fotografías:</p> Casilda Saldaña y José Oliva.</li>
+	  <li><p>Programación Web:</p> <a href="http://davidruizlopez.es/" title="Desarrollo de proyectos web">David Ruiz</a>.</li>
+	  <li><p>Diseño web:</p> Belén Picazo.</li>
+	  <li><p>Ilustraciones:</p> Nuño Benito.</li>
+	  <li><p>Maquillaje:</p> Paula Serrano.</li>
+	  <li><p>Música:</p>
+		<ul style="font-size: 0.8em;">
+			<li>“Marea baja” (Latorre / Galvan / Martín / Benito/ González/ García)</li>
+			<li>“Los ríos de Alice” (Latorre / Galvan / Martín / Benito/ González/ García)</li>
+			<li>“Feels like home” (Adam Skinner / Dan Skinner)</li>
+			<li>“Perfect day” (Terry Devine-King)</li>
+			<li>“Over and out” (Bruce Maginnis / Braden Evans)</li>
+			<li>“Hope to Dream” (Adam Drake / Tom Jenkins)</li>
+			<li>“Little Lights” (Terry Devine-King / Tom Jenkins)</li>
+			<li>“Little Voyage” (Bob Bradley / Matt Parker / Matt Sanchez)</li>
+			<li>“Look into my eyes” (Julian Emery / Cenzo Townshend / Hughie Gavin)</li>
+			<li>“Chasing tomorrow” (Neil Williams / Adam Drake)</li>
+			<li>“Empyrean” (Richard Lacy / Marc Hoad / Sarah MacDonald)</li>
+			<li>“Teardrops” (Terry Devine-King / Alicia Anderson / Nikolaj Bjerre / Ben Blakeman)</li>
+			<li>“Leaf” (Richard Lacy / Sarah Elizabeth Lacy)</li>
+			<li>“Parhelia” (Richard Lacy / Marc Hoad / Sarah MacDonald)</li>
+			<li>“Primal Stars” (Richard Lacy / Marc Hoad / Sarah MacDonald)</li>
+		</ul>
+	  </li>
 	  <li><p>Agradecimientos:</p></li>
 	  <li>
-	  	<ul><li>Warner Music Spain</li><li>David Bonilla</li><li>Marina Tordera</li><li>Cooltural Plans</li><li>Bar Café La Manuela</li><li>Vetusta Morla</li><li>Kike Keller</li><li>Ediciones Visor</li><li>Valparaiso</li><li>Bar Aleatorio</li><li>Libreria (Guille Galván)</li><li>Impossible Tellers</li><li>Casilda Saldaña</li><li>José Oliva</li></ul>
+	  	<ul><li>Warner Music Spain</li><li>David Bonilla</li><li>Marina Tordera</li><li>Cooltural Plans</li><li>Bar Café La Manuela</li><li>Vetusta Morla</li><li>Pequeño salto mortal</li><li>Kike Keller</li><li>Ediciones Visor</li><li>Ediciones Valparaiso</li><li>Bar Aleatorio</li><li>Impossible Tellers</li><li>Casilda Saldaña</li><li>José Oliva</li></ul>
+	  </li>
+	  <li class="clearfix" style="padding: 1em 0">
+	  	<div style="width: 44%; margin: 0 auto; padding: 0 3%"><img style="width: 100%; height: auto;" src="./img/logo-Kikekeller.png" alt="Logo Kikekeller"></div>
 	  </li>
   	</ul>
   </div>

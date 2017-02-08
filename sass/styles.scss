@@ -142,7 +142,7 @@ iframe { border: none; }
   .wrp { overflow: hidden; }
   }
 
-  #luis { position: absolute; right: 0.6%; top: 9%; width: 25.3%; height: 77%;
+  #luis { position: absolute; right: 38.4%; top: 5.9%; width: 25.3%; height: 77%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #luis-fill1, #luis-fill2, #luis-end1, #luis-end2, #luis-end3, #luis-end4 { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #luis-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
@@ -162,7 +162,7 @@ iframe { border: none; }
     &.luis5 { #luis-end1, #luis-end2, #luis-end3, #luis-end4, #luis-fill1 { opacity: 1; } }
   }
 
-  #escandar { position: absolute; left: 58.7%; top: -1.5%; width: 20.9%; height: 86%;
+  #escandar { position: absolute; left: 78.6%; top: -1.5%; width: 20.9%; height: 86%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #escandar-fill1, #escandar-fill1bis, #escandar-fill2, #escandar-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #escandar-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 0; @include transition(all 1s ease-in-out); @include transition-delay(1s);
@@ -178,7 +178,7 @@ iframe { border: none; }
     &.viewed { #escandar-end { opacity: 1; } }
   }
 
-  #guille { position: absolute; left: 43.5%; top: 4.2%; width: 22.7%; height: 86%;
+  #guille { position: absolute; left: 63.4%; top: 4.2%; width: 22.7%; height: 86%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #guille-fill1, #guille-fill1bis, #guille-fill2, #guille-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #guille-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
@@ -193,7 +193,7 @@ iframe { border: none; }
     &.viewed { #guille-end { opacity: 1; } }
   }
 
-  #carlos { position: absolute; left: 32.5%; top: -1.7%; width: 20%; height: 79%;
+  #carlos { position: absolute; left: 52.4%; top: -1.7%; width: 20%; height: 79%;
     img { width: 100%; height: auto; position: absolute; left: 0; top: 0; }
     #carlos-fill1, #carlos-fill2, #carlos-end { @include transition(all 1s ease-in-out); display: block; opacity: 0 ; } // @include transform-origin(50%); @include transition-delay(0.4s);
     #carlos-fill2 { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 1;
@@ -342,7 +342,8 @@ iframe { border: none; }
     .wk-col-50 {  width: 100%; }
   }
 
-  p { margin-bottom: 0.5em; }
+  p { margin-bottom: 0.5em; display: inline; font-weight: 900; font-size: 1em; }
+  li { font-size: 1.2em; }
   li ul { text-align: center; margin-bottom: 0.4em; line-height: 1.6em; }
   li li { display: inline-block; padding: 0 1em; }
   h2 { display: inline-block; font-size: 1.1em; }

@@ -80,6 +80,7 @@ var atnls = {
     // atnls.timeMeter();
 
   },
+  currentUrl: null,
 
   initMedia: function() {
 
@@ -92,18 +93,13 @@ var atnls = {
 
       if(!data.video) return false;
 
-      labTools.media.videosWipeOut();
-
-      atnls.player.pause();
-
-      $('#menu, #pop').fadeOut(400);
-
-      labTools.media.generaVideo($('#player .vrap'), data.video, {
+      atnls.loadVideo({
+        video: data.video,
         title: $this.attr('title') ? $this.attr('title') : null,
         controls: data.controls ? data.controls : true,
         muted: data.muted ? data.muted : false,
         autoplay: data.autoplay ? data.autoplay : true,
-        endCallback: function(){
+        callback: function(){
           if(data.postluis) {
             
               $('#pop').find('.wk-valign-cont-inn')
@@ -127,11 +123,27 @@ var atnls = {
         }
       });
 
-      $('#player').fadeIn(400);
-
       return false;
     });
 
+  },
+  loadVideo: function(settings) {
+
+    labTools.media.videosWipeOut();
+
+    atnls.player.pause();
+
+    $('#menu, #pop').fadeOut(400);
+
+    labTools.media.generaVideo($('#player .vrap'), settings.video, {
+      title: settings.title,
+      controls: settings.controls,
+      muted: settings.muted,
+      autoplay: settings.autoplay,
+      endCallback: settings.callback
+    });
+
+    $('#player').fadeIn(400);
   },
 
   initKeys: function() {
@@ -550,6 +562,10 @@ var atnls = {
 
         labTools.media.videosWipeOut();
         $('#player').fadeOut(400);
+
+        if(window.location.href.indexOf('luis-garcia-montero') != -1) labTools.url.setUrl(projRoot); // sal de la tertulia
+
+        return false;
       });
 
     $('.poeta-col-l a').on('mousemove', atnls.thrtleMove);
@@ -728,6 +744,36 @@ var atnls = {
             
             found = true;
 
+console.log(target)
+              // carga videos de inicio => solo si ha cambiado la url
+            if(atnls.currentUrl != window.location.href) {
+              if(target.indexOf('guille') != -1) {
+                atnls.loadVideo({
+                  video: 'http://davidruizlopez.es/tests/GuilleGalvan_INTRO',
+                  controls: false,
+                  muted: false,
+                  autoplay: true,
+                  callback: function(){
+                    $('#player').fadeOut(400, function(){
+                      labTools.media.videosWipeOut();
+                    });
+                  }
+                });
+              } else if(target.indexOf('pardo') != -1) {
+                atnls.loadVideo({
+                  video: 'http://davidruizlopez.es/tests/CarlosPardo_INTRO',
+                  controls: false,
+                  muted: false,
+                  autoplay: true,
+                  callback: function(){
+                    $('#player').fadeOut(400, function(){
+                      labTools.media.videosWipeOut();
+                    });
+                  }
+                });
+              }
+            }
+
           }
 
         } else {
@@ -778,6 +824,9 @@ var atnls = {
     if(atnls.cache.responsive) $(window).add('#webdoc').scrollTop(0);
 
     atnls.cache.initialLoad = false; // marca la primera carga de la página
+
+
+    atnls.currentUrl = window.location.href;
 
   },
 

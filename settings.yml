@@ -55,7 +55,7 @@ rawData: # plain data imported in the templates
   poetas:
     marwan: 'Marwan'
     elvira-sastre: 'Elvira Sastre'
-    carlos-prado: 'Carlos Prado'
+    carlos-pardo: 'Carlos Pardo'
     guille-galvan: 'Guille Galván'
     escandar-algeet: 'Escandar Algeet'
     luis-garcia-montero: 'Luis García Montero'
