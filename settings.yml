@@ -14,8 +14,8 @@ log: /log.log                   # use 'false' to disable logger
 # REQUIRED # import as it generates the routing system and the seo contents
     # the data uses this structure: https://docs.google.com/spreadsheet/ccc?key=0AtJGbTMFIBvQdDJKMzhmMHVZNGRhYmNSc2FyYWZTTlE&usp=sharing
 routing:
-#  url: ./dataOK/routing.csv     # url local o remota (mejor no)
-  url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRiB6d8luekEBXk3nYSsCaDMUxmx4Xio5dP2Qu_K3JAlCI_-Gb_UWGXII2DFp9OG6kMh7w3cB_7Vfol/pub?gid=0&single=true&output=csv
+  url: ./dataOK/routing.csv     # url local o remota (mejor no)
+  # url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRiB6d8luekEBXk3nYSsCaDMUxmx4Xio5dP2Qu_K3JAlCI_-Gb_UWGXII2DFp9OG6kMh7w3cB_7Vfol/pub?gid=0&single=true&output=csv
   format: csv                   # csv o json
   initialRoute: home            # nombre de ruta de la home
   indexColumn: name             # genera el indice a partir de esta columna

@@ -746,10 +746,10 @@ var atnls = {
 
 console.log(target)
               // carga videos de inicio => solo si ha cambiado la url
-            if(atnls.currentUrl != window.location.href) {
+            if(atnls.currentUrl != window.location.href) { console.log(target)
               if(target.indexOf('guille') != -1) {
                 atnls.loadVideo({
-                  video: 'http://davidruizlopez.es/tests/GuilleGalvan_INTRO',
+                  video: 'http://video.lab.rtve.es/resources/memoria-futuro/video/GuilleGalvan_INTRO_v02_LOW',
                   controls: false,
                   muted: false,
                   autoplay: true,
@@ -761,7 +761,43 @@ console.log(target)
                 });
               } else if(target.indexOf('pardo') != -1) {
                 atnls.loadVideo({
-                  video: 'http://davidruizlopez.es/tests/CarlosPardo_INTRO',
+                  video: 'http://video.lab.rtve.es/resources/memoria-futuro/video/CarlosPardo_INTRO_v02_LOW',
+                  controls: false,
+                  muted: false,
+                  autoplay: true,
+                  callback: function(){
+                    $('#player').fadeOut(400, function(){
+                      labTools.media.videosWipeOut();
+                    });
+                  }
+                });
+              } else if(target.indexOf('elvira') != -1) {
+                atnls.loadVideo({
+                  video: 'http://video.lab.rtve.es/resources/memoria-futuro/video/ElviraSastre_INTRO_v02_LOW',
+                  controls: false,
+                  muted: false,
+                  autoplay: true,
+                  callback: function(){
+                    $('#player').fadeOut(400, function(){
+                      labTools.media.videosWipeOut();
+                    });
+                  }
+                });
+              } else if(target.indexOf('escandar') != -1) {
+                atnls.loadVideo({
+                  video: 'http://video.lab.rtve.es/resources/memoria-futuro/video/Escandar_INTRO_v02_LOW',
+                  controls: false,
+                  muted: false,
+                  autoplay: true,
+                  callback: function(){
+                    $('#player').fadeOut(400, function(){
+                      labTools.media.videosWipeOut();
+                    });
+                  }
+                });
+              } else if(target.indexOf('marwan') != -1) {
+                atnls.loadVideo({
+                  video: 'http://video.lab.rtve.es/resources/memoria-futuro/video/Marwan_INTRO_v02_LOW',
                   controls: false,
                   muted: false,
                   autoplay: true,
