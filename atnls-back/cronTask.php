@@ -20,16 +20,19 @@ require './libTwitter.php';
 
 $lastFile = './last';
 $output = '../dataOK/redes.json';
-$hash = 'memoriadefuturo';
+$hash = 'yosoypoesia';// 'poesiaerestu';
+$filter = true;
 
+
+if($filter) $hash .= '  -filter:retweets -filter:replies';
+$hash = urlencode($hash);
 
 try {
 
 	$last = file_exists($lastFile) ? file_get_contents($lastFile) : 0;
 
 		// query
-	$results = getTwitter(array('query' => $hash, 'max_id' => $last));
-
+	$results = getTwitter(array('query' => ($hash), 'max_id' => $last, 'count' => 100, 'result_type' => 'recent'));
 
 		// error 
 	if(!isset($results->search_metadata)) throw new Exception("Error Getting twits", 1);
@@ -41,7 +44,7 @@ try {
 		file_put_contents($lastFile, $results->search_metadata->max_id);
 
 		$data = file_exists($output) ? json_decode(file_get_contents($output), true) : array('tweets' => array());
-
+print_R($results);
 		foreach ( $results->statuses as $tweet) {
 			array_push($data['tweets'], processTweet($tweet));
 		}

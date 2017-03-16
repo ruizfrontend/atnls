@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+		  	<div class="col-md-12">
+				<h1>Filtro de tweets</h1>
+				<div id="tweets"></div>
+			</div>
+		</div>
+	</div>
+
+	<div id="Mymodal" class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Modal title</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>One fine body&hellip;</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default mymodalDismiss" data-dismiss="modal">Close</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<script>
+var atnls = {
+
+
+  initRedes: function() {
+
+    $.getJSON('../dataOK/redes.json', function(e){
+
+      var $wrap = $('#tweets').html('');
+
+      for (var i = e.tweets.length - 1; i >= 0; i--) {
+
+        $wrap.append(atnls.parseRedesElm(e.tweets[i]));
+      }
+
+    });
+
+  },
+
+  parseRedesElm: function(elm) {
+    
+    var $elm = $('<div class="socialElm form-horizontal"><p>').find('p');
+
+    if(elm.link) {console.log(elm)
+
+      if(elm.media) $elm.append('<a target="_blank" href="' + elm.link + '"><img src="' + elm.media[0] + '"></a>');
+
+      var usr = '<a href="' + elm.link + '" title="visita el tweet" target="_blank">@' + elm.screen_name + ':</a> ';
+
+      var text = elm.text.replace(/#(\S*)/g,'<a href="http://twitter.com/#!/search/$1" title="Ver todos loºs tweets con el hashtag" target="_blank">#$1</a>');
+
+      var $text = $('<div class="socialEBody">').append(usr).append(text);
+
+      $elm.append($text);
+
+      $elm.append('<a href="./removeTweets.php?tw=' + elm.id + '" class="btn removeTweets btn-default">Eliminar</a>')
+
+      return $elm;
+    } else {
+      // otros formatos => por ahora nada
+    }
+  },
+ };
+
+ atnls.initRedes();
+
+ $('body').delegate('.removeTweets', 'click', function(){
+
+    $.get($(this).attr('href'), function(e, f){
+    	console.log(e, f);
+
+		$('#Mymodal')
+			.find('.modal-title').text('Título').end()
+			.find('.modal-body').html('<p>Cuerpo</p>').end()
+			.find('.mymodalDismiss').text('Cerrar').end()
+			.modal('show');
+
+		atnls.initRedes();
+    });
+
+ 	return false;
+ });
+
+ $('.mymodalDismiss').click(function(){
+ 	$('#Mymodal')
+ 		.modal('hide');
+ 	return false;
+ })
+
+	</script>
+</body>
+</html>

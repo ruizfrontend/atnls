@@ -2,6 +2,7 @@
   RewriteEngine On
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteRule ^.*data/(.*) data/$1 [L]
+  RewriteRule ^.*atnls-back/(.*) atnls-back/$1 [L]
   RewriteRule ^.*dataOK/(.*) dataOK/$1 [L]
   RewriteRule ^.*js/(.*) %{PATH}js/$1 [L]
   RewriteRule ^.*src/(.*) src/$1 [L]

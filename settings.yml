@@ -39,7 +39,7 @@ rawData: # plain data imported in the templates
   poetasUrl: 'poetas/'
   ajaxUrl: 'ajax/'
   ajaxRedes: 'dataOK/redes.json'
-  hash: 'memoriadefuturo'
+  hash: 'yosoypoesia'
   poemas:
     bajo-una-lluvia-fria-de-poligono: 'Bajo Una Lluvia Fria De Poligono'
     cabo-sounion: 'Cabo Sounion'
