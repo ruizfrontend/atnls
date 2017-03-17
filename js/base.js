@@ -103,7 +103,7 @@ var atnls = {
           if(data.postluis) {
             
               $('#pop').find('.wk-valign-cont-inn')
-                .html('<p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/Memoria-de-Futuro_Poemas.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div>')
+                .html('<p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/Memoria-de-Futuro_Poemas.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental. También puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div>')
                 .end()
                 .fadeIn(400);
 
@@ -572,7 +572,7 @@ var atnls = {
 
     $('body')
     .delegate('.mail', 'input', function(){
-      $('.sendMail').attr('href', encodeURI('mailto:' + $(this).val() + '?subject=Mira esta selección de poemas de la Nueva Poesía&body=El webdoc Memoria de futuro te ofrece esta selección exclusiva de poemas. Descárgalo aquí: http://lab.rtve.es/webdocs/memoria-futuro/img/Memoria-de-Futuro_Poemas.pdf, y no dudes en visitarlo en http://lab.rtve.es/webdocs/memoria-futuro/.'));
+      $('.sendMail').attr('href', encodeURI('mailto:' + $(this).val() + '?subject=Mira esta Antología poética de #memoriadefuturo &body=El webdoc Memoria de futuro te ofrece esta selección exclusiva de poemas. Descárgalo aquí: http://lab.rtve.es/webdocs/memoria-futuro/img/Memoria-de-Futuro_Poemas.pdf, y no dudes en visitarlo en http://lab.rtve.es/webdocs/memoria-futuro/.'));
     })
     .delegate('.sendMail', 'click', function(){
       labTools.url.setUrl(projRoot);
@@ -708,7 +708,7 @@ var atnls = {
                   endCallback: function(){
 
                     $('#pop').find('.wk-valign-cont-inn')
-                      .html('<p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/Memoria-de-Futuro_Poemas.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental y también puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div>')
+                      .html('<p style="width: 100%; max-width: 300px; display: block; margin: 0 auto;">Enhorabuena, ya puedes descargarte esta <a href="http://lab.rtve.es/webdocs/memoria-futuro/img/Memoria-de-Futuro_Poemas.pdf">selección de poemas</a> de Luis García Montero y el resto de autores que han participado en este documental. También puedes compartirlo por mail con quien quieras:</p><div><label for="mail">Correo:</label><input class="mail" type="text" placeholder/><a href="#" class="btn btn-red sendMail" target="_blank">Compártelo</a></div>')
                       .end()
                       .fadeIn(400);
 
