@@ -304,5 +304,3 @@ function processTweet($tweet, $format = '') {
   }
 }
 
-
-?>
