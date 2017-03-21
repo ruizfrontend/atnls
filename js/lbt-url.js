@@ -107,6 +107,8 @@ labTools.url = {
       }
     }
 
+    if(window.dataLayer && window.dataLayer.push) dataLayer.push({ 'event': 'VirtualPageView'});
+
     labTools.url.changePopstate(url);
   },
 
