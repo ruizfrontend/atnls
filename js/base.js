@@ -128,6 +128,8 @@ var atnls = {
 
   },
   loadVideo: function(settings) {
+    
+    if(window.dataLayer && window.dataLayer.push) dataLayer.push({ 'event': 'VirtualPageView'});
 
     labTools.media.videosWipeOut();
 
@@ -961,6 +963,7 @@ console.log(target)
       $('#miniplayer .player-nav').show();
     },
     play: function() {
+      console.log('play')
       $('#miniplayer .bl-player').show();
       $('#miniplayer .player-nav').hide();
     },
