@@ -129,7 +129,10 @@ var atnls = {
   },
   loadVideo: function(settings) {
     
-    if(window.dataLayer && window.dataLayer.push) dataLayer.push({ 'event': 'VirtualPageView'});
+    if(window.dataLayer && window.dataLayer.push) {
+      dataLayer.push({'event': 'PRIMER_PLAY'});
+      console.log('dl')
+    }
 
     labTools.media.videosWipeOut();
 

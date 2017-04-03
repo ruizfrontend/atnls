@@ -107,7 +107,11 @@ labTools.url = {
       }
     }
 
-    if(window.dataLayer && window.dataLayer.push) dataLayer.push({ 'event': 'VirtualPageView'});
+    if(window.dataLayer && window.dataLayer.push) {
+      dataLayer.push({ 'event': 'VirtualPageView'});
+      
+      console.log('dl')
+    }
 
     labTools.url.changePopstate(url);
   },
